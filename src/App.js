@@ -78,7 +78,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
+    // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
   }
 
   setFrameFromChoice(choice, routeBegins) {

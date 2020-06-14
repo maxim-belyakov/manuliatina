@@ -59,6 +59,7 @@ let story = [
   },
   { text: "Anyway, let's diverge to some specific features." },
   { choicesExist: true, receiveJump: "features" },
+  
   // Effects
   { routeBegins: "showEffects", sprite: bh, text: "There are some preset effects at the moment." },
   { speaker: "", spriteEffect: "bounce", text: 'spriteEffect: "bounce"' },
@@ -121,6 +122,7 @@ let story = [
     text: "Just write the class in the effects.css file and set the effect value to that in a string.",
     jumpTo: "features"
   },
+
   // Transitions
   {
     routeBegins: "showTransitions",
@@ -250,6 +252,7 @@ let story = [
     text: "(Back to common route) I haven't seen Block for a few years now."
   },
   { text: "I text him to see how he's doing.", jumpToBecauseStore: "blockAffection" },
+  
   // Goes to next index if the user's choices do not fulfill any `receiveJumpBecauseStore` requirements.
   {
     text: "I put my phone down and continue with life."
