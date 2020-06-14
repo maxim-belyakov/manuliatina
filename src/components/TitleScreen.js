@@ -12,14 +12,6 @@ function TitleScreen(props) {
           <li>
             <span onClick={props.toggleLoadMenu}>Continue</span>
           </li>
-          <li>
-            <span>
-              <a href="https://github.com/nashkenazy/generic-vn" target="_blank" rel="noopener noreferrer">
-                Github
-              </a>
-            </span>
-          </li>
-          <li />
         </ul>
       </div>
     </div>
