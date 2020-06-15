@@ -46,10 +46,10 @@ class Backlog extends Component {
         {textHistory}
         <ul className="header backlog-header" ref={el => (this.messagesEnd = el)}>
           <li>
-            <a>Backlog</a>
+            <span>Backlog</span>
           </li>
           <li className="exit-button backlog-exit" onClick={this.props.toggleBacklog}>
-            <a>&times;</a>
+            <button>&times;</button>
           </li>
         </ul>
       </div>

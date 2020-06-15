@@ -55,23 +55,27 @@ class SaveLoadMenu extends Component {
           }}
         >
           {JSON.parse(localStorage.getItem(this.state.slotNumber)).choicesExist ? this.renderChoiceMenu() : null}
-          <a>
+          <button>
             <img
+              alt="slot-bg"
               draggable="false"
               className="slot-bg"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
             />
             <img
+              alt="sprite left"
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteLeft}
               className="sprite left"
             />
             <img
+              alt="sprite"
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).sprite}
               className="sprite"
             />
             <img
+              alt="sprite right"
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteRight}
               className="sprite right"
@@ -89,7 +93,7 @@ class SaveLoadMenu extends Component {
                 <div className="text">{JSON.parse(localStorage.getItem(this.state.slotNumber)).text}</div>
               </div>
             ) : null}
-          </a>
+          </button>
         </div>
       );
     } else {
@@ -102,10 +106,10 @@ class SaveLoadMenu extends Component {
       <div className="overlay overlay-save-load">
         <ul className="header">
           <li>
-            <a>{this.props.menuType}</a>
+            <span>{this.props.menuType}</span>
           </li>
           <li className="exit-button" onClick={this.props.toggleMenu}>
-            <a>&times;</a>
+            <button>&times;</button>
           </li>
         </ul>
         {this.menuSlot(this.state.slotNumber)}

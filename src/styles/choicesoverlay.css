@@ -1,5 +1,5 @@
 .overlay-choices {
-  background-color: rgba(0, 0, 0, 0.5);
+  /* background-color: rgba(0, 0, 0, 0.5); */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -31,6 +31,3 @@
   background-color: white;
   color: #1d75a5;
 }
-
-
-
