@@ -71,6 +71,7 @@
   position: fixed;
   left: 50%;
   margin-left: -640px;
+  width: 100%;
 }
 
 .overlay {

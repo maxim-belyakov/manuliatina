@@ -1,5 +1,5 @@
 // bg
-const microphone = require("./bg/microphone.jpeg");
+const microphone = require("./bg/microphone.jpg");
 const entrance = require("./bg/entrance.jpeg");
 // bgm
 const take = require("./bgm/take.mp3");
