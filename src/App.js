@@ -10,7 +10,7 @@ import story from "./story/story";
 import choices from "./story/choices";
 
 // Components
-import TitleScreen from "./components/TitleScreen";
+// import TitleScreen from "./components/TitleScreen"; // DISABLE
 import Backlog from "./components/Backlog";
 import ChoiceMenu from "./components/ChoiceMenu";
 import ConfigMenu from "./components/ConfigMenu";
@@ -344,7 +344,7 @@ class App extends Component {
 
   titleScreen() {
     this.beginStory()
-    // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;
+    // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;  // DISABLE
   }
 
   configMenu() {
@@ -455,7 +455,7 @@ class App extends Component {
   }
   playSoundEffect() {
     return (
-      <Sound url={this.state.soundEffect} volume={this.state.soundEffectVolume} playStatus={Sound.status.PLAYING} />
+      <Sound url={this.state.soundEffect} volume={this.state.soundEffectVolume} playStatus={Sound.status.PLAYING}/>
     );
   }
   playVoice() {
