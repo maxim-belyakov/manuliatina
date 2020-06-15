@@ -38,7 +38,13 @@ function RenderFrame(props) {
           transitionEnterTimeout={spriteTransitionTime("spriteTransition")}
           transitionLeaveTimeout={spriteTransitionTime("spriteTransition")}
         >
-          <img draggable="false" key={props.sprite} alt={props.bg} className={"sprite " + props.spriteEffect} src={props.sprite} />
+          <img 
+            draggable="false" 
+            key={props.sprite} 
+            alt={props.sprite} 
+            className={"sprite " + props.spriteEffect} 
+            src={props.sprite} 
+          />
         </ReactCSSTransitionGroup>
         <ReactCSSTransitionGroup
           transitionName={props.spriteLeftTransition || "sprite"}
@@ -48,7 +54,7 @@ function RenderFrame(props) {
           <img
             draggable="false"
             key={props.spriteLeft + "left"}
-            alt={props.spriteLeft + "left"}
+            alt={props.spriteLeft}
             className={"sprite left " + props.spriteLeftEffect}
             src={props.spriteLeft}
           />
@@ -61,7 +67,7 @@ function RenderFrame(props) {
           <img
             draggable="false"
             key={props.spriteRight + "right"}
-            alt={props.spriteRight + "right"}
+            alt={props.spriteRight}
             className={"sprite right " + props.spriteRightEffect}
             src={props.spriteRight}
           />
