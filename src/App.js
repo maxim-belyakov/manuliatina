@@ -96,6 +96,9 @@ class App extends Component {
   setNextFrame() {
     const currentIndex = this.state.index;
     const jumpToBecauseStore = story[currentIndex].jumpToBecauseStore;
+
+    console.log('story', story)
+
     if (story[currentIndex].jumpToBecauseStore) {
       for (let i = 0; i < story.length; i++) {
         if (story[i].receiveJumpBecauseStore) {
@@ -103,12 +106,14 @@ class App extends Component {
             jumpToBecauseStore === story[i].receiveJumpBecauseStore[0] &&
             this.state.choicesStore[jumpToBecauseStore] === story[i].receiveJumpBecauseStore[1]
           ) {
+            console.log(`setNextFrame IF this.state.choicesStore[jumpToBecauseStore] ${this.state.choicesStore[jumpToBecauseStore]}`)
             this.setFrame(i);
             return;
           }
         }
       }
     }
+
     if (story[currentIndex].jumpTo) {
       if (story[currentIndex].jumpTo === "title-screen") {
         this.setState(INITIAL_STATE);
@@ -116,11 +121,13 @@ class App extends Component {
       }
       for (let i = 0; i < story.length; i++) {
         if (story[currentIndex].jumpTo === story[i].receiveJump) {
+          console.log(`setNextFrame IF story[currentIndex].jumpTo story[currentIndex].jumpTo ${story[currentIndex].jumpTo}`)
           this.setFrame(i);
           return;
         }
       }
     }
+
     if (
       !this.state.choicesExist &&
       !this.state.loadMenuShown &&
@@ -129,17 +136,16 @@ class App extends Component {
       !this.state.backlogShown &&
       !this.state.configMenuShown
     ) {
+      console.log(`setNextFrame ELSE currentIndex ${currentIndex}`)
       this.setFrame(currentIndex + 1);
     }
   }
 
   setFrame(index) {
     // Makes sure the index is within the story array
-    if (index >= story.length) {
-      index = story.length - 1;
-    } else if (index <= -1) {
-      index = 0;
-    }
+    if (index >= story.length) index = story.length - 1;
+    else if (index <= -1) index = 0;
+    
     // Updates story with new index
     this.setState({
       index: index,
