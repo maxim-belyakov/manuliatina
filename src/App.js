@@ -71,7 +71,7 @@ class App extends Component {
           !this.state.titleScreenShown &&
           !this.state.configMenuShown
         ) {
-          this.toggleBacklog();
+          // this.toggleBacklog();
         }
       }
     });
@@ -343,7 +343,8 @@ class App extends Component {
   }
 
   titleScreen() {
-    return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;
+    this.beginStory()
+    // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;
   }
 
   configMenu() {
