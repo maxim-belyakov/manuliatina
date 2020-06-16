@@ -57,25 +57,25 @@ class SaveLoadMenu extends Component {
           {JSON.parse(localStorage.getItem(this.state.slotNumber)).choicesExist ? this.renderChoiceMenu() : null}
           <button>
             <img
-              alt="slot-bg"
+              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
               draggable="false"
               className="slot-bg"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
             />
             <img
-              alt="sprite left"
+              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteLeft}
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteLeft}
               className="sprite left"
             />
             <img
-              alt="sprite"
+              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).sprite}
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).sprite}
               className="sprite"
             />
             <img
-              alt="sprite right"
+              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteRight}
               draggable="false"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteRight}
               className="sprite right"
