@@ -7,9 +7,9 @@ const field = require("./bgm/Field.mp3");
 const b = "Block";
 
 // sprites
-const bn = require("./sprites/block-neutral.png");
-const bh = require("./sprites/block-happy.png");
-const bp = require("./sprites/block-pout.png");
+// const bn = require("./sprites/block-neutral.png");
+// const bh = require("./sprites/block-happy.png");
+// const bp = require("./sprites/block-pout.png");
 
 let story = [
   {
@@ -32,7 +32,7 @@ let story = [
   // Effects
   { 
     routeBegins: "showEffects", 
-    sprite: bh, 
+    // sprite: bh, 
     text: "There are some preset effects at the moment." 
   },
   {
@@ -43,7 +43,7 @@ let story = [
   // Transitions
   {
     routeBegins: "showTransitions",
-    sprite: "",
+    // sprite: "",
     text: "There are background transitions and sprite transitions."
   },
   { speaker: b, text: "That's about it for now.", jumpTo: "features" },
@@ -64,7 +64,7 @@ let story = [
     text: "No problem."
   },
   {
-    sprite: bh,
+    // sprite: bh,
     speaker: b,
     text: "Thanks.",
     jumpTo: "blockHelp"
@@ -78,7 +78,7 @@ let story = [
   },
   {
     speaker: "",
-    sprite: "",
+    // sprite: "",
     text: "The block trips and falls.",
     jumpTo: "blockHelp"
   },
@@ -141,7 +141,7 @@ let story = [
   },
   {
     routeBegins: "leave",
-    sprite: bh,
+    // sprite: bh,
     spriteEffect: "shake",
     text: "Thank you for trying out the demo.",
     jumpTo: "title-screen"
