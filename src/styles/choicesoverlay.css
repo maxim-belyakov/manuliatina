@@ -1,21 +1,35 @@
 .overlay-choices {
   /* background-color: rgba(0, 0, 0, 0.5); */
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   flex-direction: column;
 }
 
 .overlay .choice-button {
-  font-size: 26px;
-  width: 750px;
-  margin: 30px auto;
-  border-radius: 25px;
-  background-color: #1d75a5;
+  font-size: 25px;
+  width: 500px;
+  margin: 5px auto;
+  background-color: unset;
   border: none;
   color: white;
-  padding: 12px 0px;
+  padding: 6px 0px;
   cursor: pointer;
   display: block;
+}
+
+.choices-container {
+  /* background: linear-gradient(0deg, rgba(14, 45, 22, 0.5) 0%, rgba(0,0,0,0.5) 50%); */
+  background: linear-gradient(0deg, rgba(14, 45, 22, 0.5) 0%, rgba(0,0,0,0.5) 50%);
+  background-clip: padding-box;
+  width: 80%;
+  margin: 20px auto;
+  padding: 15px;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  /* border-top-left-radius: 25px;
+  border-top-right-radius: 130px;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 130px; */
+  border-radius: 40px;
 }
 
 @media only screen and (max-width: 833px) {
@@ -28,6 +42,5 @@
 
 /* Add a background color on hover */
 .overlay-choices input:hover {
-  background-color: white;
-  color: #1d75a5;
+  background-color: rgba(255, 255, 255, 0.1);
 }
