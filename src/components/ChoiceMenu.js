@@ -17,7 +17,11 @@ function ChoiceMenu(props) {
     );
   }
 
-  return <div className="overlay overlay-choices">{props.choiceOptions.map(renderChoiceOptions)}</div>;
+  return <div className="overlay overlay-choices">
+      <div className="choices-container">
+        {props.choiceOptions.map(renderChoiceOptions)}
+      </div>
+    </div>;
 }
 
 export default ChoiceMenu;
