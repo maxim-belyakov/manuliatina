@@ -31,7 +31,9 @@ function RenderFrame(props) {
         transitionEnterTimeout={bgTransitionTime("bgTransition")}
         transitionLeaveTimeout={bgTransitionTime("bgTransition")}
       >
+
         <img draggable="false" key={props.bg} alt={props.bg} className="bg" src={props.bg} />
+
         <ReactCSSTransitionGroup
           className="sprite-center-parent"
           transitionName={props.spriteTransition || "sprite"}
@@ -46,6 +48,7 @@ function RenderFrame(props) {
             src={props.sprite} 
           />
         </ReactCSSTransitionGroup>
+
         <ReactCSSTransitionGroup
           transitionName={props.spriteLeftTransition || "sprite"}
           transitionEnterTimeout={spriteTransitionTime("spriteLeftTransition")}
@@ -59,6 +62,7 @@ function RenderFrame(props) {
             src={props.spriteLeft}
           />
         </ReactCSSTransitionGroup>
+
         <ReactCSSTransitionGroup
           transitionName={props.spriteRightTransition || "sprite"}
           transitionEnterTimeout={spriteTransitionTime("spriteRightTransition")}
@@ -72,7 +76,9 @@ function RenderFrame(props) {
             src={props.spriteRight}
           />
         </ReactCSSTransitionGroup>
+
       </ReactCSSTransitionGroup>
+      
       {props.text && props.textBoxShown ? (
         <div className="text-box" style={{ fontFamily: props.font }}>
           {props.speaker ? <div className="speaker"> {props.speaker} </div> : null}
