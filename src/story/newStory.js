@@ -53,7 +53,7 @@ let location = {
         "original": "black.png",
         "music": [
             {
-                "name": "forest_song",
+                "name": "forest_song.mp3",
                 "percent": 100
             }
         ]
