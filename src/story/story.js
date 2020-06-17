@@ -1,10 +1,12 @@
 // bg
 const myRoom = require("./bg/комната гг 3.jpg");
+const hall = require("./bg/корридор гг 3.jpg");
+const street = require("./bg/Лесная День.jpg");
 // bgm
 const field = require("./bgm/Field.mp3");
 
 // speakers
-const b = "Block";
+const b = "Block"; // Представляет строку в пузырьке над текстовым полем. Также заключает текст в кавычки.
 
 // sprites
 // const bn = require("./sprites/block-neutral.png");
@@ -13,48 +15,58 @@ const b = "Block";
 
 let story = [
   {
+    routeBegins: "myRoom",
     bg: myRoom,
-    // sprite: bn,
-    speaker: b,
-    text: "In this demo, we'll go over through the majority of the features that this application offers."
   },
   { 
-    speaker: "", 
     bgm: field,
-    // text: 'soundEffect: require("./sounds/jump.mp3")',
-    // soundEffect: require("./sounds/jump.mp3")
+    choicesExist: true, 
+    receiveJump: "myRoom"
+  },
+
+
+  // Hall
+  { 
+    routeBegins: "hall", 
+    bg: hall,
+    bgm: field,
   },
   { 
     choicesExist: true, 
-    receiveJump: "features"
-  },
-  
-  // Effects
-  { 
-    routeBegins: "showEffects", 
-    // sprite: bh, 
-    text: "There are some preset effects at the moment." 
-  },
-  {
-    text: "Just write the class in the effects.css file and set the effect value to that in a string.",
-    jumpTo: "features"
+    choice: "hall"
   },
 
-  // Transitions
+  // Shower
   {
-    routeBegins: "showTransitions",
-    // sprite: "",
-    text: "There are background transitions and sprite transitions."
+    routeBegins: "shower",
+    jumpTo: "myRoom"
   },
-  { speaker: b, text: "That's about it for now.", jumpTo: "features" },
+
+  // Sleep
+  {
+    routeBegins: "sleep",
+    jumpTo: "myRoom"
+  },
+
 
   // Storing choices
   {
-    spriteLeft: "",
     routeBegins: "showStoringChoices",
+    spriteLeft: "",
     text: "The user is jumped to a specific index depending on what choice is clicked on."
   },
-  { choicesExist: true, text: "Help? (Refer to choices.js to see the properties.)" },
+  { 
+    choicesExist: true,
+    text: "Help?",
+    choice: 'test'
+  },
+
+
+
+
+
+
+
 
 
   // helpBlock
@@ -78,7 +90,6 @@ let story = [
   },
   {
     speaker: "",
-    // sprite: "",
     text: "The block trips and falls.",
     jumpTo: "blockHelp"
   },
@@ -88,7 +99,6 @@ let story = [
     receiveJump: "blockHelp",
     text: "(Back to common route) Some weeks pass."
   },
-  { text: "Block asked me to hang out at his place." },
   { text: "Did I accept?", choicesExist: true },
 
 
@@ -131,8 +141,6 @@ let story = [
     speaker: b,
     text: "Hey, nashkenazy! It's been so long since we'd last talked."
   },
-  { text: "I was thinking about making you my best man for a wedding I've been planning." },
-  { text: "I know it's a bit sudden, but you're the only one I think is best for the role." },
   { text: "blockAffection score: 2.", jumpTo: "skitDone" },
   {
     receiveJump: "skitDone",
@@ -161,11 +169,9 @@ setFutureProperties("spriteRight");
 function setFutureProperties(key) {
   let cache = "";
   for (let obj of story) {
-    if (obj[key] || obj[key] === "") {
-      cache = obj[key];
-    } else {
-      obj[key] = cache;
-    }
+    if (obj[key] || obj[key] === "") cache = obj[key];
+    else obj[key] = cache;
   }
 }
+
 export default story;
