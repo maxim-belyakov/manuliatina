@@ -1,4 +1,4 @@
-let location = {
+let locations = {
     myRoom: {
         "_id": "5ed4dcd2dd1b429f7d602212",
         "title": "Моя комната",
@@ -124,7 +124,7 @@ let location = {
                 "title": "Убрать пыль"
             },
             {
-                "name": "my_room",
+                "name": "myRoom",
                 "title": "Пойти в комнату"
             },
             {
@@ -133,13 +133,13 @@ let location = {
                 "title": "Принять душ"
             },
             {
-                "name": "my_room",
+                "name": "lesnayaS_street",
                 "title": "Выйти на улицу"
             }
         ]
     }
 }
-export default location;
+export default locations;
 
 
 // Переделать под объекты, имеющие имена

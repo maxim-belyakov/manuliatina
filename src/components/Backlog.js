@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import story from "../story/story";
+// import story from "../story/story";
 
 class Backlog extends Component {
   componentDidMount() {
@@ -36,8 +36,8 @@ class Backlog extends Component {
           <div className="backlog-jump-container" onClick={() => this.handleJump(index, i, choicesIndex)}>
             <span className="backlog-jump-text">Jump</span>
           </div>
-          <div className="backlog-speaker">{story[index].speaker}</div>
-          {story[index].text}
+          {/* <div className="backlog-speaker">{story[index].speaker}</div> */}
+          {/* {story[index].text} */}
         </div>
       );
     }

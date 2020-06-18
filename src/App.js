@@ -6,9 +6,7 @@ import Fullscreen from "react-full-screen";
 import WheelReact from "wheel-react";
 
 // API
-// import story from "./story/story";
-// import choices from "./story/choices";
-import newStory from "./story/newStory";
+import locations from "./locations";
 
 // Components
 // import TitleScreen from "./components/TitleScreen"; // DISABLE
@@ -94,7 +92,7 @@ class App extends Component {
 
   setFrame(index) {
 
-    if (!newStory[index]) {
+    if (!locations[index]) {
       this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
 
       index = 'myRoom'
@@ -107,9 +105,9 @@ class App extends Component {
 
     this.setState({
       index: index,
-      bg: require("../public/locations/" + newStory[index].original),
-      bgm: require("../public/music/" + newStory[index].music[0].name),
-      choicesExist: !!newStory[index].navigation,
+      bg: require("../public/locations/" + locations[index].original),
+      bgm: require("../public/music/" + locations[index].music[0].name),
+      choicesExist: !!locations[index].navigation,
     });
   }
 
@@ -176,7 +174,7 @@ class App extends Component {
 
     const currentIndex = this.state.index;
 
-    const choice = newStory[currentIndex].navigation ? newStory[currentIndex].navigation : []; // TODO: Wrong line
+    const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : []; // TODO: Wrong line
 
     console.log('currentIndex', currentIndex)
 
@@ -302,9 +300,9 @@ class App extends Component {
     this.setState({
       index: 'myRoom',
       // choiceOptions: choices[0].choices,
-      choice: newStory.myRoom.navigation,
+      choice: locations.myRoom.navigation,
       hasError: [false, '']
-    });
+    }); 
   }
 
   titleScreen() {
