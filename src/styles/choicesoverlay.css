@@ -40,7 +40,45 @@
   }
 }
 
-/* Add a background color on hover */
-.overlay-choices input:hover {
+/* .overlay-choices button:hover {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.overlay-choices button:active {
+  background-color: rgba(255, 255, 255, 0.15);
+} */
+
+.overlay-choices button:focus {
+  outline: unset;
+}
+
+.ripple {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple:after {
+    content: "";
+    background: rgba(255,255,255,0.3);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    padding-top: 240%;
+    padding-left: 240%;
+    margin-top: -120%;
+    margin-left: -120%;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.ripple:active:after {
+    padding-top: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    opacity: 1;
+    transition: 0s;
 }
