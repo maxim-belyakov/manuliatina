@@ -1,10 +1,14 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function RenderFrame(props) {
   function bgTransitionTime(key) {
     return 2000;
   }
+  
   function spriteTransitionTime(key) {
     if (
       props[key] === "move-left" ||
@@ -13,16 +17,23 @@ function RenderFrame(props) {
       props[key] === "move-right-far" ||
       props[key] === "from-left-leave-right" ||
       props[key] === "from-right-leave-left"
-    ) {
-      return 1200;
-    } else if (props[key] === "shake") {
-      return 700;
-    } else if (props[key] === "bounce") {
-      return 400;
-    } else {
-      return 250;
-    }
+    ) return 1200;
+    else if (props[key] === "shake") return 700;
+    else if (props[key] === "bounce") return 400;
+    else return 250;
   }
+
+  const hasError = () => toast.error(props.hasError[1],{
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: 0,
+  });
+
+  if (props.hasError[0]) hasError()
 
   return (
     <div onClick={props.setNextFrame} className="zoom-frame">
@@ -31,6 +42,17 @@ function RenderFrame(props) {
         transitionEnterTimeout={bgTransitionTime("bgTransition")}
         transitionLeaveTimeout={bgTransitionTime("bgTransition")}
       >
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
 
         <img draggable="false" key={props.bg} alt={props.bg} className="bg" src={props.bg} />
 

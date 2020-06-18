@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Sound from "react-sound";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Fullscreen from "react-full-screen";
@@ -7,9 +7,8 @@ import WheelReact from "wheel-react";
 
 // API
 // import story from "./story/story";
-import newStory from "./story/newStory";
 // import choices from "./story/choices";
-import newChoices from "./story/newChoices";
+import newStory from "./story/newStory";
 
 // Components
 // import TitleScreen from "./components/TitleScreen"; // DISABLE
@@ -39,8 +38,8 @@ const INITIAL_STATE = {
   voiceVolume: 100,
   font: "Trebuchet MS",
   isFull: false,
-  // choicesStore: {},
   index: 'myRoom',
+  // choicesStore: {},
   // stateHistory: [],
   // choicesHistory: [],
   // choicesIndexHistory: [],
@@ -50,11 +49,12 @@ const INITIAL_STATE = {
   titleScreenShown: true,
   frameIsRendering: false,
   backlogShown: false,
-  textBoxShown: true,
+  // textBoxShown: true,
   saveMenuShown: false,
   loadMenuShown: false,
-  isSkipping: false,
-  newChoices: newChoices,
+  // isSkipping: false,
+  // newChoices: newChoices,
+  hasError: [false, ''],
 };
 
 class App extends Component {
@@ -84,100 +84,32 @@ class App extends Component {
     // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
   }
 
-  setFrameFromChoice(choice, routeBegins) {
+  setFrameFromChoice(choice) {
 
-    console.log(`choice`, choice, 'routeBegins', routeBegins)
+    console.log('setFrameFromChoice!!')
 
-    this.setFrame(choice); /// HERE
-
-    // for (let i = 0; i < story.length; i++) {
-    //   if (routeBegins === story[i].routeBegins) {
-    //     this.setFrame(i);
-    //   }
-    // }
-
-    // let choicesStore = { ...this.state.choicesStore };
-    // choicesStore[choice]++ || (choicesStore[choice] = 1);
-    // this.setState({ choicesStore });
+    this.setFrame(choice);
+    
   }
 
-  // setNextFrame() {
-  //   const currentIndex = this.state.index;
-  //   const jumpToBecauseStore = story[currentIndex].jumpToBecauseStore;
-
-  //   console.log(`this.state.choice`, this.state.choice)
-
-  //   // jumpToBecauseStore // making a particular choice(s)
-  //   if (story[currentIndex].jumpToBecauseStore) {
-  //     for (let i = 0; i < story.length; i++) {
-  //       if (story[i].receiveJumpBecauseStore) {
-  //         if (
-  //           jumpToBecauseStore === story[i].receiveJumpBecauseStore[0] &&
-  //           this.state.choicesStore[jumpToBecauseStore] === story[i].receiveJumpBecauseStore[1]
-  //         ) {
-  //           console.log(`jumpToBecauseStore ${this.state.choicesStore[jumpToBecauseStore]}`)
-  //           this.setFrame(i);
-  //           return;
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   // jumpTo
-  //   if (story[currentIndex].jumpTo) {
-  //     if (story[currentIndex].jumpTo === "title-screen") {
-  //       this.setState(INITIAL_STATE);
-  //       return;
-  //     }
-  //     for (let i = 0; i < story.length; i++) {
-  //       if (story[currentIndex].jumpTo === story[i].receiveJump) {
-  //         console.log(`jumpTo ${story[currentIndex].jumpTo}`)
-  //         this.setFrame(i);
-  //         return;
-  //       }
-  //     }
-  //   }
-
-    
-  //   if (
-  //     !this.state.choicesExist &&
-  //     !this.state.loadMenuShown &&
-  //     !this.state.saveMenuShown &&
-  //     !this.state.titleScreenShown &&
-  //     !this.state.backlogShown &&
-  //     !this.state.configMenuShown
-  //   ) {
-  //     console.log('setNextFrame')
-  //     this.setFrame(currentIndex + 1);
-  //   }
-  // }
-
   setFrame(index) {
-    // Makes sure the index is within the story array // TODO: Make it for new logic
-    // if (index >= story.length) index = story.length - 1;
+
+    if (!newStory[index]) {
+      this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
+
+      index = 'myRoom'
+    }
     // else if (index <= -1) index = 0;
     
     // Updates story with new index
+
+    console.log('index setFrame', index)
 
     this.setState({
       index: index,
       bg: require("../public/locations/" + newStory[index].original),
       bgm: require("../public/music/" + newStory[index].music[0].name),
       choicesExist: !!newStory[index].navigation,
-      // soundEffect: story[index].soundEffect,
-      // speaker: story[index].speaker,
-      // sprite: story[index].sprite,
-      // spriteEffect: story[index].spriteEffect,
-      // spriteTransition: story[index].spriteTransition,
-      // spriteLeft: story[index].spriteLeft,
-      // spriteLeftEffect: story[index].spriteLeftEffect,
-      // spriteLeftTransition: story[index].spriteLeftTransition,
-      // spriteRight: story[index].spriteRight,
-      // spriteRightEffect: story[index].spriteRightEffect,
-      // spriteRightTransition: story[index].spriteRightTransition,
-      // text: story[index].text,
-      // bgTransition: story[index].bgTransition,
-      // voice: story[index].voice
     });
   }
 
@@ -187,47 +119,50 @@ class App extends Component {
         font={this.state.font}
         // setNextFrame={this.setNextFrame.bind(this)}
         bg={this.state.bg}
-        sprite={this.state.sprite}
-        spriteEffect={this.state.spriteEffect}
-        spriteTransition={this.state.spriteTransition}
-        spriteLeft={this.state.spriteLeft}
-        spriteLeftEffect={this.state.spriteLeftEffect}
-        spriteLeftTransition={this.state.spriteLeftTransition}
-        spriteRight={this.state.spriteRight}
-        spriteRightEffect={this.state.spriteRightEffect}
-        spriteRightTransition={this.state.spriteRightTransition}
-        speaker={this.state.speaker}
-        text={this.state.text}
-        textBoxShown={this.state.textBoxShown}
+        // sprite={this.state.sprite}
+        // spriteEffect={this.state.spriteEffect}
+        // spriteTransition={this.state.spriteTransition}
+        // spriteLeft={this.state.spriteLeft}
+        // spriteLeftEffect={this.state.spriteLeftEffect}
+        // spriteLeftTransition={this.state.spriteLeftTransition}
+        // spriteRight={this.state.spriteRight}
+        // spriteRightEffect={this.state.spriteRightEffect}
+        // spriteRightTransition={this.state.spriteRightTransition}
+        // speaker={this.state.speaker}
+        // text={this.state.text}
+        // textBoxShown={this.state.textBoxShown}
         bgTransition={this.state.bgTransition}
+        hasError={this.state.hasError}
       />
     );
   }
 
-  setChoice() {
-    // Makes sure the index is within the Choices array // TODO: Make it for new logic
+  // setChoice() {
+  //   // Makes sure the index is within the Choices array // TODO: Make it for new logic
 
-    // let choices
-    // if (choicesIndex >= choices.length) choicesIndex = choices.length - 1;
-    // else if (choicesIndex <= -1) choicesIndex = 0;
+  //   // let choices
+  //   // if (choicesIndex >= choices.length) choicesIndex = choices.length - 1;
+  //   // else if (choicesIndex <= -1) choicesIndex = 0;
 
-    const currentIndex = this.state.index;
+  //   const currentIndex = this.state.index;
 
-    console.log(`currentIndex ${currentIndex}`)
+  //   console.log('newStory[currentIndex].choice',newStory[currentIndex].choice)
 
-    this.setState({
-      choice: newStory[currentIndex].choice,
-      // choicesIndex: choicesIndex,
-      // choiceOptions: choices[choicesIndex].choices,
-    });
-  }
+  //   console.log(`currentIndex ${currentIndex}`)
+
+  //   this.setState({
+  //     choice: newStory[currentIndex].choice,
+  //     // choicesIndex: choicesIndex,
+  //     // choiceOptions: choices[choicesIndex].choices,
+  //   });
+  // }
 
   handleChoiceSelected(event) {
 
     // this.stopSkip();
-    this.setFrameFromChoice(event.currentTarget.name, event.currentTarget.alt);
+    this.setFrameFromChoice(event.currentTarget.name);
     
-    this.setChoice();
+    // this.setChoice();
 
     // let nextIndex = 0;
     // if (event.currentTarget.id) this.setState({ choicesStore: {} });
@@ -241,30 +176,24 @@ class App extends Component {
 
     const currentIndex = this.state.index;
 
-    const choice = this.state.newChoices[currentIndex];
+    const choice = newStory[currentIndex].navigation ? newStory[currentIndex].navigation : []; // TODO: Wrong line
 
     console.log('currentIndex', currentIndex)
 
     return (
       <ChoiceMenu 
-        // choiceOptions={this.state.choiceOptions}
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
+        choice={choice}
+        // choiceOptions={this.state.choiceOptions}
         // choices={this.state.newChoices}
-        choice={choice} 
       />
     );
   }
 
   toggleConfigMenu() {
-    if (this.state.saveMenuShown) {
-      this.setState({ saveMenuShown: false });
-    }
-    if (this.state.loadMenuShown) {
-      this.setState({ loadMenuShown: false });
-    }
-    if (this.state.backlogShown) {
-      this.setState({ backlogShown: false });
-    }
+    if (this.state.saveMenuShown) this.setState({ saveMenuShown: false });
+    if (this.state.loadMenuShown) this.setState({ loadMenuShown: false });
+    if (this.state.backlogShown) this.setState({ backlogShown: false });
     this.setState(prevState => ({
       configMenuShown: !prevState.configMenuShown
     }));
@@ -371,9 +300,10 @@ class App extends Component {
     });
     this.setFrame('myRoom');
     this.setState({
-      // choicesIndex: 0,
+      index: 'myRoom',
       // choiceOptions: choices[0].choices,
-      choice: this.state.newChoices.myRoom
+      choice: newStory.myRoom.navigation,
+      hasError: [false, '']
     });
   }
 
@@ -403,7 +333,7 @@ class App extends Component {
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
         choiceOptions={this.state.choiceOptions}
-        newChoices={this.state.newChoices}
+        // newChoices={this.state.newChoices}
         confirmationMessage="Overwrite save?"
         currentTime={this.state.currentTime}
         menuType="Save"
@@ -411,7 +341,7 @@ class App extends Component {
         toggleMenu={this.toggleSaveMenu.bind(this)}
         speaker={this.state.speaker}
         text={this.state.text}
-        textBoxShown={this.state.textBoxShown}
+        // textBoxShown={this.state.textBoxShown}
       />
     );
   }
@@ -421,7 +351,7 @@ class App extends Component {
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
         choiceOptions={this.state.choiceOptions}
-        newChoices={this.state.newChoices}
+        // newChoices={this.state.newChoices}
         confirmationMessage="Load save?"
         currentTime={this.state.currentTime}
         menuType="Load"
@@ -429,7 +359,7 @@ class App extends Component {
         toggleMenu={this.toggleLoadMenu.bind(this)}
         speaker={this.state.speaker}
         text={this.state.text}
-        textBoxShown={this.state.textBoxShown}
+        // textBoxShown={this.state.textBoxShown}
       />
     );
   }
@@ -450,7 +380,7 @@ class App extends Component {
         toggleBacklog={this.toggleBacklog.bind(this)}
         toggleTextBox={this.toggleTextBox.bind(this)}
         toggleFullscreen={() => this.setState({ isFull: true })}
-        textBoxShown={this.state.textBoxShown}
+        // textBoxShown={this.state.textBoxShown}
         backlogShown={this.state.backlogShown}
         // startSkip={this.startSkip.bind(this)}
         // stopSkip={this.stopSkip.bind(this)}
