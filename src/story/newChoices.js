@@ -17,40 +17,27 @@
         }
     ],
 
-    features: [
+    hall: [
       {
-        routeBegins: "showEffects",
-        title: "Effects",
-        nextIndex: 0
+        "name": "hall",
+        "required": {
+            "timeOfDay": "day"
+        },
+        "action": "cleanMyRoom",
+        "title": "Убрать пыль"
       },
       {
-        routeBegins: "showTransitions",
-        title: "Transitions",
-        nextIndex: 0 // ???
-      },
-  
-      {
-        routeBegins: "showStoringChoices",
-        title: "Storing choices for future use",
-        resetStore: "true"
+          "name": "myRoom",
+          "title": "Пойти в комнату"
       },
       {
-        routeBegins: "leave",
-        title: "Leave"
-      }
-    ],
-
-    test: [
-      {
-        store: "blockAffection",
-        routeBegins: "hangOutWithBlock",
-        title: "Yep.",
-        nextIndex: 0
+          "name": "shower",
+          "timeout": true,
+          "title": "Принять душ"
       },
       {
-        routeBegins: "noHangOutWithBlock",
-        title: "Nope.",
-        nextIndex: 0
+          "name": "lesnayaStreet",
+          "title": "Выйти на улицу"
       }
     ]
   }

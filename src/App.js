@@ -6,9 +6,9 @@ import Fullscreen from "react-full-screen";
 import WheelReact from "wheel-react";
 
 // API
-import story from "./story/story";
+// import story from "./story/story";
 import newStory from "./story/newStory";
-import choices from "./story/choices";
+// import choices from "./story/choices";
 import newChoices from "./story/newChoices";
 
 // Components
@@ -88,7 +88,7 @@ class App extends Component {
 
     console.log(`choice`, choice, 'routeBegins', routeBegins)
 
-    this.setFrame(-1, choice); /// HERE
+    this.setFrame(choice); /// HERE
 
     // for (let i = 0; i < story.length; i++) {
     //   if (routeBegins === story[i].routeBegins) {
@@ -101,116 +101,91 @@ class App extends Component {
     // this.setState({ choicesStore });
   }
 
-  setNextFrame() {
-    // const currentIndex = this.state.index;
-    // const jumpToBecauseStore = story[currentIndex].jumpToBecauseStore;
+  // setNextFrame() {
+  //   const currentIndex = this.state.index;
+  //   const jumpToBecauseStore = story[currentIndex].jumpToBecauseStore;
 
-    console.log(`this.state.choice`, this.state.choice)
+  //   console.log(`this.state.choice`, this.state.choice)
 
-    // // jumpToBecauseStore // making a particular choice(s)
-    // if (story[currentIndex].jumpToBecauseStore) {
-    //   for (let i = 0; i < story.length; i++) {
-    //     if (story[i].receiveJumpBecauseStore) {
-    //       if (
-    //         jumpToBecauseStore === story[i].receiveJumpBecauseStore[0] &&
-    //         this.state.choicesStore[jumpToBecauseStore] === story[i].receiveJumpBecauseStore[1]
-    //       ) {
-    //         console.log(`jumpToBecauseStore ${this.state.choicesStore[jumpToBecauseStore]}`)
-    //         this.setFrame(i);
-    //         return;
-    //       }
-    //     }
-    //   }
-    // }
+  //   // jumpToBecauseStore // making a particular choice(s)
+  //   if (story[currentIndex].jumpToBecauseStore) {
+  //     for (let i = 0; i < story.length; i++) {
+  //       if (story[i].receiveJumpBecauseStore) {
+  //         if (
+  //           jumpToBecauseStore === story[i].receiveJumpBecauseStore[0] &&
+  //           this.state.choicesStore[jumpToBecauseStore] === story[i].receiveJumpBecauseStore[1]
+  //         ) {
+  //           console.log(`jumpToBecauseStore ${this.state.choicesStore[jumpToBecauseStore]}`)
+  //           this.setFrame(i);
+  //           return;
+  //         }
+  //       }
+  //     }
+  //   }
 
-    // // jumpTo
-    // if (story[currentIndex].jumpTo) {
-    //   if (story[currentIndex].jumpTo === "title-screen") {
-    //     this.setState(INITIAL_STATE);
-    //     return;
-    //   }
-    //   for (let i = 0; i < story.length; i++) {
-    //     if (story[currentIndex].jumpTo === story[i].receiveJump) {
-    //       console.log(`jumpTo ${story[currentIndex].jumpTo}`)
-    //       this.setFrame(i);
-    //       return;
-    //     }
-    //   }
-    // }
+  //   // jumpTo
+  //   if (story[currentIndex].jumpTo) {
+  //     if (story[currentIndex].jumpTo === "title-screen") {
+  //       this.setState(INITIAL_STATE);
+  //       return;
+  //     }
+  //     for (let i = 0; i < story.length; i++) {
+  //       if (story[currentIndex].jumpTo === story[i].receiveJump) {
+  //         console.log(`jumpTo ${story[currentIndex].jumpTo}`)
+  //         this.setFrame(i);
+  //         return;
+  //       }
+  //     }
+  //   }
 
-    // ELSE
-    if (
-      !this.state.choicesExist &&
-      !this.state.loadMenuShown &&
-      !this.state.saveMenuShown &&
-      !this.state.titleScreenShown &&
-      !this.state.backlogShown &&
-      !this.state.configMenuShown
-    ) {
-      console.log('setNextFrame')
-      // this.setFrame(currentIndex + 1);
-    }
-  }
+    
+  //   if (
+  //     !this.state.choicesExist &&
+  //     !this.state.loadMenuShown &&
+  //     !this.state.saveMenuShown &&
+  //     !this.state.titleScreenShown &&
+  //     !this.state.backlogShown &&
+  //     !this.state.configMenuShown
+  //   ) {
+  //     console.log('setNextFrame')
+  //     this.setFrame(currentIndex + 1);
+  //   }
+  // }
 
-  setFrame(index, name) {
-    // Makes sure the index is within the story array
-    if (index >= story.length) index = story.length - 1;
-    else if (index <= -1) index = 0;
+  setFrame(index) {
+    // Makes sure the index is within the story array // TODO: Make it for new logic
+    // if (index >= story.length) index = story.length - 1;
+    // else if (index <= -1) index = 0;
     
     // Updates story with new index
 
-    console.log('aaa', story[index].choicesExist)
-
-    if (index > 0) {
-      this.setState({
-        index: index,
-        bg: story[index].bg,
-        bgm: story[index].bgm,
-        choicesExist: story[index].choicesExist,
-        soundEffect: story[index].soundEffect,
-        speaker: story[index].speaker,
-        sprite: story[index].sprite,
-        spriteEffect: story[index].spriteEffect,
-        spriteTransition: story[index].spriteTransition,
-        spriteLeft: story[index].spriteLeft,
-        spriteLeftEffect: story[index].spriteLeftEffect,
-        spriteLeftTransition: story[index].spriteLeftTransition,
-        spriteRight: story[index].spriteRight,
-        spriteRightEffect: story[index].spriteRightEffect,
-        spriteRightTransition: story[index].spriteRightTransition,
-        text: story[index].text,
-        bgTransition: story[index].bgTransition,
-        voice: story[index].voice
-      });
-    } else {
-      this.setState({
-        // index: index,
-        bg: require("../public/locations/" + newStory[name].original),
-        bgm: require("../public/music/" + newStory[name].music[0].name),
-        choicesExist: !!newStory[name].navigation,
-        // soundEffect: story[index].soundEffect,
-        // speaker: story[index].speaker,
-        // sprite: story[index].sprite,
-        // spriteEffect: story[index].spriteEffect,
-        // spriteTransition: story[index].spriteTransition,
-        // spriteLeft: story[index].spriteLeft,
-        // spriteLeftEffect: story[index].spriteLeftEffect,
-        // spriteLeftTransition: story[index].spriteLeftTransition,
-        // spriteRight: story[index].spriteRight,
-        // spriteRightEffect: story[index].spriteRightEffect,
-        // spriteRightTransition: story[index].spriteRightTransition,
-        // text: story[index].text,
-        // bgTransition: story[index].bgTransition,
-        // voice: story[index].voice
-      });
-    }
+    this.setState({
+      index: index,
+      bg: require("../public/locations/" + newStory[index].original),
+      bgm: require("../public/music/" + newStory[index].music[0].name),
+      choicesExist: !!newStory[index].navigation,
+      // soundEffect: story[index].soundEffect,
+      // speaker: story[index].speaker,
+      // sprite: story[index].sprite,
+      // spriteEffect: story[index].spriteEffect,
+      // spriteTransition: story[index].spriteTransition,
+      // spriteLeft: story[index].spriteLeft,
+      // spriteLeftEffect: story[index].spriteLeftEffect,
+      // spriteLeftTransition: story[index].spriteLeftTransition,
+      // spriteRight: story[index].spriteRight,
+      // spriteRightEffect: story[index].spriteRightEffect,
+      // spriteRightTransition: story[index].spriteRightTransition,
+      // text: story[index].text,
+      // bgTransition: story[index].bgTransition,
+      // voice: story[index].voice
+    });
   }
 
   renderFrame() {
     return (
       <RenderFrame
         font={this.state.font}
-        setNextFrame={this.setNextFrame.bind(this)}
+        // setNextFrame={this.setNextFrame.bind(this)}
         bg={this.state.bg}
         sprite={this.state.sprite}
         spriteEffect={this.state.spriteEffect}
@@ -229,25 +204,30 @@ class App extends Component {
     );
   }
 
-  setChoice(choicesIndex) {
-    // Makes sure the index is within the Choices array
-    if (choicesIndex >= choices.length) choicesIndex = choices.length - 1;
-    else if (choicesIndex <= -1) choicesIndex = 0;
+  setChoice() {
+    // Makes sure the index is within the Choices array // TODO: Make it for new logic
+
+    // let choices
+    // if (choicesIndex >= choices.length) choicesIndex = choices.length - 1;
+    // else if (choicesIndex <= -1) choicesIndex = 0;
 
     const currentIndex = this.state.index;
 
+    console.log(`currentIndex ${currentIndex}`)
+
     this.setState({
+      choice: newStory[currentIndex].choice,
       // choicesIndex: choicesIndex,
       // choiceOptions: choices[choicesIndex].choices,
-      choice: newStory[currentIndex].choice,
-      // choice: story[currentIndex].choice ? story[currentIndex].choice : this.state.newChoices.myRoom,
     });
   }
 
   handleChoiceSelected(event) {
 
-    this.stopSkip();
+    // this.stopSkip();
     this.setFrameFromChoice(event.currentTarget.name, event.currentTarget.alt);
+    
+    this.setChoice();
 
     // let nextIndex = 0;
     // if (event.currentTarget.id) this.setState({ choicesStore: {} });
@@ -255,8 +235,6 @@ class App extends Component {
 
     // if (event.currentTarget.placeholder) nextIndex = parseInt(event.currentTarget.placeholder, 10);
     // else nextIndex = this.state.choicesIndex + 1;
-    
-    // this.setChoice(nextIndex);
   }
 
   renderChoiceMenu() {
@@ -265,13 +243,13 @@ class App extends Component {
 
     const choice = this.state.newChoices[currentIndex];
 
-    console.log('choice', choice)
+    console.log('currentIndex', currentIndex)
 
     return (
       <ChoiceMenu 
-        choiceOptions={this.state.choiceOptions} 
+        // choiceOptions={this.state.choiceOptions}
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
-        choices={this.state.newChoices}
+        // choices={this.state.newChoices}
         choice={choice} 
       />
     );
@@ -343,22 +321,22 @@ class App extends Component {
     }));
   }
 
-  startSkip() {
-    const intervalTime = prompt("How many milliseconds per frame would you like?", "75");
-    if (intervalTime > 0) {
-      this.setState({
-        isSkipping: true
-      });
-      this.textSkipper = setInterval(this.setNextFrame.bind(this), intervalTime);
-    }
-  }
+  // startSkip() {
+  //   const intervalTime = prompt("How many milliseconds per frame would you like?", "75");
+  //   if (intervalTime > 0) {
+  //     this.setState({
+  //       isSkipping: true
+  //     });
+  //     this.textSkipper = setInterval(this.setNextFrame.bind(this), intervalTime);
+  //   }
+  // }
 
-  stopSkip() {
-    clearInterval(this.textSkipper);
-    this.setState({
-      isSkipping: false
-    });
-  }
+  // stopSkip() {
+  //   clearInterval(this.textSkipper);
+  //   this.setState({
+  //     isSkipping: false
+  //   });
+  // }
 
   saveSlot(number) {
     var d = new Date();
@@ -386,12 +364,12 @@ class App extends Component {
   }
 
   beginStory() {
-    this.stopSkip();
+    // this.stopSkip();
     this.setState({
       titleScreenShown: false,
       frameIsRendering: true
     });
-    this.setFrame(0, 'myRoom');
+    this.setFrame('myRoom');
     this.setState({
       // choicesIndex: 0,
       // choiceOptions: choices[0].choices,
@@ -460,7 +438,7 @@ class App extends Component {
     return (
       <MenuButtons
         menuButtonsShown={this.state.menuButtonsShown}
-        setNextFrame={this.setNextFrame.bind(this)}
+        // setNextFrame={this.setNextFrame.bind(this)}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
         saveSlot={this.saveSlot.bind(this)}
@@ -474,8 +452,8 @@ class App extends Component {
         toggleFullscreen={() => this.setState({ isFull: true })}
         textBoxShown={this.state.textBoxShown}
         backlogShown={this.state.backlogShown}
-        startSkip={this.startSkip.bind(this)}
-        stopSkip={this.stopSkip.bind(this)}
+        // startSkip={this.startSkip.bind(this)}
+        // stopSkip={this.stopSkip.bind(this)}
         isSkipping={this.state.isSkipping}
       />
     );
@@ -486,7 +464,7 @@ class App extends Component {
       <Backlog
         index={this.state.index}
         setFrame={this.setFrame}
-        setChoice={this.setChoice.bind(this)}
+        // setChoice={this.setChoice.bind(this)}
         toggleBacklog={this.toggleBacklog}
         // choicesStore={this.state.choicesStore}
         // choicesHistory={this.state.choicesHistory}
@@ -515,6 +493,7 @@ class App extends Component {
   playSoundEffect() {
     return (
       <Sound url={this.state.soundEffect} volume={this.state.soundEffectVolume} playStatus={Sound.status.PLAYING}/>
+
     );
   }
   playVoice() {
@@ -545,7 +524,7 @@ class App extends Component {
             {this.state.loadMenuShown ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
             {/* {this.state.frameIsRendering ? this.renderFrame() : null} */}
-            {this.state.choicesExist ? this.renderChoiceMenu() : null}
+            {this.state.choicesExist ? this.renderChoiceMenu() : null} 
           </ReactCSSTransitionGroup>
         </Fullscreen>
         {!this.state.titleScreenShown ? this.renderMenuButtons() : null}

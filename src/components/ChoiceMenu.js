@@ -1,23 +1,19 @@
 import React from "react";
 
 function ChoiceMenu(props) {
-  console.log('props.choices', props.choices)
-  console.log('props.choice', props.choice)
-  console.log('props.choiceOptions', props.choiceOptions)
 
   function renderChoiceOptions(key) {
     return (
-      <input
+      <button
         type="button"
-        className="choice-button"
-        // key={key.content}
+        className="choice-button ripple"
+        key={key.name}
         // alt={key.routeBegins}
         name={key.name}
-        value={key.title}
         // id={key.resetStore}
         // placeholder={key.nextIndex}
         onClick={props.onChoiceSelected}
-      />
+      >{key.title}</button>
     );
   }
 
