@@ -1,10 +1,13 @@
-import React from "react";
+import React,{ useLayoutEffect } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+let errorCache
+
 function RenderFrame(props) {
+
   function bgTransitionTime(key) {
     return 2000;
   }
@@ -23,17 +26,23 @@ function RenderFrame(props) {
     else return 250;
   }
 
-  const hasError = () => toast.error(props.hasError[1],{
-    position: "top-center",
-    autoClose: 5000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: 0,
-  });
+  const hasError = () => {
 
-  if (props.hasError[0]) hasError()
+    errorCache = props.hasError
+    
+    toast.error(props.hasError[1],{
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: 0,
+    });
+
+  }
+
+  if (props.hasError[0] && errorCache != props.hasError) hasError()
 
   return (
     <div onClick={props.setNextFrame} className="zoom-frame">
@@ -42,6 +51,7 @@ function RenderFrame(props) {
         transitionEnterTimeout={bgTransitionTime("bgTransition")}
         transitionLeaveTimeout={bgTransitionTime("bgTransition")}
       >
+
         <ToastContainer
           position="top-center"
           autoClose={5000}

@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import Sound from "react-sound";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Fullscreen from "react-full-screen";
@@ -94,7 +94,6 @@ class App extends Component {
 
     if (!locations[index]) {
       this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
-
       index = 'myRoom'
     }
     // else if (index <= -1) index = 0;
