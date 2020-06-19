@@ -84,8 +84,6 @@ class App extends Component {
 
   setFrameFromChoice(choice) {
 
-    console.log('setFrameFromChoice!!')
-
     this.setFrame(choice);
     
   }
@@ -114,59 +112,19 @@ class App extends Component {
     return (
       <RenderFrame
         font={this.state.font}
-        // setNextFrame={this.setNextFrame.bind(this)}
         bg={this.state.bg}
-        // sprite={this.state.sprite}
-        // spriteEffect={this.state.spriteEffect}
-        // spriteTransition={this.state.spriteTransition}
-        // spriteLeft={this.state.spriteLeft}
-        // spriteLeftEffect={this.state.spriteLeftEffect}
-        // spriteLeftTransition={this.state.spriteLeftTransition}
-        // spriteRight={this.state.spriteRight}
-        // spriteRightEffect={this.state.spriteRightEffect}
-        // spriteRightTransition={this.state.spriteRightTransition}
-        // speaker={this.state.speaker}
-        // text={this.state.text}
-        // textBoxShown={this.state.textBoxShown}
         bgTransition={this.state.bgTransition}
         hasError={this.state.hasError}
       />
     );
   }
 
-  // setChoice() {
-  //   // Makes sure the index is within the Choices array // TODO: Make it for new logic
-
-  //   // let choices
-  //   // if (choicesIndex >= choices.length) choicesIndex = choices.length - 1;
-  //   // else if (choicesIndex <= -1) choicesIndex = 0;
-
-  //   const currentIndex = this.state.index;
-
-  //   console.log('newStory[currentIndex].choice',newStory[currentIndex].choice)
-
-  //   console.log(`currentIndex ${currentIndex}`)
-
-  //   this.setState({
-  //     choice: newStory[currentIndex].choice,
-  //     // choicesIndex: choicesIndex,
-  //     // choiceOptions: choices[choicesIndex].choices,
-  //   });
-  // }
-
   handleChoiceSelected(event) {
 
-    // this.stopSkip();
     this.setFrameFromChoice(event.currentTarget.name);
+
+    console.log('event.currentTarget.name', event.currentTarget.name)
     
-    // this.setChoice();
-
-    // let nextIndex = 0;
-    // if (event.currentTarget.id) this.setState({ choicesStore: {} });
-
-
-    // if (event.currentTarget.placeholder) nextIndex = parseInt(event.currentTarget.placeholder, 10);
-    // else nextIndex = this.state.choicesIndex + 1;
   }
 
   renderChoiceMenu() {
@@ -181,8 +139,6 @@ class App extends Component {
       <ChoiceMenu 
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
         choice={choice}
-        // choiceOptions={this.state.choiceOptions}
-        // choices={this.state.newChoices}
       />
     );
   }
@@ -247,23 +203,6 @@ class App extends Component {
     }));
   }
 
-  // startSkip() {
-  //   const intervalTime = prompt("How many milliseconds per frame would you like?", "75");
-  //   if (intervalTime > 0) {
-  //     this.setState({
-  //       isSkipping: true
-  //     });
-  //     this.textSkipper = setInterval(this.setNextFrame.bind(this), intervalTime);
-  //   }
-  // }
-
-  // stopSkip() {
-  //   clearInterval(this.textSkipper);
-  //   this.setState({
-  //     isSkipping: false
-  //   });
-  // }
-
   saveSlot(number) {
     var d = new Date();
     var datestring =
@@ -290,7 +229,6 @@ class App extends Component {
   }
 
   beginStory() {
-    // this.stopSkip();
     this.setState({
       titleScreenShown: false,
       frameIsRendering: true
@@ -298,7 +236,6 @@ class App extends Component {
     this.setFrame('myRoom');
     this.setState({
       index: 'myRoom',
-      // choiceOptions: choices[0].choices,
       choice: locations.myRoom.navigation,
       hasError: [false, '']
     }); 
@@ -330,7 +267,6 @@ class App extends Component {
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
         choiceOptions={this.state.choiceOptions}
-        // newChoices={this.state.newChoices}
         confirmationMessage="Overwrite save?"
         currentTime={this.state.currentTime}
         menuType="Save"
@@ -338,7 +274,6 @@ class App extends Component {
         toggleMenu={this.toggleSaveMenu.bind(this)}
         speaker={this.state.speaker}
         text={this.state.text}
-        // textBoxShown={this.state.textBoxShown}
       />
     );
   }
@@ -348,7 +283,6 @@ class App extends Component {
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
         choiceOptions={this.state.choiceOptions}
-        // newChoices={this.state.newChoices}
         confirmationMessage="Load save?"
         currentTime={this.state.currentTime}
         menuType="Load"
@@ -356,7 +290,6 @@ class App extends Component {
         toggleMenu={this.toggleLoadMenu.bind(this)}
         speaker={this.state.speaker}
         text={this.state.text}
-        // textBoxShown={this.state.textBoxShown}
       />
     );
   }
@@ -365,7 +298,6 @@ class App extends Component {
     return (
       <MenuButtons
         menuButtonsShown={this.state.menuButtonsShown}
-        // setNextFrame={this.setNextFrame.bind(this)}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
         saveSlot={this.saveSlot.bind(this)}
@@ -377,10 +309,7 @@ class App extends Component {
         toggleBacklog={this.toggleBacklog.bind(this)}
         toggleTextBox={this.toggleTextBox.bind(this)}
         toggleFullscreen={() => this.setState({ isFull: true })}
-        // textBoxShown={this.state.textBoxShown}
         backlogShown={this.state.backlogShown}
-        // startSkip={this.startSkip.bind(this)}
-        // stopSkip={this.stopSkip.bind(this)}
         isSkipping={this.state.isSkipping}
       />
     );
@@ -391,12 +320,7 @@ class App extends Component {
       <Backlog
         index={this.state.index}
         setFrame={this.setFrame}
-        // setChoice={this.setChoice.bind(this)}
         toggleBacklog={this.toggleBacklog}
-        // choicesStore={this.state.choicesStore}
-        // choicesHistory={this.state.choicesHistory}
-        // choicesIndexHistory={this.state.choicesIndexHistory}
-        // indexHistory={this.state.indexHistory}
         setChoicesHistory={choicesHistory => this.setState({ choicesHistory: choicesHistory })}
         setIndexHistory={indexHistory => this.setState({ indexHistory: indexHistory })}
         setChoicesStore={choicesStore => this.setState({ choicesStore: choicesStore })}
