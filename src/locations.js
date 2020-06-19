@@ -133,7 +133,7 @@ let locations = {
                 "title": "Принять душ"
             },
             {
-                "name": "lesnayaS_street",
+                "name": "lesnayaStreet",
                 "title": "Выйти на улицу"
             }
         ]

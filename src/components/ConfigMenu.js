@@ -35,7 +35,7 @@ class ConfigMenu extends Component {
 
   category(name, shown, handleClick) {
     return (
-      <button class={"config-btn config-btn--stripe " + (shown ? "active" : null)} onClick={handleClick}>
+      <button className={"config-btn config-btn--stripe " + (shown ? "active" : null)} onClick={handleClick}>
         {name}
       </button>
     );
@@ -88,6 +88,7 @@ class ConfigMenu extends Component {
         };
       }
     };
+
     return (
       <div className="overlay" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
