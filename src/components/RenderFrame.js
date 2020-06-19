@@ -8,9 +8,7 @@ let errorCache
 
 function RenderFrame(props) {
 
-  function bgTransitionTime(key) {
-    return 2000;
-  }
+  function bgTransitionTime(key) { return 2000; }
   
   function spriteTransitionTime(key) {
     if (

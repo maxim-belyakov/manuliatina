@@ -36,23 +36,17 @@ const INITIAL_STATE = {
   voiceVolume: 100,
   font: "Trebuchet MS",
   isFull: false,
+  previousIndex: '',
   index: 'myRoom',
-  // choicesStore: {},
-  // stateHistory: [],
-  // choicesHistory: [],
-  // choicesIndexHistory: [],
-  // indexHistory: [],
   choicesExist: false,
   configMenuShown: false,
   titleScreenShown: true,
   frameIsRendering: false,
   backlogShown: false,
-  // textBoxShown: true,
   saveMenuShown: false,
   loadMenuShown: false,
-  // isSkipping: false,
-  // newChoices: newChoices,
   hasError: [false, ''],
+  spicials: []
 };
 
 class App extends Component {
@@ -90,22 +84,27 @@ class App extends Component {
 
   setFrame(index) {
 
+    const previousIndex = this.state.index.slice()
+
     if (!locations[index]) {
       this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
       index = 'myRoom'
     }
-    // else if (index <= -1) index = 0;
-    
-    // Updates story with new index
-
-    console.log('index setFrame', index)
 
     this.setState({
       index: index,
+      previousIndex: previousIndex,
       bg: require("../public/locations/" + locations[index].original),
       bgm: require("../public/music/" + locations[index].music[0].name),
+      bgm2: locations[index].music[1] ? require("../public/music/" + locations[index].music[1].name) : null,
       choicesExist: !!locations[index].navigation,
     });
+
+    // TIMEOUT
+    if (!locations[index].navigation) {
+      console.log('!this.state.choicesExist !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', !this.state.choicesExist)
+      setTimeout(() => { this.setFrame(previousIndex) }, 3000);
+    }
   }
 
   renderFrame() {
@@ -122,8 +121,6 @@ class App extends Component {
   handleChoiceSelected(event) {
 
     this.setFrameFromChoice(event.currentTarget.name);
-
-    console.log('event.currentTarget.name', event.currentTarget.name)
     
   }
 
@@ -229,6 +226,9 @@ class App extends Component {
   }
 
   beginStory() {
+
+    // проверить куку specials и добавить содержимое в state
+
     this.setState({
       titleScreenShown: false,
       frameIsRendering: true
