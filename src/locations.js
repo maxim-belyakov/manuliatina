@@ -9,25 +9,29 @@ let locations = {
         "music": [
             {
                 "name": "Field.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 105000,
             }
         ],
         "musicSunrise": [
             {
                 "name": "Navprostets.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 120200,
             }
         ],
         "musicSunset": [
             {
                 "name": "Sunset.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 120600,
             }
         ],
         "musicNight": [
             {
                 "name": "Sunset.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 12060,
             }
         ],
         "navigation": [
@@ -54,7 +58,8 @@ let locations = {
         "music": [
             {
                 "name": "forest_song.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 37000,
             }
         ]
     },
@@ -65,7 +70,8 @@ let locations = {
         "music": [
             {
                 "name": "running-water.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 6000,
             }
         ]
     },
@@ -99,13 +105,15 @@ let locations = {
         "music": [
             {
                 "name": "Navprostets.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 120200,
             }
         ],
         "musicNight": [
             {
                 "name": "Field.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 105000,
             }
         ],
         "special": {
