@@ -40,7 +40,7 @@ function RenderFrame(props) {
 
   }
 
-  if (props.hasError[0] && errorCache != props.hasError) hasError()
+  if (props.hasError[0] && errorCache !== props.hasError) hasError()
 
   return (
     <div onClick={props.setNextFrame} className="zoom-frame">

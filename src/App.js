@@ -14,7 +14,7 @@ import Backlog from "./components/Backlog";
 import ChoiceMenu from "./components/ChoiceMenu";
 import ConfigMenu from "./components/ConfigMenu";
 import RenderFrame from "./components/RenderFrame";
-import MenuButtons from "./components/MenuButtons";
+import Settings from "./components/Settings";
 import SaveLoadMenu from "./components/SaveLoadMenu";
 
 // CSS
@@ -76,13 +76,23 @@ class App extends Component {
     // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
   }
 
-  setFrameFromChoice(choice) {
+  setChoice(index) {
 
-    this.setFrame(choice);
+    // Add SPECIAL point to state
+    if (locations[index].special) {
+      console.log('locations[index].special', locations[index].special)
+    }
+
+    // Change the frame
+    this.setFrame(index);
     
   }
 
-  setFrame(index) {
+  timeout(fn, ms) {
+    setTimeout(() => { fn() }, ms);
+  }
+
+  async setFrame(index) {
 
     const previousIndex = this.state.index.slice()
 
@@ -90,6 +100,13 @@ class App extends Component {
       this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
       index = 'myRoom'
     }
+
+    // Determing of image
+
+    // Hours
+
+    // Special
+    // if we have two specials for one image, looks where order is lowers 
 
     this.setState({
       index: index,
@@ -101,9 +118,13 @@ class App extends Component {
     });
 
     // TIMEOUT
-    if (!locations[index].navigation) {
-      console.log('!this.state.choicesExist !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', !this.state.choicesExist)
-      setTimeout(() => { this.setFrame(previousIndex) }, 3000);
+    if(!locations[index].navigation) {
+
+      let duration;
+  
+      if (locations[index].music && locations[index].music[0].name && locations[index].music[0].duration) duration = locations[index].music[0].duration
+
+      this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }
   }
 
@@ -120,7 +141,7 @@ class App extends Component {
 
   handleChoiceSelected(event) {
 
-    this.setFrameFromChoice(event.currentTarget.name);
+    this.setChoice(event.currentTarget.name);
     
   }
 
@@ -229,20 +250,23 @@ class App extends Component {
 
     // проверить куку specials и добавить содержимое в state
 
+    this.setFrame('sleep');
+
     this.setState({
       titleScreenShown: false,
-      frameIsRendering: true
-    });
-    this.setFrame('myRoom');
-    this.setState({
-      index: 'myRoom',
+      frameIsRendering: true,
+      index: 'sleep',
       choice: locations.myRoom.navigation,
       hasError: [false, '']
-    }); 
+    });
+
+    setTimeout(() => { this.setFrame('myRoom'); }, 3000)
   }
 
   titleScreen() {
+
     this.beginStory()
+    
     // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;  // DISABLE
   }
 
@@ -294,9 +318,9 @@ class App extends Component {
     );
   }
 
-  renderMenuButtons() {
+  renderSettings() {
     return (
-      <MenuButtons
+      <Settings
         menuButtonsShown={this.state.menuButtonsShown}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
@@ -339,16 +363,31 @@ class App extends Component {
   }
 
   playBGM() {
-    return <Sound url={this.state.bgm} volume={this.state.bgmVolume} playStatus={Sound.status.PLAYING} loop={true} />;
+    return <Sound
+              url={this.state.bgm} 
+              volume={this.state.bgmVolume} 
+              playStatus={Sound.status.PLAYING} 
+              loop={true}
+              ignoreMobileRestrictions={true}
+            />;
   }
   playSoundEffect() {
     return (
-      <Sound url={this.state.soundEffect} volume={this.state.soundEffectVolume} playStatus={Sound.status.PLAYING}/>
-
+      <Sound 
+        url={this.state.soundEffect} 
+        volume={this.state.soundEffectVolume} 
+        playStatus={Sound.status.PLAYING}
+        ignoreMobileRestrictions={true}
+      />
     );
   }
   playVoice() {
-    return <Sound url={this.state.voice} volume={this.state.voiceVolume} playStatus={Sound.status.PLAYING} />;
+    return <Sound 
+              url={this.state.voice} 
+              volume={this.state.voiceVolume} 
+              playStatus={Sound.status.PLAYING}
+              ignoreMobileRestrictions={true}
+            />;
   }
 
   render() {
@@ -378,7 +417,7 @@ class App extends Component {
             {this.state.choicesExist ? this.renderChoiceMenu() : null} 
           </ReactCSSTransitionGroup>
         </Fullscreen>
-        {!this.state.titleScreenShown ? this.renderMenuButtons() : null}
+        {!this.state.titleScreenShown ? this.renderSettings() : null}
         {this.state.bgm ? this.playBGM() : null}
         {this.state.soundEffect ? this.playSoundEffect() : null}
         {this.state.voice ? this.playVoice() : null}
