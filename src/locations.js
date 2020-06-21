@@ -120,12 +120,14 @@ let locations = {
                 "duration": 105000,
             }
         ],
-        "special": {
-            "cleanMyRoom": {
-                "original": "корридор гг 2.png",
+        "special": [
+            {
+                "name": "cleanMyRoom",
+                "image": "корридор гг 2.png",
+                "timeOfDay": "day",
                 "order": 0
             }
-        },
+        ],
         "navigation": [
             {
                 "name": "hall",
