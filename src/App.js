@@ -149,7 +149,8 @@ class App extends Component {
     // location is not found
 
     if (!currentLocation) {
-      this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
+      this.setState({ hasError: [true, 'Что-то пошло не так :( Локация недоступна' + index] });
+      console.error('Найдена локация, которой нет на карте локаций')
       index = 'myRoom'
     }    
 
