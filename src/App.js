@@ -144,33 +144,58 @@ class App extends Component {
 
     const previousIndex = this.state.index.slice()
 
-    if (!locations[index]) {
+    const currentLocation = locations[index]
+
+    // location is not found
+
+    if (!currentLocation) {
       this.setState({ hasError: [true, 'Найдена локация, которой нет на карте локаций: ' + index] });
       index = 'myRoom'
-    }
+    }    
 
-    // Determing of image and music
-
-    // Hours
+    // Hours: day, night, sunset, sunrise
 
     let time = this.getTypeOfTime()
-    let image
-    let music
+    let image = currentLocation.original
+    let music = currentLocation.music ? currentLocation.music : []
 
+    if (time === 'night') {
+      if (currentLocation.night) image = currentLocation.night
+      if (currentLocation.musicNight) music = currentLocation.musicNight
+    }
 
-    
+    if (time === 'sunset') {
+      if (currentLocation.sunset) image = currentLocation.sunset
+      else if (currentLocation.night) image = currentLocation.night
+      if (currentLocation.musicSunset) music = currentLocation.musicSunset
+      else if (currentLocation.musicNight) music = currentLocation.musicNight
+    }
 
-    
-    // for image: original, night, sunset, sunrise
-    // for music: music, musicNight, musicSunset, musicSunrise
+    if (time === 'sunrise') {
+      if (currentLocation.sunrise) image = currentLocation.sunrise
+      if (currentLocation.musicSunrise) music = currentLocation.musicSunrise
+    }
+
+    // let orderMax = Math.max.apply(Math, Object.values(locations[index].special).map(function(o) { return o.y; }))
 
     // Special: day, night, sunset, sunrise
-    // if we have two specials for one image, looks where order is lowers 
+    // if we have two specials for one image, looks where order is lowers
 
-    if (!locations[index].navigation) {
+    if (currentLocation.special) {
+      let specials = currentLocation.special
+      for (let i in Object.values(specials)) {
+        let item = specials[i]
+        if (time === item.timeOfDay && !!this.state.spicials.indexOf(item.name)) image = item.image
+      }
+    }
+
+
+    // get duration for limeout-location 
+
+    if (!currentLocation.navigation) {
       let duration;
   
-      if (locations[index].music && locations[index].music[0].name && locations[index].music[0].duration) duration = locations[index].music[0].duration
+      if (currentLocation.music && currentLocation.music[0].name && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
 
       this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }
@@ -178,17 +203,17 @@ class App extends Component {
     this.setState({
       index: index,
       previousIndex: previousIndex,
-      bg: require("../public/locations/" + locations[index].original),
-      bgm: locations[index].music ? require("../public/music/" + locations[index].music[0].name) : null,
-      bgm2: locations[index].music && locations[index].music[1] ? require("../public/music/" + locations[index].music[1].name) : null,
-      choicesExist: !!locations[index].navigation,
+      bg: require("../public/locations/" + image),
+      bgm: music[0] ? require("../public/music/" + music[0].name) : null,
+      bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
+      choicesExist: !!currentLocation.navigation,
     });
 
     // TIMEOUT
-    if (!locations[index].navigation) {
+    if (!currentLocation.navigation) {
       let duration;
   
-      if (locations[index].music && locations[index].music[0].name && locations[index].music[0].duration) duration = locations[index].music[0].duration
+      if (currentLocation.music && currentLocation.music[0].name && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
 
       this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }

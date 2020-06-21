@@ -11,7 +11,6 @@ function ChoiceMenu(props) {
         id={i}
         key={key.name}
         title={key.title}
-        // alt={key.routeBegins}
         onClick={props.onChoiceSelected}
       >{key.title}</button>
     );
