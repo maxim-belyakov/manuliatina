@@ -1,4 +1,8 @@
 let locations = {
+    begin: {
+        "title": "Begin",
+        "original": "black.png",
+    },
     myRoom: {
         "_id": "5ed4dcd2dd1b429f7d602212",
         "title": "Моя комната",
@@ -59,7 +63,7 @@ let locations = {
             {
                 "name": "forest_song.mp3",
                 "percent": 100,
-                "duration": 37000,
+                "duration": 30000,
             }
         ]
     },
