@@ -76,23 +76,71 @@ class App extends Component {
     // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
   }
 
+  handleChoiceSelected(event) {
+
+    let choice = {}
+
+    choice.name = event.currentTarget.name
+    choice.order = event.currentTarget.id
+    choice.title = event.currentTarget.title
+
+    this.setChoice(choice);    
+  }
+
+  renderChoiceMenu() {
+
+    const currentIndex = this.state.index;
+
+    const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
+
+    // requared TIME and SPECIAL
+
+    return (
+      <ChoiceMenu 
+        onChoiceSelected={this.handleChoiceSelected.bind(this)} 
+        choice={choice}
+      />
+    );
+  }
+
   setChoice(index) {
 
+    const previousIndex = this.state.index.slice()
+
+    let action = locations[previousIndex].navigation && locations[previousIndex].navigation[index.order] ? locations[previousIndex].navigation[index.order].action : null
+    let required = locations[previousIndex].navigation && locations[previousIndex].navigation[index.order] ? locations[previousIndex].navigation[index.order].required : null
+
+    // action: "cleanMyRoom"
+    // name: "hall"
+    // required: {timeOfDay: "day"}
+    // title: "Убрать пыль"
+
     // Add SPECIAL point to state
-    if (locations[index].special) {
-      console.log('locations[index].special', locations[index].special)
-    }
+    if (action) this.setState({ spicials: [...this.state.spicials, action] });
 
     // Change the frame
-    this.setFrame(index);
+    this.setFrame(index.name);
     
+  }
+
+  getTypeOfTime() {
+    let time
+    const hr = new Date().getHours()
+
+    if (hr > 4 && hr < 6) time = 'sunrise'
+    else if (hr > 6 && hr < 17) time = 'day'
+    else if (hr > 17 && hr < 23) time = 'sunset'
+    else if (hr > 0 && hr < 4) time = 'night'
+    else time = 'day'
+
+    return time
   }
 
   timeout(fn, ms) {
     setTimeout(() => { fn() }, ms);
   }
 
-  async setFrame(index) {
+  setFrame(index) {
 
     const previousIndex = this.state.index.slice()
 
@@ -101,25 +149,43 @@ class App extends Component {
       index = 'myRoom'
     }
 
-    // Determing of image
+    // Determing of image and music
 
     // Hours
 
-    // Special
+    let time = this.getTypeOfTime()
+    let image
+    let music
+
+
+    
+
+    
+    // for image: original, night, sunset, sunrise
+    // for music: music, musicNight, musicSunset, musicSunrise
+
+    // Special: day, night, sunset, sunrise
     // if we have two specials for one image, looks where order is lowers 
+
+    if (!locations[index].navigation) {
+      let duration;
+  
+      if (locations[index].music && locations[index].music[0].name && locations[index].music[0].duration) duration = locations[index].music[0].duration
+
+      this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
+    }
 
     this.setState({
       index: index,
       previousIndex: previousIndex,
       bg: require("../public/locations/" + locations[index].original),
-      bgm: require("../public/music/" + locations[index].music[0].name),
-      bgm2: locations[index].music[1] ? require("../public/music/" + locations[index].music[1].name) : null,
+      bgm: locations[index].music ? require("../public/music/" + locations[index].music[0].name) : null,
+      bgm2: locations[index].music && locations[index].music[1] ? require("../public/music/" + locations[index].music[1].name) : null,
       choicesExist: !!locations[index].navigation,
     });
 
     // TIMEOUT
-    if(!locations[index].navigation) {
-
+    if (!locations[index].navigation) {
       let duration;
   
       if (locations[index].music && locations[index].music[0].name && locations[index].music[0].duration) duration = locations[index].music[0].duration
@@ -135,28 +201,6 @@ class App extends Component {
         bg={this.state.bg}
         bgTransition={this.state.bgTransition}
         hasError={this.state.hasError}
-      />
-    );
-  }
-
-  handleChoiceSelected(event) {
-
-    this.setChoice(event.currentTarget.name);
-    
-  }
-
-  renderChoiceMenu() {
-
-    const currentIndex = this.state.index;
-
-    const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : []; // TODO: Wrong line
-
-    console.log('currentIndex', currentIndex)
-
-    return (
-      <ChoiceMenu 
-        onChoiceSelected={this.handleChoiceSelected.bind(this)} 
-        choice={choice}
       />
     );
   }
@@ -250,12 +294,12 @@ class App extends Component {
 
     // проверить куку specials и добавить содержимое в state
 
-    this.setFrame('sleep');
+    this.setFrame('begin');
 
     this.setState({
       titleScreenShown: false,
       frameIsRendering: true,
-      index: 'sleep',
+      index: 'begin',
       choice: locations.myRoom.navigation,
       hasError: [false, '']
     });
