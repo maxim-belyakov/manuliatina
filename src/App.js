@@ -46,7 +46,10 @@ const INITIAL_STATE = {
   saveMenuShown: false,
   loadMenuShown: false,
   hasError: [false, ''],
-  specials: []
+  specials: [],
+  logLocations: [
+
+  ]
 };
 
 class App extends Component {
@@ -96,8 +99,10 @@ class App extends Component {
     choice.name = event.currentTarget.name
     choice.order = event.currentTarget.id
     choice.title = event.currentTarget.title
+    
+    this.setState({ logLocations: [...this.state.logLocations, this.state.index] })
 
-    this.setChoice(choice);    
+    this.setChoice(choice);
   }
 
   renderChoiceMenu() {
@@ -105,10 +110,6 @@ class App extends Component {
     const currentIndex = this.state.index;
 
     const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
-
-    // required = locations[name].navigation[index.order].required
-
-    // requared TIME and SPECIAL
 
     return (
       <ChoiceMenu 
@@ -122,20 +123,15 @@ class App extends Component {
 
   setChoice(index) {
 
-    // const previousIndex = this.state.index.slice()
-    let name = index.name
-    let action = (locations[name].navigation && locations[name].navigation[index.order]) ? locations[name].navigation[index.order].action : null
+    let previousIndex = this.state.index
 
-    // action: "cleanMyRoom"
-    // name: "hall"
-    // required: {timeOfDay: "day"}
-    // title: "Убрать пыль"
+    let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
     // Change the frame
-    this.setFrame(index.name);
+    this.setFrame(index.name, action);
     
   }
 
@@ -143,9 +139,7 @@ class App extends Component {
     setTimeout(() => { fn() }, ms);
   }
 
-  setFrame(index) {
-
-    // console.log('setFrame! ----------- this.state.specials', this.state.specials)
+  setFrame(index, action) {
   
     const previousIndex = this.state.index.slice()
 
@@ -187,12 +181,28 @@ class App extends Component {
     // Special: day, night, sunset, sunrise
     // if we have two specials for one image, looks where order is lowers
 
-    if (currentLocation.special) {
-      let specials = currentLocation.special
-      for (let i in Object.values(specials)) {
-        let item = specials[i]
-        if (time === item.timeOfDay && this.state.specials.indexOf(item.name) > -1) image = item.image
+    if (currentLocation.specials) {
+      let currentSpecials = currentLocation.specials
+      let beforeSpecials = this.state.specials
+      let order = {
+        count: -1,
+        image: null,
       }
+
+      if (action) beforeSpecials.push(action)
+
+      for (let i in Object.values(currentSpecials)) {
+        let item = currentSpecials[i]
+
+        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) { 
+          order = { 
+            count: item.order,
+            image: item.image,
+          }
+        }
+      }
+
+      if (order.count > -1) image = order.image
     }
 
 

@@ -120,15 +120,71 @@ let locations = {
                 "duration": 105000,
             }
         ],
-        "special": [
+        "specials": [
             {
                 "name": "cleanMyRoom",
                 "image": "корридор гг 2.jpg",
                 "timeOfDay": "day",
                 "order": 0
+            },
+            {
+                "name": "cleanMyRoom1",
+                "image": "корридор гг 2------1.jpg",
+                "timeOfDay": "day",
+                "order": 1
+            },
+            {
+                "name": "cleanMyRoom2",
+                "image": "корридор гг 2------2.jpg",
+                "timeOfDay": "day",
+                "order": 2
+            },
+            {
+                "name": "cleanMyRoom3",
+                "image": "корридор гг 2------3.jpg",
+                "timeOfDay": "day",
+                "order": 3
+            },
+            {
+                "name": "cleanMyRoom4",
+                "image": "корридор гг 2------4.jpg",
+                "timeOfDay": "day",
+                "order": 4
             }
         ],
         "navigation": [
+            {
+                "name": "hall",
+                "required": {
+                    "timeOfDay": "day"
+                },
+                "action": "cleanMyRoom4",
+                "title": "Убрать пыль 4"
+            },
+            {
+                "name": "hall",
+                "required": {
+                    "timeOfDay": "day"
+                },
+                "action": "cleanMyRoom3",
+                "title": "Убрать пыль 3"
+            },
+            {
+                "name": "hall",
+                "required": {
+                    "timeOfDay": "day"
+                },
+                "action": "cleanMyRoom2",
+                "title": "Убрать пыль 2"
+            },
+            {
+                "name": "hall",
+                "required": {
+                    "timeOfDay": "day"
+                },
+                "action": "cleanMyRoom1",
+                "title": "Убрать пыль 1"
+            },
             {
                 "name": "hall",
                 "required": {

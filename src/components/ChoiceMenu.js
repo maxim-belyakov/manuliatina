@@ -2,7 +2,7 @@ import React from "react";
 
 function ChoiceMenu(props) {
 
-  function renderChoiceOptions(key, i, c) {
+  function renderChoiceOptions(key, i) {
 
     let checkRequired = true;
 
@@ -10,6 +10,10 @@ function ChoiceMenu(props) {
 
       // time checking
       if (key.required.timeOfDay && key.required.timeOfDay !== props.timeOfDay) checkRequired = false;
+      
+      // if we already did it
+      if (props.specials.indexOf(key.action) > -1) checkRequired = false;
+
 
       // specials checking
       if (key.required.special && props.specials) { 
@@ -29,7 +33,7 @@ function ChoiceMenu(props) {
         className="choice-button ripple"
         name={key.name}
         id={i}
-        key={key.name}
+        key={i}
         title={key.title}
         onClick={props.onChoiceSelected}
       >{key.title}</button>
