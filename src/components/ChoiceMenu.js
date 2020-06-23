@@ -14,7 +14,6 @@ function ChoiceMenu(props) {
       // if we already did it
       if (props.specials.indexOf(key.action) > -1) checkRequired = false;
 
-
       // specials checking
       if (key.required.special && props.specials) { 
         for (let i of Object.keys(key.required.special)) {

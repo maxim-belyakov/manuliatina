@@ -184,25 +184,17 @@ class App extends Component {
     if (currentLocation.specials) {
       let currentSpecials = currentLocation.specials
       let beforeSpecials = this.state.specials
-      let order = {
-        count: -1,
-        image: null,
-      }
+      let order = {}
 
       if (action) beforeSpecials.push(action)
 
       for (let i in Object.values(currentSpecials)) {
         let item = currentSpecials[i]
 
-        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) { 
-          order = { 
-            count: item.order,
-            image: item.image,
-          }
-        }
+        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.image
       }
 
-      if (order.count > -1) image = order.image
+      if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
     }
 
 
