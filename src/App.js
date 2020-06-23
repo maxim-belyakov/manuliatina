@@ -46,7 +46,7 @@ const INITIAL_STATE = {
   saveMenuShown: false,
   loadMenuShown: false,
   hasError: [false, ''],
-  spicials: []
+  specials: []
 };
 
 class App extends Component {
@@ -76,6 +76,19 @@ class App extends Component {
     // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
   }
 
+  getTypeOfTime() {
+    let time
+    const hr = new Date().getHours()
+
+    if (hr > 4 && hr < 6) time = 'sunrise'
+    else if (hr > 6 && hr < 17) time = 'day'
+    else if (hr > 17 && hr < 23) time = 'sunset'
+    else if (hr > 0 && hr < 4) time = 'night'
+    else time = 'day'
+
+    return time
+  }
+
   handleChoiceSelected(event) {
 
     let choice = {}
@@ -93,22 +106,25 @@ class App extends Component {
 
     const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
 
+    // required = locations[name].navigation[index.order].required
+
     // requared TIME and SPECIAL
 
     return (
       <ChoiceMenu 
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
         choice={choice}
+        timeOfDay={this.getTypeOfTime()}
+        specials={this.state.specials}
       />
     );
   }
 
   setChoice(index) {
 
-    const previousIndex = this.state.index.slice()
-
-    let action = locations[previousIndex].navigation && locations[previousIndex].navigation[index.order] ? locations[previousIndex].navigation[index.order].action : null
-    let required = locations[previousIndex].navigation && locations[previousIndex].navigation[index.order] ? locations[previousIndex].navigation[index.order].required : null
+    // const previousIndex = this.state.index.slice()
+    let name = index.name
+    let action = (locations[name].navigation && locations[name].navigation[index.order]) ? locations[name].navigation[index.order].action : null
 
     // action: "cleanMyRoom"
     // name: "hall"
@@ -116,24 +132,11 @@ class App extends Component {
     // title: "Убрать пыль"
 
     // Add SPECIAL point to state
-    if (action) this.setState({ spicials: [...this.state.spicials, action] });
+    if (action) this.setState({ specials: [...this.state.specials, action] });
 
     // Change the frame
     this.setFrame(index.name);
     
-  }
-
-  getTypeOfTime() {
-    let time
-    const hr = new Date().getHours()
-
-    if (hr > 4 && hr < 6) time = 'sunrise'
-    else if (hr > 6 && hr < 17) time = 'day'
-    else if (hr > 17 && hr < 23) time = 'sunset'
-    else if (hr > 0 && hr < 4) time = 'night'
-    else time = 'day'
-
-    return time
   }
 
   timeout(fn, ms) {
@@ -142,6 +145,8 @@ class App extends Component {
 
   setFrame(index) {
 
+    // console.log('setFrame! ----------- this.state.specials', this.state.specials)
+  
     const previousIndex = this.state.index.slice()
 
     const currentLocation = locations[index]
@@ -167,9 +172,9 @@ class App extends Component {
 
     if (time === 'sunset') {
       if (currentLocation.sunset) image = currentLocation.sunset
-      else if (currentLocation.night) image = currentLocation.night
+      else if (currentLocation.night) image = currentLocation.night // if now is sunset but has only night
       if (currentLocation.musicSunset) music = currentLocation.musicSunset
-      else if (currentLocation.musicNight) music = currentLocation.musicNight
+      else if (currentLocation.musicNight) music = currentLocation.musicNight // if now is sunset but has only night
     }
 
     if (time === 'sunrise') {
@@ -186,7 +191,7 @@ class App extends Component {
       let specials = currentLocation.special
       for (let i in Object.values(specials)) {
         let item = specials[i]
-        if (time === item.timeOfDay && !!this.state.spicials.indexOf(item.name)) image = item.image
+        if (time === item.timeOfDay && this.state.specials.indexOf(item.name) > -1) image = item.image
       }
     }
 

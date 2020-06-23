@@ -123,7 +123,7 @@ let locations = {
         "special": [
             {
                 "name": "cleanMyRoom",
-                "image": "корридор гг 2.png",
+                "image": "корридор гг 2.jpg",
                 "timeOfDay": "day",
                 "order": 0
             }
