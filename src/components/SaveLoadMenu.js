@@ -4,20 +4,17 @@ class SaveLoadMenu extends Component {
   constructor() {
     super(); //constructor init
 
-    this.state = {
-      slotNumber: 1
-    };
+    this.state = { slotNumber: 1 };
   }
 
   swapSlotButtons() {
     let buttonCache = [];
     for (let i = 1; i < 21; i++) {
       let style = {};
-      if (this.state.slotNumber === i) {
-        style["background-color"] = "darkGreen";
-      } else if (!JSON.parse(localStorage.getItem(i))) {
-        style["background-color"] = "gray";
-      }
+
+      if (this.state.slotNumber === i) style["background-color"] = "darkGreen";
+      else if (!JSON.parse(localStorage.getItem(i))) style["background-color"] = "gray";
+
       buttonCache.push(
         <button className="save-load-btn" onClick={() => this.setState({ slotNumber: i })} style={style}>
           {i}
@@ -29,10 +26,11 @@ class SaveLoadMenu extends Component {
   }
 
   renderChoiceMenu() {
+    console.log('JSON.parse(localStorage.getItem(this.state.slotNumber))', JSON.parse(localStorage.getItem(this.state.slotNumber)))
     return (
       <div className="overlay-choices overlay-choices-slot">
-        {JSON.parse(localStorage.getItem(this.state.slotNumber)).choiceOptions.map(key => (
-          <button className="choice-button">{key.content}</button>
+        {JSON.parse(localStorage.getItem(this.state.slotNumber)).choice.map(key => (
+          <button className="choice-button">{key.title}</button>
         ))}
       </div>
     );
@@ -49,12 +47,10 @@ class SaveLoadMenu extends Component {
               window.confirm(this.props.confirmationMessage)
             ) {
               this.props.executeSlot(this.state.slotNumber);
-            } else {
-              return
-            }
+            } else return
           }}
         >
-          {JSON.parse(localStorage.getItem(this.state.slotNumber)).choicesExist ? this.renderChoiceMenu() : null}
+          {JSON.parse(localStorage.getItem(this.state.slotNumber)).bg ? this.renderChoiceMenu() : null}
           <button>
             <img
               alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
@@ -62,25 +58,7 @@ class SaveLoadMenu extends Component {
               className="slot-bg"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
             />
-            <img
-              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteLeft}
-              draggable="false"
-              src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteLeft}
-              className="sprite left"
-            />
-            <img
-              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).sprite}
-              draggable="false"
-              src={JSON.parse(localStorage.getItem(this.state.slotNumber)).sprite}
-              className="sprite"
-            />
-            <img
-              alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteRight}
-              draggable="false"
-              src={JSON.parse(localStorage.getItem(this.state.slotNumber)).spriteRight}
-              className="sprite right"
-            />
-            {JSON.parse(localStorage.getItem(this.state.slotNumber)).text && this.props.textBoxShown ? (
+            {/* {JSON.parse(localStorage.getItem(this.state.slotNumber)).text && this.props.textBoxShown ? (
               <div
                 className="text-box"
                 style={{
@@ -92,7 +70,7 @@ class SaveLoadMenu extends Component {
                 ) : null}
                 <div className="text">{JSON.parse(localStorage.getItem(this.state.slotNumber)).text}</div>
               </div>
-            ) : null}
+            ) : null} */}
           </button>
         </div>
       );
