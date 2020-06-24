@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Slider from "react-rangeslider";
 import Select from "react-select";
+
+// import KeyHandler, { KEYDOWN, KEYUP } from "react-key-handler";
+
 import "react-rangeslider/lib/index.css";
 
 class GameMenu extends Component {
@@ -62,7 +65,7 @@ class GameMenu extends Component {
       soundEffectVolumeChange,
       voiceVolume,
       voiceVolumeChange,
-      toggleConfigMenu,
+      toggleGameMenu,
       toggleSaveMenu,
       toggleLoadMenu,
       saveMenuShown,
@@ -95,17 +98,25 @@ class GameMenu extends Component {
       }
     };
 
+    // function handleToggles(event, value, toggle) {
+    //   return <KeyHandler keyEventName={event} keyValue={value} onKeyHandle={toggle} />;
+    // }
+
     return (
       <div className="overlay" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
           <li>
             <span>Menu</span>
           </li>
-          <li className="exit-button" onClick={toggleConfigMenu}>
+          <li className="exit-button" onClick={toggleGameMenu}>
             <button >&times;</button>
           </li>
         </ul>
         <ul>
+          {/* {handleToggles(KEYDOWN, " ", props.toggleTextBox)}
+          {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
+          {handleToggles(KEYUP, "Enter", props.setNextFrame)} */}
+
           {this.category("Audio", audioShown, this.toggleAudio)}
           {this.category("Text", textShown, this.toggleText)}
           <button onClick={toggleSaveMenu}>{saveMenuShown ? "Hide Saves" : "Save"}</button>

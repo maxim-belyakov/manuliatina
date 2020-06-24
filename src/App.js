@@ -40,7 +40,7 @@ const INITIAL_STATE = {
   index: 'myRoom',
   choicesExist: false,
   menuShown: false,
-  titleScreenShown: true,
+  menuScreenShown: true,
   frameIsRendering: false,
   backlogShown: false,
   saveMenuShown: false,
@@ -66,7 +66,7 @@ class App extends Component {
           !this.state.choicesExist &&
           !this.state.loadMenuShown &&
           !this.state.saveMenuShown &&
-          !this.state.titleScreenShown &&
+          !this.state.menuScreenShown &&
           !this.state.menuShown
         ) {
           // this.toggleBacklog();
@@ -238,7 +238,7 @@ class App extends Component {
     );
   }
 
-  toggleConfigMenu() {
+  toggleGameMenu() {
     if (this.state.saveMenuShown) this.setState({ saveMenuShown: false });
     if (this.state.loadMenuShown) this.setState({ loadMenuShown: false });
     if (this.state.backlogShown) this.setState({ backlogShown: false });
@@ -330,7 +330,7 @@ class App extends Component {
     this.setFrame('begin');
 
     this.setState({
-      titleScreenShown: false,
+      menuScreenShown: false,
       frameIsRendering: true,
       index: 'begin',
       choice: locations.myRoom.navigation,
@@ -375,13 +375,13 @@ class App extends Component {
     );
   }
 
-  renderMenu() {
+  renderMenuButton() {
     return (
       <MenuButton
         menuButtonsShown={this.state.menuButtonsShown}
         saveSlot={this.saveSlot.bind(this)}
         loadSlot={this.loadSlot.bind(this)}
-        toggleConfigMenu={this.toggleConfigMenu.bind(this)}
+        toggleGameMenu={this.toggleGameMenu.bind(this)}
         menuShown={this.state.menuShown}
         toggleBacklog={this.toggleBacklog.bind(this)}
         toggleTextBox={this.toggleTextBox.bind(this)}
@@ -402,7 +402,7 @@ class App extends Component {
         bgmVolumeChange={value => this.setState({ bgmVolume: value })}
         soundEffectVolumeChange={value => this.setState({ soundEffectVolume: value })}
         voiceVolumeChange={value => this.setState({ voiceVolume: value })}
-        toggleConfigMenu={this.toggleConfigMenu.bind(this)}
+        toggleGameMenu={this.toggleGameMenu.bind(this)}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
         saveMenuShown={this.state.saveMenuShown}
@@ -479,7 +479,7 @@ class App extends Component {
             transitionEnterTimeout={400}
             transitionLeaveTimeout={400}
           >
-            {this.state.titleScreenShown ? this.titleScreen() : null}
+            {this.state.menuScreenShown ? this.titleScreen() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
             {/* GUI menu buttons */}
             {this.state.menuShown ? this.gameMenu() : null}
@@ -488,9 +488,9 @@ class App extends Component {
             {this.state.backlogShown ? this.backlog() : null}
             {/* {this.state.frameIsRendering ? this.renderFrame() : null} */}
             {this.state.choicesExist ? this.renderChoiceMenu() : null} 
+            {!this.state.menuScreenShown ? this.renderMenuButton() : null}
           </ReactCSSTransitionGroup>
         </Fullscreen>
-        {!this.state.titleScreenShown ? this.renderMenu() : null}
         {this.state.bgm ? this.playBGM() : null}
         {this.state.soundEffect ? this.playSoundEffect() : null}
         {this.state.voice ? this.playVoice() : null}

@@ -1,28 +1,17 @@
 import React from "react";
-import KeyHandler, { KEYDOWN, KEYUP } from "react-key-handler";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 function Menu(props) {
-  function handleToggles(event, value, toggle) {
-    return <KeyHandler keyEventName={event} keyValue={value} onKeyHandle={toggle} />;
-  }
+  function bgTransitionTime(key) { return 2000; }
 
   return (
-    <div className="container menu-buttons-container">
+    <div className="menu-buttons-container">
       <div className="menu-buttons">
-        {handleToggles(KEYDOWN, " ", props.toggleTextBox)}
-        {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
-        {handleToggles(KEYUP, "Enter", props.setNextFrame)}
-
-        {/* {props.isSkipping ?
-          ( <button onClick={props.stopSkip}>Stop</button> )
-          : 
-          ( <button onClick={props.startSkip}>Skip</button> )
-        } */}
-
-        {/* <button onClick={props.toggleSaveMenu}>{props.saveMenuShown ? "Hide Saves" : "Save"}</button>
-        <button onClick={props.toggleLoadMenu}>{props.loadMenuShown ? "Hide Loads" : "Load"}</button> */}
-        <button onClick={props.toggleConfigMenu}>{props.menuShown ? "Hide Settings" : "Settings"}</button>
-        {/* <button onClick={props.toggleFullscreen} style={{ float: "right" }}>Fullscreen</button> */}
+          {props.menuShown ? 
+            null 
+            : 
+            <img draggable="false" alt="settings-button" className="settings-button" src={require("../settings-button.png")} onClick={props.toggleGameMenu} />
+          }
       </div>
     </div>
   );

@@ -1,14 +1,38 @@
 .menu-buttons-container {
-  z-index: -1;
+  z-index: 3;
   overflow: visible;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
 }
 
-.menu-buttons {
-  position: relative;
-  top: 740px;
-  width: 100%;
-  float: left;
+.settings-button {
+  max-width: 70px;
+  align-self: center;
+  background: transparent;
+  transition: all 0.4s ease;
+  color: #41403e;
+  font-size: 24px;
+  letter-spacing: 1px;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.7;
 }
+
+
+.settings-button:hover {
+  /* For hidden button to appear from transparent */
+  -webkit-filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.8));
+  filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.8));
+  transform: rotate(23deg);
+  opacity: 1;
+}
+
+
+/* Not using anymore */
+
+.menu-buttons {}
 
 .menu-buttons button {
   /* credit source https://codepen.io/tmrDevelops/full/VeRvKX/ */

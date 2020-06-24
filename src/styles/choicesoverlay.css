@@ -1,5 +1,6 @@
 .overlay-choices {
   /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 2;
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
