@@ -1,7 +1,7 @@
 import React from "react";
 import KeyHandler, { KEYDOWN, KEYUP } from "react-key-handler";
 
-function MenuButtons(props) {
+function Menu(props) {
   function handleToggles(event, value, toggle) {
     return <KeyHandler keyEventName={event} keyValue={value} onKeyHandle={toggle} />;
   }
@@ -19,13 +19,13 @@ function MenuButtons(props) {
           ( <button onClick={props.startSkip}>Skip</button> )
         } */}
 
-        <button onClick={props.toggleSaveMenu}>{props.saveMenuShown ? "Hide Saves" : "Save"}</button>
-        <button onClick={props.toggleLoadMenu}>{props.loadMenuShown ? "Hide Loads" : "Load"}</button>
-        <button onClick={props.toggleConfigMenu}>{props.configMenuShown ? "Hide Settings" : "Settings"}</button>
-        <button onClick={props.toggleFullscreen} style={{ float: "right" }}>Fullscreen</button>
+        {/* <button onClick={props.toggleSaveMenu}>{props.saveMenuShown ? "Hide Saves" : "Save"}</button>
+        <button onClick={props.toggleLoadMenu}>{props.loadMenuShown ? "Hide Loads" : "Load"}</button> */}
+        <button onClick={props.toggleConfigMenu}>{props.menuShown ? "Hide Settings" : "Settings"}</button>
+        {/* <button onClick={props.toggleFullscreen} style={{ float: "right" }}>Fullscreen</button> */}
       </div>
     </div>
   );
 }
 
-export default MenuButtons;
+export default Menu;

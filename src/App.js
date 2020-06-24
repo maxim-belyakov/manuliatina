@@ -12,9 +12,9 @@ import locations from "./locations";
 // import TitleScreen from "./components/TitleScreen"; // DISABLE
 import Backlog from "./components/Backlog";
 import ChoiceMenu from "./components/ChoiceMenu";
-import ConfigMenu from "./components/ConfigMenu";
+import GameMenu from "./components/GameMenu";
 import RenderFrame from "./components/RenderFrame";
-import Settings from "./components/Settings";
+import MenuButton from "./components/MenuButton";
 import SaveLoadMenu from "./components/SaveLoadMenu";
 
 // CSS
@@ -39,7 +39,7 @@ const INITIAL_STATE = {
   previousIndex: '',
   index: 'myRoom',
   choicesExist: false,
-  configMenuShown: false,
+  menuShown: false,
   titleScreenShown: true,
   frameIsRendering: false,
   backlogShown: false,
@@ -67,7 +67,7 @@ class App extends Component {
           !this.state.loadMenuShown &&
           !this.state.saveMenuShown &&
           !this.state.titleScreenShown &&
-          !this.state.configMenuShown
+          !this.state.menuShown
         ) {
           // this.toggleBacklog();
         }
@@ -150,7 +150,7 @@ class App extends Component {
     if (!currentLocation) {
       this.setState({ hasError: [true, 'Что-то пошло не так :( Локация недоступна' + index] });
       console.error('Найдена локация, которой нет на карте локаций')
-      index = 'myRoom'
+      currentLocation = 'myRoom'
     }    
 
     // Hours: day, night, sunset, sunrise
@@ -243,13 +243,13 @@ class App extends Component {
     if (this.state.loadMenuShown) this.setState({ loadMenuShown: false });
     if (this.state.backlogShown) this.setState({ backlogShown: false });
     this.setState(prevState => ({
-      configMenuShown: !prevState.configMenuShown
+      menuShown: !prevState.menuShown
     }));
   }
 
   toggleBacklog() {
-    if (this.state.configMenuShown) {
-      this.setState({ configMenuShown: false });
+    if (this.state.menuShown) {
+      this.setState({ menuShown: false });
     }
     if (this.state.saveMenuShown) {
       this.setState({ saveMenuShown: false });
@@ -269,8 +269,8 @@ class App extends Component {
   }
 
   toggleSaveMenu() {
-    if (this.state.configMenuShown) {
-      this.setState({ configMenuShown: false });
+    if (this.state.menuShown) {
+      this.setState({ menuShown: false });
     }
     if (this.state.loadMenuShown) {
       this.setState({ loadMenuShown: false });
@@ -284,8 +284,8 @@ class App extends Component {
   }
 
   toggleLoadMenu() {
-    if (this.state.configMenuShown) {
-      this.setState({ configMenuShown: false });
+    if (this.state.menuShown) {
+      this.setState({ menuShown: false });
     }
     if (this.state.saveMenuShown) {
       this.setState({ saveMenuShown: false });
@@ -347,9 +347,53 @@ class App extends Component {
     // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;  // DISABLE
   }
 
-  configMenu() {
+  saveMenu() {
     return (
-      <ConfigMenu
+      <SaveLoadMenu
+        choicesExist={this.state.choicesExist}
+        choiceOptions={this.state.index}
+        confirmationMessage="Overwrite save?"
+        currentTime={this.state.currentTime}
+        menuType="Save"
+        executeSlot={this.saveSlot.bind(this)}
+        toggleMenu={this.toggleSaveMenu.bind(this)}
+      />
+    );
+  }
+
+  loadMenu() {
+    return (
+      <SaveLoadMenu
+        choicesExist={this.state.choicesExist}
+        choiceOptions={this.state.index}
+        confirmationMessage="Load save?"
+        currentTime={this.state.currentTime}
+        menuType="Load"
+        executeSlot={this.loadSlot.bind(this)}
+        toggleMenu={this.toggleLoadMenu.bind(this)}
+      />
+    );
+  }
+
+  renderMenu() {
+    return (
+      <MenuButton
+        menuButtonsShown={this.state.menuButtonsShown}
+        saveSlot={this.saveSlot.bind(this)}
+        loadSlot={this.loadSlot.bind(this)}
+        toggleConfigMenu={this.toggleConfigMenu.bind(this)}
+        menuShown={this.state.menuShown}
+        toggleBacklog={this.toggleBacklog.bind(this)}
+        toggleTextBox={this.toggleTextBox.bind(this)}
+        backlogShown={this.state.backlogShown}
+        isSkipping={this.state.isSkipping}
+      />
+    );
+  }
+
+  gameMenu() {
+    return (
+      <GameMenu
         changeFont={newFont => this.setState({ font: newFont.label })}
         font={this.state.font}
         bgmVolume={this.state.bgmVolume}
@@ -359,59 +403,11 @@ class App extends Component {
         soundEffectVolumeChange={value => this.setState({ soundEffectVolume: value })}
         voiceVolumeChange={value => this.setState({ voiceVolume: value })}
         toggleConfigMenu={this.toggleConfigMenu.bind(this)}
-      />
-    );
-  }
-
-  saveMenu() {
-    return (
-      <SaveLoadMenu
-        choicesExist={this.state.choicesExist}
-        choiceOptions={this.state.choiceOptions}
-        confirmationMessage="Overwrite save?"
-        currentTime={this.state.currentTime}
-        menuType="Save"
-        executeSlot={this.saveSlot.bind(this)}
-        toggleMenu={this.toggleSaveMenu.bind(this)}
-        speaker={this.state.speaker}
-        text={this.state.text}
-      />
-    );
-  }
-
-  loadMenu() {
-    return (
-      <SaveLoadMenu
-        choicesExist={this.state.choicesExist}
-        choiceOptions={this.state.choiceOptions}
-        confirmationMessage="Load save?"
-        currentTime={this.state.currentTime}
-        menuType="Load"
-        executeSlot={this.loadSlot.bind(this)}
-        toggleMenu={this.toggleLoadMenu.bind(this)}
-        speaker={this.state.speaker}
-        text={this.state.text}
-      />
-    );
-  }
-
-  renderSettings() {
-    return (
-      <Settings
-        menuButtonsShown={this.state.menuButtonsShown}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
-        saveSlot={this.saveSlot.bind(this)}
-        loadSlot={this.loadSlot.bind(this)}
         saveMenuShown={this.state.saveMenuShown}
         loadMenuShown={this.state.loadMenuShown}
-        toggleConfigMenu={this.toggleConfigMenu.bind(this)}
-        configMenuShown={this.state.configMenuShown}
-        toggleBacklog={this.toggleBacklog.bind(this)}
-        toggleTextBox={this.toggleTextBox.bind(this)}
         toggleFullscreen={() => this.setState({ isFull: true })}
-        backlogShown={this.state.backlogShown}
-        isSkipping={this.state.isSkipping}
       />
     );
   }
@@ -486,7 +482,7 @@ class App extends Component {
             {this.state.titleScreenShown ? this.titleScreen() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
             {/* GUI menu buttons */}
-            {this.state.configMenuShown ? this.configMenu() : null}
+            {this.state.menuShown ? this.gameMenu() : null}
             {this.state.saveMenuShown ? this.saveMenu() : null}
             {this.state.loadMenuShown ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
@@ -494,7 +490,7 @@ class App extends Component {
             {this.state.choicesExist ? this.renderChoiceMenu() : null} 
           </ReactCSSTransitionGroup>
         </Fullscreen>
-        {!this.state.titleScreenShown ? this.renderSettings() : null}
+        {!this.state.titleScreenShown ? this.renderMenu() : null}
         {this.state.bgm ? this.playBGM() : null}
         {this.state.soundEffect ? this.playSoundEffect() : null}
         {this.state.voice ? this.playVoice() : null}

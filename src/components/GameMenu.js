@@ -3,7 +3,7 @@ import Slider from "react-rangeslider";
 import Select from "react-select";
 import "react-rangeslider/lib/index.css";
 
-class ConfigMenu extends Component {
+class GameMenu extends Component {
   constructor() {
     super(); //constructor init
 
@@ -11,6 +11,7 @@ class ConfigMenu extends Component {
       audioShown: true,
       textShown: false
     };
+
     this.toggleAudio = this.toggleAudio.bind(this);
     this.toggleText = this.toggleText.bind(this);
   }
@@ -61,7 +62,12 @@ class ConfigMenu extends Component {
       soundEffectVolumeChange,
       voiceVolume,
       voiceVolumeChange,
-      toggleConfigMenu
+      toggleConfigMenu,
+      toggleSaveMenu,
+      toggleLoadMenu,
+      saveMenuShown,
+      loadMenuShown,
+      toggleFullscreen
     } = this.props;
     const options = [
       { label: "Arial" },
@@ -93,7 +99,7 @@ class ConfigMenu extends Component {
       <div className="overlay" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
           <li>
-            <span>Config</span>
+            <span>Menu</span>
           </li>
           <li className="exit-button" onClick={toggleConfigMenu}>
             <button >&times;</button>
@@ -102,6 +108,9 @@ class ConfigMenu extends Component {
         <ul>
           {this.category("Audio", audioShown, this.toggleAudio)}
           {this.category("Text", textShown, this.toggleText)}
+          <button onClick={toggleSaveMenu}>{saveMenuShown ? "Hide Saves" : "Save"}</button>
+          <button onClick={toggleLoadMenu}>{loadMenuShown ? "Hide Loads" : "Load"}</button>
+          <button onClick={toggleFullscreen} style={{ float: "right" }}>Fullscreen</button>
         </ul>
         <div id="config-body">
           {audioShown ? (
@@ -128,4 +137,4 @@ class ConfigMenu extends Component {
   }
 }
 
-export default ConfigMenu;
+export default GameMenu;
