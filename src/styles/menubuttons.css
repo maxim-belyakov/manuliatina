@@ -1,3 +1,7 @@
+.game-menu {
+  width: 100%;
+}
+
 .menu-buttons-container {
   z-index: 3;
   overflow: visible;

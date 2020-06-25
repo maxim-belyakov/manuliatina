@@ -103,7 +103,7 @@ class GameMenu extends Component {
     // }
 
     return (
-      <div className="overlay" id="config-overlay" style={{ fontFamily: font }}>
+      <div className="overlay game-menu" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
           <li>
             <span>Menu</span>
