@@ -61,7 +61,6 @@ function RenderFrame(props) {
           draggable
           pauseOnHover
         />
-
         <img draggable="false" key={props.bg} alt={props.bg} className="bg" src={props.bg} />
 
       </ReactCSSTransitionGroup>
