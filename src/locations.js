@@ -4,7 +4,6 @@ let locations = {
         "original": "black.png",
     },
     myRoom: {
-        "_id": "5ed4dcd2dd1b429f7d602212",
         "title": "Моя комната",
         "original": "комната гг 7.jpg",
         "sunrise": "комната гг 5.jpg",
@@ -28,20 +27,20 @@ let locations = {
             {
                 "name": "Sunset.mp3",
                 "percent": 100,
-                "duration": 120600,
+                "duration": 126000,
             }
         ],
         "musicNight": [
             {
                 "name": "Sunset.mp3",
                 "percent": 100,
-                "duration": 12060,
+                "duration": 126000,
             }
         ],
         "navigation": [
             {
                 "name": "hall",
-                "title": "Выйти в Коридор"
+                "title": "Выйти в коридор"
             },
             {
                 "name": "shower",
@@ -137,17 +136,20 @@ let locations = {
         "music": [
             {
                 "name": "morning_birds.mp3",
-                "percent": 20
+                "percent": 20,
+                "duration": 153000,
             },
             {
                 "name": "Neon.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "musicNight": [
             {
                 "name": "night_sounds.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "navigation": [
@@ -193,17 +195,20 @@ let locations = {
         "music": [
             {   
                 "name": "clear_birds.mp3",
-                "percent": 25
+                "percent": 25,
+                "duration": 50000,
             },
             {   
                 "name": "Neon.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000
             }
         ],
         "musicNight": [
             {
                 "name": "night_sounds.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "navigation": [
@@ -232,17 +237,20 @@ let locations = {
         "music": [
             {   
                 "name": "woodpecker.mp3",
-                "percent": 25
+                "percent": 25,
+                "duration": 90000,
             },
             {   
                 "name": "Neon.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "musicNight": [
             {
                 "name": "night_sounds.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "navigation": [
@@ -281,7 +289,8 @@ let locations = {
         "music": [
             {   
                 "name": "beatiful_forest_and_water.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 77000,
             }
         ],
         "navigation": [
@@ -314,31 +323,37 @@ let locations = {
         "music": [
             {   
                 "name": "happy_birds.mp3",
-                "percent": 33
+                "percent": 33,
+                "duration": 73000,
             },
             {   
                 "name": "Field.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 105000,
             }
         ],
         "musicNight": [
             {   
                 "name": "Podzakat.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 96000,
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 21000,
             }
         ],
         "musicSunset": [
             {   
                 "name": "Podzakat.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 96000,
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 21000,
             }
         ],
         "navigation": [
@@ -382,31 +397,37 @@ let locations = {
         "music": [
             {   
                 "name": "happy_birds.mp3",
-                "percent": 33
+                "percent": 33,
+                "duration": 73000,
             },
             {   
                 "name": "Field.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 105000,
             }
         ],
         "musicNight": [
             {   
                 "name": "Podzakat.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 96000,
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 21000,
             }
         ],
         "musicSunset": [
             {   
                 "name": "Podzakat.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 96000,
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 21000,
             }
         ],
         "navigation": [
@@ -448,7 +469,8 @@ let locations = {
         "music": [
             {   
                 "name": "Shkatulka_2.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 39000,
             }
         ],
         "navigation": [
@@ -474,11 +496,13 @@ let locations = {
         "music": [
             {
                 "name": "morning_birds.mp3",
-                "percent": 20
+                "percent": 20,
+                "duration": 153000,
             },
             {
                 "name": "Neon.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000,
             }
         ],
         "navigation": [
@@ -503,7 +527,8 @@ let locations = {
         "music": [
             {
                 "name": "Shkatulka.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 93000,
             }
         ],
         "navigation": [
@@ -523,7 +548,8 @@ let locations = {
         "music": [
             {
                 "name": "Snow Mood (yenia).mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 180000,
             }
         ],
         "navigation": [
@@ -556,7 +582,8 @@ let locations = {
         "music": [
             {
                 "name": "Shkatulka.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 93000,
             }
         ]
     },
@@ -566,11 +593,13 @@ let locations = {
         "music": [
             {
                 "name": "morning_birds.mp3",
-                "percent": 20
+                "percent": 20,
+                "duration": 153000,
             },
             {
                 "name": "Neon.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 135000
             }
         ],
         "navigation": [
@@ -591,7 +620,8 @@ let locations = {
         "music": [
             {
                 "name": "Fling (janett).mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 210000,
             }
         ],
         "navigation": [
@@ -626,13 +656,15 @@ let locations = {
         "music": [
             {
                 "name": "Navprostets.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 210000,
             }
         ],
         "musicNight": [
             {
                 "name": "Kolibelnaya.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 122000,
             }
         ],
         "navigation": [
@@ -664,15 +696,10 @@ let locations = {
         "title": "Кустики",
         "original": "Белашья 4.jpg",
         "music": [
-            {
-                "name": "Navprostets.mp3",
-                "percent": 100
-            }
-        ],
-        "musicNight": [
-            {
-                "name": "Kolibelnaya.mp3",
-                "percent": 100
+            {   
+                "name": "Cafe del Mar (bel).mp3",
+                "percent": 100,
+                "duration": 160000,
             }
         ],
         "navigation": [
@@ -704,7 +731,8 @@ let locations = {
         "music": [
             {
                 "name": "MaxZim.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 205000,
             }
         ],
         "navigation": [
@@ -725,7 +753,8 @@ let locations = {
         "music": [
             {
                 "name": "MaxZim.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 205000,
             }
         ],
         "navigation": [
@@ -746,7 +775,8 @@ let locations = {
         "music": [
             {
                 "name": "MaxZim.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 205000,
             }
         ],
         "navigation": [
@@ -774,7 +804,8 @@ let locations = {
         "music": [
             {
                 "name": "MaxZim.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 205000,
             }
         ],
         "navigation": [
@@ -794,7 +825,8 @@ let locations = {
         "music": [
             {
                 "name": "MaxZim.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 205000,
             }
         ],
         "navigation": [
@@ -814,7 +846,8 @@ let locations = {
         "music": [
             {
                 "name": "Buters.mp3",
-                "percent": 100
+                "percent": 100,
+                "duration": 178000,
             }
         ],
         "navigation": [
@@ -847,10 +880,12 @@ let locations = {
             {
                 "name": "waterfall.mp3",
                 "percent": 100,
+                "duration": 15000,
             },
             {
                 "name": "happy_birds.mp3",
                 "percent": 100,
+                "duration": 73000,
             }
         ]
     },
@@ -862,6 +897,7 @@ let locations = {
             {
                 "name": "Sny.mp3",
                 "percent": 100,
+                "duration": 103000,
             }
         ],
         "navigation": [
@@ -879,6 +915,7 @@ let locations = {
             {
                 "name": "Klon.mp3",
                 "percent": 100,
+                "duration": 107000,
             }
         ],
         "navigation": [
