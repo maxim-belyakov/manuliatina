@@ -40,7 +40,7 @@ const INITIAL_STATE = {
   index: 'myRoom',
   choicesExist: false,
   menuShown: false,
-  menuScreenShown: true,
+  beginStory: true,
   frameIsRendering: false,
   backlogShown: false,
   saveMenuShown: false,
@@ -66,7 +66,6 @@ class App extends Component {
           !this.state.choicesExist &&
           !this.state.loadMenuShown &&
           !this.state.saveMenuShown &&
-          !this.state.menuScreenShown &&
           !this.state.menuShown
         ) {
           // this.toggleBacklog();
@@ -108,11 +107,10 @@ class App extends Component {
   renderChoiceMenu() {
 
     const currentIndex = this.state.index;
-
     const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
 
     return (
-      <ChoiceMenu 
+      <ChoiceMenu
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
         choice={choice}
         timeOfDay={this.getTypeOfTime()}
@@ -129,6 +127,8 @@ class App extends Component {
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
+
+    console.log('index.name', index.name, 'action', action)
 
     // Change the frame
     this.setFrame(index.name, action);
@@ -214,8 +214,10 @@ class App extends Component {
       bg: require("../public/locations/" + image),
       bgm: music[0] ? require("../public/music/" + music[0].name) : null,
       bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
-      choicesExist: !!currentLocation.navigation,
+      choicesExist: false,
     });
+
+    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation,}), 3000)
 
     // TIMEOUT
     if (!currentLocation.navigation) {
@@ -230,6 +232,7 @@ class App extends Component {
   renderFrame() {
     return (
       <RenderFrame
+        index={this.state.index}
         font={this.state.font}
         bg={this.state.bg}
         bgTransition={this.state.bgTransition}
@@ -330,21 +333,15 @@ class App extends Component {
     this.setFrame('begin');
 
     this.setState({
-      menuScreenShown: false,
+      beginStory: false,
       frameIsRendering: true,
       index: 'begin',
       choice: locations.myRoom.navigation,
-      hasError: [false, '']
+      hasError: [false, ''],
+      // menuButtonShown: true,
     });
 
     setTimeout(() => { this.setFrame('myRoom'); }, 3000)
-  }
-
-  titleScreen() {
-
-    this.beginStory()
-    
-    // return <TitleScreen beginStory={this.beginStory.bind(this)} toggleLoadMenu={this.toggleLoadMenu.bind(this)} />;  // DISABLE
   }
 
   saveMenu() {
@@ -444,24 +441,6 @@ class App extends Component {
               ignoreMobileRestrictions={true}
             />;
   }
-  playSoundEffect() {
-    return (
-      <Sound 
-        url={this.state.soundEffect} 
-        volume={this.state.soundEffectVolume} 
-        playStatus={Sound.status.PLAYING}
-        ignoreMobileRestrictions={true}
-      />
-    );
-  }
-  playVoice() {
-    return <Sound 
-              url={this.state.voice} 
-              volume={this.state.voiceVolume} 
-              playStatus={Sound.status.PLAYING}
-              ignoreMobileRestrictions={true}
-            />;
-  }
 
   render() {
     let zoomMultiplier = 0;
@@ -479,24 +458,24 @@ class App extends Component {
             transitionEnterTimeout={400}
             transitionLeaveTimeout={400}
           >
-            {this.state.menuScreenShown ? this.titleScreen() : null}
+            {this.state.beginStory ? this.beginStory() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
             {/* GUI menu buttons */}
+            {this.state.choicesExist ? this.renderChoiceMenu() : null} 
+            {!this.state.menuShown ? this.renderMenuButton() : null}
             {this.state.menuShown ? this.gameMenu() : null}
             {this.state.saveMenuShown ? this.saveMenu() : null}
             {this.state.loadMenuShown ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
-            {/* {this.state.frameIsRendering ? this.renderFrame() : null} */}
-            {this.state.choicesExist ? this.renderChoiceMenu() : null} 
-            {!this.state.menuScreenShown ? this.renderMenuButton() : null}
           </ReactCSSTransitionGroup>
         </Fullscreen>
         {this.state.bgm ? this.playBGM() : null}
-        {this.state.soundEffect ? this.playSoundEffect() : null}
-        {this.state.voice ? this.playVoice() : null}
+        {/* bgm2 */}
       </div>
     );
   }
 }
+
+
 
 export default App;

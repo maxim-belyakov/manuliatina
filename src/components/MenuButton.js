@@ -7,11 +7,7 @@ function Menu(props) {
   return (
     <div className="menu-buttons-container">
       <div className="menu-buttons">
-          {props.menuShown ? 
-            null 
-            : 
-            <img draggable="false" alt="settings-button" className="settings-button" src={require("../settings-button.png")} onClick={props.toggleGameMenu} />
-          }
+        <img draggable="false" alt="settings-button" className="settings-button" src={require("../settings-button.png")} onClick={props.toggleGameMenu} />
       </div>
     </div>
   );

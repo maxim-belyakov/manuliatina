@@ -8,21 +8,21 @@ let errorCache
 
 function RenderFrame(props) {
 
-  function bgTransitionTime(key) { return 2000; }
+  function bgTransitionTime(key) { return props.index === 'begin' ? 0 : 2000; }
   
-  function spriteTransitionTime(key) {
-    if (
-      props[key] === "move-left" ||
-      props[key] === "move-left-far" ||
-      props[key] === "move-right" ||
-      props[key] === "move-right-far" ||
-      props[key] === "from-left-leave-right" ||
-      props[key] === "from-right-leave-left"
-    ) return 1200;
-    else if (props[key] === "shake") return 700;
-    else if (props[key] === "bounce") return 400;
-    else return 250;
-  }
+  // function spriteTransitionTime(key) {
+  //   if (
+  //     props[key] === "move-left" ||
+  //     props[key] === "move-left-far" ||
+  //     props[key] === "move-right" ||
+  //     props[key] === "move-right-far" ||
+  //     props[key] === "from-left-leave-right" ||
+  //     props[key] === "from-right-leave-left"
+  //   ) return 1200;
+  //   else if (props[key] === "shake") return 700;
+  //   else if (props[key] === "bounce") return 400;
+  //   else return 250;
+  // }
 
   const hasError = () => {
 

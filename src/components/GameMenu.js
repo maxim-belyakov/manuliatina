@@ -47,7 +47,7 @@ class GameMenu extends Component {
 
   slider(type, value, onChangeFunction) {
     return (
-      <div class="config-container slider-container">
+      <div className="config-container slider-container">
         <span>{type}</span>
         <Slider value={value} onChange={onChangeFunction} />
       </div>

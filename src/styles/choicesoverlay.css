@@ -4,6 +4,7 @@
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  transition: 1s;
 }
 
 .overlay .choice-button {
