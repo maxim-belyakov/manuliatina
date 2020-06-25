@@ -32,6 +32,8 @@ import "./styles/transitions.css";
 
 const INITIAL_STATE = {
   bgmVolume: 80,
+  bgmVolumeLogic: 100,
+  bgmVolumeLogic2: 100,
   soundEffectVolume: 90,
   voiceVolume: 100,
   font: "Trebuchet MS",
@@ -47,9 +49,7 @@ const INITIAL_STATE = {
   loadMenuShown: false,
   hasError: [false, ''],
   specials: [],
-  logLocations: [
-
-  ]
+  logLocations: []
 };
 
 class App extends Component {
@@ -213,7 +213,9 @@ class App extends Component {
       previousIndex: previousIndex,
       bg: require("../public/locations/" + image),
       bgm: music[0] ? require("../public/music/" + music[0].name) : null,
+      bgmVolumeLogic: music[0] ? music[0].percent : null,
       bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
+      bgmVolumeLogic2: music[1] ? music[1].percent : null,
       choicesExist: false,
     });
 
@@ -435,7 +437,17 @@ class App extends Component {
   playBGM() {
     return <Sound
               url={this.state.bgm} 
-              volume={this.state.bgmVolume} 
+              volume={this.state.bgmVolumeLogic / 100 * this.state.bgmVolume} 
+              playStatus={Sound.status.PLAYING} 
+              loop={true}
+              ignoreMobileRestrictions={true}
+            />;
+  }
+
+  playBGM2() {
+    return <Sound
+              url={this.state.bgm2} 
+              volume={this.state.bgmVolumeLogic2 / 100 * this.state.bgmVolume} 
               playStatus={Sound.status.PLAYING} 
               loop={true}
               ignoreMobileRestrictions={true}
@@ -470,6 +482,7 @@ class App extends Component {
           </ReactCSSTransitionGroup>
         </Fullscreen>
         {this.state.bgm ? this.playBGM() : null}
+        {this.state.bgm2 ? this.playBGM2() : null}
         {/* bgm2 */}
       </div>
     );
