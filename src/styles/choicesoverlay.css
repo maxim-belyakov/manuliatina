@@ -1,0 +1,83 @@
+.overlay-choices {
+  /* background-color: rgba(0, 0, 0, 0.5); */
+  z-index: 2;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  transition: 1s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.overlay .choice-button {
+  font-size: 25px;
+  min-width: 200px;
+  margin: 5px auto;
+  background-color: unset;
+  border: none;
+  color: white;
+  padding: 6px 0px;
+  cursor: pointer;
+  display: block;
+}
+
+.choices-container {
+  background: linear-gradient(0deg, rgba(14, 45, 22, 0.5) 0%, rgba(0,0,0,0.5) 50%);
+  background-clip: padding-box;
+  margin: 30px;
+  padding: 15px 50px;
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 40px;
+}
+
+@media only screen and (max-width: 833px) {
+  .overlay .choice-button {
+    padding: 10px 0px;
+    font-size: 20px;
+    width: 90%;
+  }
+}
+
+/* .overlay-choices button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.overlay-choices button:active {
+  background-color: rgba(255, 255, 255, 0.15);
+} */
+
+.overlay-choices button:focus {
+  outline: unset;
+}
+
+.ripple {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple:after {
+    content: "";
+    background: rgba(255,255,255,0.3);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    padding-top: 240%;
+    padding-left: 240%;
+    margin-top: -120%;
+    margin-left: -120%;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.ripple:active:after {
+    padding-top: 0;
+    padding-left: 0;
+    margin-top: 0;
+    margin-left: 0;
+    opacity: 1;
+    transition: 0s;
+}
