@@ -11,7 +11,7 @@ class GameMenu extends Component {
     super(); //constructor init
 
     this.state = {
-      audioShown: true,
+      audioShown: false,
       textShown: false
     };
 
@@ -117,11 +117,15 @@ class GameMenu extends Component {
           {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
           {handleToggles(KEYUP, "Enter", props.setNextFrame)} */}
 
+          {this.category("Save", saveMenuShown, toggleSaveMenu)}
+          {this.category("Load", loadMenuShown, toggleLoadMenu)}
           {this.category("Audio", audioShown, this.toggleAudio)}
           {this.category("Text", textShown, this.toggleText)}
-          <button onClick={toggleSaveMenu}>{saveMenuShown ? "Hide Saves" : "Save"}</button>
-          <button onClick={toggleLoadMenu}>{loadMenuShown ? "Hide Loads" : "Load"}</button>
-          <button onClick={toggleFullscreen} style={{ float: "right" }}>Fullscreen</button>
+          {this.category("Fullscreen", null, toggleFullscreen)}
+
+          {/* <button onClick={toggleSaveMenu}>{saveMenuShown ? "Hide Saves" : "Save"}</button> */}
+          {/* <button onClick={toggleLoadMenu}>{loadMenuShown ? "Hide Loads" : "Load"}</button> */}
+          {/* <button onClick={toggleFullscreen} style={{ float: "right" }}>Fullscreen</button> */}
         </ul>
         <div id="config-body">
           {audioShown ? (
