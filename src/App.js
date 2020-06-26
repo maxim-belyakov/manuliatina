@@ -137,17 +137,20 @@ class App extends Component {
     setTimeout(() => { fn() }, ms);
   }
 
+  setError (publicMessage, consoleMessage) {
+    this.setState({ hasError: [true, publicMessage] });
+    console.error(consoleMessage)
+  }
+
   setFrame(index, action) {
   
     const previousIndex = this.state.index.slice()
-
     const currentLocation = locations[index]
 
     // location is not found
 
     if (!currentLocation) {
-      this.setState({ hasError: [true, 'Что-то пошло не так :( Локация недоступна' + index] });
-      console.error('Найдена локация, которой нет на карте локаций')
+      this.setError('Что-то пошло не так :( Локация недоступна' + index, 'Найдена локация, которой нет на карте локаций')
       currentLocation = 'myRoom'
     }    
 
@@ -202,15 +205,14 @@ class App extends Component {
       let duration;
   
       if (currentLocation.music && currentLocation.music[0].name && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
-
+      
       this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }
 
     // location is not found
 
     if (!image) {
-      this.setState({ hasError: [true, 'Что-то пошло не так :( Фотография локации недоступна'] });
-      console.error('Найдена локация, которой нет на карте локаций')
+      this.setError('Что-то пошло не так :( Фотография локации недоступна', `Перед окончательным setState image = ${image}`)
       image = 'black.png'
     }    
 
@@ -473,8 +475,8 @@ class App extends Component {
             className="container"
             component="div"
             transitionName="menu"
-            transitionEnterTimeout={400}
-            transitionLeaveTimeout={400}
+            transitionEnterTimeout={50}
+            transitionLeaveTimeout={50}
           >
             {this.state.beginStory ? this.beginStory() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
