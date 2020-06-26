@@ -128,8 +128,6 @@ class App extends Component {
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
-    console.log('index.name', index.name, 'action', action)
-
     // Change the frame
     this.setFrame(index.name, action);
     
@@ -191,7 +189,7 @@ class App extends Component {
       for (let i in Object.values(currentSpecials)) {
         let item = currentSpecials[i]
 
-        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.image
+        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
       }
 
       if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
@@ -207,6 +205,14 @@ class App extends Component {
 
       this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }
+
+    // location is not found
+
+    if (!image) {
+      this.setState({ hasError: [true, 'Что-то пошло не так :( Фотография локации недоступна'] });
+      console.error('Найдена локация, которой нет на карте локаций')
+      image = 'black.png'
+    }    
 
     this.setState({
       index: index,

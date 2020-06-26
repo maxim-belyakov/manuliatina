@@ -76,7 +76,7 @@ let locations = {
         "specials": [
             {
                 "name": "cleanMyRoom",
-                "image": "корридор гг 2.jpg",
+                "original": "корридор гг 2.jpg",
                 "timeOfDay": "day",
                 "order": 0
             }
@@ -85,7 +85,10 @@ let locations = {
             {
                 "name": "hall",
                 "required": {
-                    "timeOfDay": "day"
+                    "timeOfDay": "day",
+                    "specials": {
+                        "cleanMyRoom": false
+                    }
                 },
                 "action": "cleanMyRoom",
                 "title": "Убрать пыль"
@@ -96,7 +99,7 @@ let locations = {
             },
             {
                 "name": "shower",
-                "timeout": "true",
+                "timeout": true,
                 "title": "Принять душ"
             },
             {
@@ -362,8 +365,8 @@ let locations = {
                 "title": "Углубиться",
                 "required": {
                     "timeOfDay": "day",
-                    "special": {
-                        "repairedHouse": "false"
+                    "specials": {
+                        "repairedHouse": false
                     }
         
                 }
@@ -376,10 +379,9 @@ let locations = {
                 "name": "treeHouse",
                 "title": "Домик на дереве",
                 "required": {
-                    "special": {
-                        "repairedHouse": "true"
-                    }
-        
+                    "specials": {
+                        "repairedHouse": true
+                    }        
                 }
             }
         ]
@@ -387,10 +389,11 @@ let locations = {
     nearTreeHouse: {
         "title": "Старый домик на дереве",
         "original": "Поломанный.jpg",
-        "special": [
+        "specials": [
             {
                 "name": "repairedHouse",
                 "original": "Починенный.jpg",
+                "timeOfDay": "day",
                 "order": 0
             }
         ],
@@ -435,8 +438,8 @@ let locations = {
                 "name": "nearTreeHouse",
                 "title": "Починить",
                 "required": {
-                    "special": {
-                        "repairedHouse": "false"
+                    "specials": {
+                        "repairedHouse": false
                     }        
                 },
                 "action": "repairedHouse",
@@ -446,11 +449,11 @@ let locations = {
                 "title": "Вернуться"
             },
             {
-                "name": "nearTreeHouse",
+                "name": "treeHouse",
                 "title": "Заползти внутрь",
                 "required": {
-                    "special": {
-                        "repairedHouse": "true"
+                    "specials": {
+                        "repairedHouse": true
                     }        
                 }
             }
@@ -459,10 +462,11 @@ let locations = {
     treeHouse: {
         "title": "Домик на дереве",
         "original": "прибранный домик 2.jpg",
-        "special": [
+        "specials": [
             {
                 "name": "decoratedHouse",
                 "original": "наряженный домик 4.jpg",
+                "timeOfDay": "day",
                 "order": 0
             }
         ],
@@ -478,8 +482,8 @@ let locations = {
                 "name": "treeHouse",
                 "title": "Украсить",
                 "required": {
-                    "special": {
-                        "decoratedHouse": "false"
+                    "specials": {
+                        "decoratedHouse": false
                     }        
                 },
                 "action": "decoratedHouse",
@@ -558,7 +562,7 @@ let locations = {
                 "title": "Поболтать",
                 "action": "talkEnya",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkEnya": false
                     }
                 },
@@ -567,7 +571,7 @@ let locations = {
             {
                 "name": "lesnayaStreet",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkEnya": true
                     }
                 },
@@ -630,7 +634,7 @@ let locations = {
                 "title": "Поболтать",
                 "action": "talkJeanette",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkJeanette": false
                     }
                 },
@@ -639,7 +643,7 @@ let locations = {
             {
                 "name": "lesnayaStreet",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkJeanette": true
                     }
                 },
@@ -649,7 +653,7 @@ let locations = {
     },
     lake: {
         "title": "Кустики",
-        "original": "day_lake.jpg",
+        "original": "day_lake.jpg", // birds_lake
         "night": "evening_lake.jpg",
         "sunset": "evening_lake.jpg",
         "sunrise": "dawn_lake.jpg",
@@ -708,7 +712,7 @@ let locations = {
                 "title": "Помолчать вместе",
                 "action": "talkBelasia",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkBelasia": false
                     }
                 },
@@ -717,7 +721,7 @@ let locations = {
             {
                 "name": "severnayaStreet",
                 "required": {
-                    "special": {
+                    "specials": {
                         "talkBelasia": true
                     }
                 },
@@ -856,7 +860,7 @@ let locations = {
                 "title": "Поесть",
                 "action": "ate",
                 "required": {
-                    "special": {
+                    "specials": {
                         "ate": false
                     }
                 },
@@ -866,7 +870,7 @@ let locations = {
                 "name": "schoolFirstFloor",
                 "title": "Уйти",
                 "required": {
-                    "special": {
+                    "specials": {
                         "ate": true
                     }
                 }
