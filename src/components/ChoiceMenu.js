@@ -6,6 +6,8 @@ function ChoiceMenu(props) {
 
     let checkRequired = true;
 
+    console.log('key.title', key.title)
+
     if (key.required) {
 
       // time checking
@@ -15,12 +17,12 @@ function ChoiceMenu(props) {
       if (props.specials.indexOf(key.action) > -1) checkRequired = false;
 
       // specials checking
-      if (key.required.special && props.specials) { 
-        for (let i of Object.keys(key.required.special)) {
-          let item = Object.keys(key.required.special)[i]
+      if (key.required.specials && props.specials) {
 
-          if ((key.required.special[i] === true && props.specials.indexOf(item) < 0) || 
-          (key.required.special[i] === false && props.specials.indexOf(i) > -1)) checkRequired = false;
+        for (let item of Object.keys(key.required.specials)) {
+ 
+          if ((key.required.specials[item] && props.specials.indexOf(item) < 0) || 
+          (!key.required.specials[item] && props.specials.indexOf(item) > -1)) checkRequired = false;
         }
       }
 
