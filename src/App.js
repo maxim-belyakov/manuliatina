@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Sound from "react-sound";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Fullscreen from "react-full-screen";
@@ -52,7 +52,7 @@ const INITIAL_STATE = {
   logLocations: []
 };
 
-class App extends Component {
+class App extends PureComponent {
   constructor() {
     super();
     this.setFrame = this.setFrame.bind(this);
@@ -475,8 +475,8 @@ class App extends Component {
             className="container"
             component="div"
             transitionName="menu"
-            transitionEnterTimeout={50}
-            transitionLeaveTimeout={50}
+            transitionEnterTimeout={400}
+            transitionLeaveTimeout={400}
           >
             {this.state.beginStory ? this.beginStory() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
