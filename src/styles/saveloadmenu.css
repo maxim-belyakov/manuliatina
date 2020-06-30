@@ -1,5 +1,6 @@
 .overlay-save-load {
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   justify-content: center;
   background-color: #4ea6ca;
