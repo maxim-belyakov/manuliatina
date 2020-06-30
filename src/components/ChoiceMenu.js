@@ -6,8 +6,6 @@ function ChoiceMenu(props) {
 
     let checkRequired = true;
 
-    console.log('key.title', key.title)
-
     if (key.required) {
 
       // time checking
