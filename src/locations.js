@@ -258,6 +258,10 @@ let locations = {
         ],
         "navigation": [
             {
+                "name": "southernForest",
+                "title": "Пойти в лес"
+            },
+            {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
@@ -267,10 +271,6 @@ let locations = {
                 }        
             },
             {
-                "name": "town",
-                "title": "Поехать в Дубраву"
-            },
-            {
                 "name": "houseJeanette",
                 "required": {
                     "timeOfDay": "day"
@@ -278,9 +278,9 @@ let locations = {
                 "title": "Пойти к Жанетт"
             },
             {
-                "name": "southernForest",
-                "title": "Пойти в лес"
-            }
+                "name": "town",
+                "title": "Поехать в Дубраву"
+            },
         ]
     },
     edgeNorthernForest: {
@@ -372,10 +372,6 @@ let locations = {
                 }
             },
             {
-                "name": "sentabrskayaStreet",
-                "title": "Вернуться в деревню"
-            },
-            {
                 "name": "treeHouse",
                 "title": "Домик на дереве",
                 "required": {
@@ -383,7 +379,11 @@ let locations = {
                         "repairedHouse": true
                     }        
                 }
-            }
+            },
+            {
+                "name": "sentabrskayaStreet",
+                "title": "Вернуться в деревню"
+            },
         ]
     },
     nearTreeHouse: {
@@ -445,10 +445,6 @@ let locations = {
                 "action": "repairedHouse",
             },
             {
-                "name": "southernForest",
-                "title": "Вернуться"
-            },
-            {
                 "name": "treeHouse",
                 "title": "Заползти внутрь",
                 "required": {
@@ -456,7 +452,11 @@ let locations = {
                         "repairedHouse": true
                     }        
                 }
-            }
+            },
+            {
+                "name": "southernForest",
+                "title": "Вернуться"
+            },
         ]
     },
     treeHouse: {
