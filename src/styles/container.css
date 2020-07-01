@@ -33,6 +33,7 @@
   padding: 0;
   overflow: hidden;
   background-color: black;
+  align-self: flex-start;
 }
 
 .header li {
