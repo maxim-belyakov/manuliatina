@@ -115,6 +115,7 @@ class App extends PureComponent {
         choice={choice}
         timeOfDay={this.getTypeOfTime()}
         specials={this.state.specials}
+        font={this.state.font}
       />
     );
   }
