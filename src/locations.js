@@ -139,7 +139,7 @@ let locations = {
         "music": [
             {
                 "name": "morning_birds.mp3",
-                "percent": 20,
+                "percent": 40,
                 "duration": 153000,
             },
             {
@@ -355,7 +355,7 @@ let locations = {
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100,
+                "percent": 50,
                 "duration": 21000,
             }
         ],
