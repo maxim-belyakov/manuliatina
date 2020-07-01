@@ -39,7 +39,7 @@ const INITIAL_STATE = {
   font: "Trebuchet MS",
   isFull: false,
   previousIndex: '',
-  index: 'myRoom',
+  index: '',
   choicesExist: false,
   menuShown: false,
   beginStory: true,
@@ -184,6 +184,8 @@ class App extends PureComponent {
   }
 
   setFrame(index, action) {
+    if (!index) return
+
     const previousIndex = this.state.index.slice()
     let currentLocation = locations[index]
     let image = currentLocation.original
@@ -345,7 +347,6 @@ class App extends PureComponent {
       beginStory: false,
       frameIsRendering: true,
       index: 'begin',
-      choice: locations.myRoom.navigation,
       hasError: [false, ''],
       // menuButtonShown: true,
     });
@@ -444,7 +445,7 @@ class App extends PureComponent {
   playBGM() {
     return <Sound
               url={this.state.bgm} 
-              volume={this.state.bgmVolumeLogic / 100 * this.state.bgmVolume} 
+              volume={Math.floor(this.state.bgmVolumeLogic / 100 * this.state.bgmVolume)} 
               playStatus={Sound.status.PLAYING} 
               loop={true}
               ignoreMobileRestrictions={true}
@@ -454,7 +455,7 @@ class App extends PureComponent {
   playBGM2() {
     return <Sound
               url={this.state.bgm2} 
-              volume={this.state.bgmVolumeLogic2 / 100 * this.state.bgmVolume} 
+              volume={Math.floor(this.state.bgmVolumeLogic2 / 100 * this.state.bgmVolume)} 
               playStatus={Sound.status.PLAYING} 
               loop={true}
               ignoreMobileRestrictions={true}
