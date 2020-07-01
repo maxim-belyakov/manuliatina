@@ -556,11 +556,22 @@ let locations = {
                 "duration": 180000,
             }
         ],
+        "specials": [
+            {
+                "name": "talkEnya",
+                "original": "Еня 3.jpg",
+                "timeOfDay": "day",
+                "order": 0
+            }
+        ],
         "navigation": [
             {
                 "name": "visitingYenya",
                 "title": "Поболтать",
                 "action": "talkEnya",
+                "talk": {
+                    "music": "laugh_yenia2.mp3"
+                },
                 "required": {
                     "specials": {
                         "talkEnya": false
@@ -633,6 +644,9 @@ let locations = {
                 "name": "bushes",
                 "title": "Поболтать",
                 "action": "talkJeanette",
+                "talk": {
+                    "music": "laugh_janett.mp3"
+                },
                 "required": {
                     "specials": {
                         "talkJeanette": false
