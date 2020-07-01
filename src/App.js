@@ -92,7 +92,6 @@ class App extends PureComponent {
   }
 
   handleChoiceSelected(event) {
-
     let choice = {}
 
     choice.name = event.currentTarget.name
@@ -121,45 +120,27 @@ class App extends PureComponent {
   }
 
   setChoice(index) {
-
     let previousIndex = this.state.index
-
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
     // Change the frame
-    this.setFrame(index.name, action);
-    
+    this.setFrame(index.name, action);    
   }
 
   timeout(fn, ms) {
     setTimeout(() => { fn() }, ms);
   }
 
-  setError (publicMessage, consoleMessage) {
+  setError(publicMessage, consoleMessage) {
     this.setState({ hasError: [true, publicMessage] });
     console.error(consoleMessage)
   }
 
-  setFrame(index, action) {
-  
-    const previousIndex = this.state.index.slice()
-    const currentLocation = locations[index]
-
-    // location is not found
-
-    if (!currentLocation) {
-      this.setError('Что-то пошло не так :( Локация недоступна' + index, 'Найдена локация, которой нет на карте локаций')
-      currentLocation = 'myRoom'
-    }    
-
-    // Hours: day, night, sunset, sunrise
-
-    let time = this.getTypeOfTime()
-    let image = currentLocation.original
-    let music = currentLocation.music ? currentLocation.music : []
+  defineImegeByTime(image, music, currentLocation) {
+    const time = this.getTypeOfTime()
 
     if (time === 'night') {
       if (currentLocation.night) image = currentLocation.night
@@ -178,44 +159,61 @@ class App extends PureComponent {
       if (currentLocation.musicSunrise) music = currentLocation.musicSunrise
     }
 
-    // let orderMax = Math.max.apply(Math, Object.values(locations[index].special).map(function(o) { return o.y; }))
+    return [ image, music ]
 
-    // Special: day, night, sunset, sunrise
-    // if we have two specials for one image, looks where order is lowers
+  }
 
-    if (currentLocation.specials) {
-      let currentSpecials = currentLocation.specials
-      let beforeSpecials = this.state.specials
-      let order = {}
+  defineImegeBySpecial(image, action, currentLocation, stateSpecials) {
+    const time = this.getTypeOfTime()
+    const currentSpecials = currentLocation.specials
+    const beforeSpecials = stateSpecials
+    let order = {}
 
-      if (action) beforeSpecials.push(action)
+    if (action) beforeSpecials.push(action)
 
-      for (let i in Object.values(currentSpecials)) {
-        let item = currentSpecials[i]
+    // if we have two allowed specials for one image, looks where order is lowers
+    for (let i in Object.values(currentSpecials)) {
+      let item = currentSpecials[i]
 
-        if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
-      }
-
-      if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
+      if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
     }
 
+    if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
 
-    // get duration for limeout-location 
+    return image
+  }
 
-    if (!currentLocation.navigation) {
-      let duration;
-  
-      if (currentLocation.music && currentLocation.music[0].name && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
-      
-      this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
+  setFrame(index, action) {
+    const previousIndex = this.state.index.slice()
+    let currentLocation = locations[index]
+    let image = currentLocation.original
+    let music = currentLocation.music ? currentLocation.music : []
+
+    // location is not found
+    if (!currentLocation) {
+      this.setError(
+        'Что-то пошло не так :( Локация недоступна' + index,
+        'Найдена локация, которой нет на карте локаций'
+      )
+      currentLocation = 'myRoom'
+    }    
+
+    // Hours: day, night, sunset, sunrise    
+    [image, music] = this.defineImegeByTime(image, music, currentLocation)
+
+    // Special: day, night, sunset, sunrise
+    if (currentLocation.specials) {
+      image = this.defineImegeBySpecial(image, action, currentLocation, this.state.specials)
     }
 
     // location is not found
-
     if (!image) {
-      this.setError('Что-то пошло не так :( Фотография локации недоступна', `Перед окончательным setState image = ${image}`)
+      this.setError(
+        'Что-то пошло не так :( Фотография локации недоступна',
+        `Перед окончательным setState image = ${image}`
+      )
       image = 'black.png'
-    }    
+    }
 
     this.setState({
       index: index,
@@ -228,13 +226,13 @@ class App extends PureComponent {
       choicesExist: false,
     });
 
-    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation,}), 3000)
+    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), 3000)
 
     // TIMEOUT
     if (!currentLocation.navigation) {
       let duration;
   
-      if (currentLocation.music && currentLocation.music[0].name && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
+      if (currentLocation.music && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
 
       this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
     }
