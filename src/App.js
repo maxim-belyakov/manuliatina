@@ -1,6 +1,5 @@
 // Dependencies
 import React, { PureComponent } from "react";
-import Sound from "react-sound";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import Fullscreen from "react-full-screen";
 import WheelReact from "wheel-react";
@@ -16,6 +15,7 @@ import GameMenu from "./components/GameMenu";
 import RenderFrame from "./components/RenderFrame";
 import MenuButton from "./components/MenuButton";
 import SaveLoadMenu from "./components/SaveLoadMenu";
+import Sound from "./components/Sound";
 
 // CSS
 import "./styles/config.css";
