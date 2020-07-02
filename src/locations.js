@@ -94,10 +94,6 @@ let locations = {
                 "title": "Убрать пыль"
             },
             {
-                "name": "myRoom",
-                "title": "Пойти в комнату"
-            },
-            {
                 "name": "shower",
                 "timeout": true,
                 "title": "Принять душ"
@@ -105,6 +101,10 @@ let locations = {
             {
                 "name": "lesnayaStreet",
                 "title": "Выйти на улицу"
+            },
+            {
+                "name": "myRoom",
+                "title": "Пойти в комнату"
             }
         ]
     },
@@ -157,8 +157,8 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "hall",
-                "title": "Пойти домой"
+                "name": "sentabrskayaStreet",
+                "title": "Пойти на юг"
             },
             {
                 "name": "severnayaStreet",
@@ -167,12 +167,7 @@ let locations = {
                     "percent": "13",
                     "timeOfDay": "night",
                     "name": "goose"
-                }
-        
-            },
-            {
-                "name": "sentabrskayaStreet",
-                "title": "Пойти на юг"
+                }        
             },
             {
                 "name": "houseEnya",
@@ -187,6 +182,10 @@ let locations = {
                     "timeOfDay": "day"
                 },
                 "title": "Пойти к школе"
+            },
+            {
+                "name": "hall",
+                "title": "Вернуться домой"
             }
         ]
 
@@ -229,7 +228,11 @@ let locations = {
                     "timeOfDay": "day"
                 },
                 "title": "Пойти к мосту"
-            }
+            },
+            {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
+            },            
         ]
 
     },
@@ -280,6 +283,10 @@ let locations = {
             {
                 "name": "town",
                 "title": "Поехать в Дубраву"
+            },
+            {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
             },
         ]
     },
