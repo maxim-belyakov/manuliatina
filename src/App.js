@@ -360,7 +360,7 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('houseEnya'); }, 3000)
+    setTimeout(() => { this.setFrame('myRoom'); }, 3000)
   }
 
   saveMenu() {
