@@ -241,15 +241,15 @@ class App extends PureComponent {
       currentLocation = 'myRoom'
     }    
 
-    // Hours: day, night, sunset, sunrise    
+    // get image/music by time
     [image, music] = this.defineImegeByTime(image, music, currentLocation)
 
-    // Special: day, night, sunset, sunrise
+    // update image if we have something special
     if (currentLocation.specials) {
       image = this.defineImegeBySpecial(image, action, currentLocation, this.state.specials)
     }
 
-    // location is not found
+    // image is not found
     if (!image) {
       this.setError('Something went wrong :( location Photo is not available', `Before the last use of setState image =${image}`)
       image = 'black.png'
