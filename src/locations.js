@@ -223,16 +223,16 @@ let locations = {
                 "title": "Пойти в лес"
             },
             {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
+            },
+            {
                 "name": "bridge",
                 "required": {
                     "timeOfDay": "day"
                 },
                 "title": "Пойти к мосту"
-            },
-            {
-                "name": "lesnayaStreet",
-                "title": "Лесная улица"
-            },            
+            },        
         ]
 
     },
@@ -274,6 +274,10 @@ let locations = {
                 }        
             },
             {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
+            },
+            {
                 "name": "houseJeanette",
                 "required": {
                     "timeOfDay": "day"
@@ -283,10 +287,6 @@ let locations = {
             {
                 "name": "town",
                 "title": "Поехать в Дубраву"
-            },
-            {
-                "name": "lesnayaStreet",
-                "title": "Лесная улица"
             },
         ]
     },
@@ -607,6 +607,12 @@ let locations = {
                 "percent": 100,
                 "duration": 93000,
             }
+        ],
+        "navigation": [
+            {
+                "name": "prevLocation",
+                "title": "Вернуться на землю"
+            }
         ]
     },
     houseJeanette: {
@@ -631,7 +637,7 @@ let locations = {
         
             },
             {
-                "name": "lesnayaStreet",
+                "name": "sentabrskayaStreet",
                 "title": "Вернуться в деревню"
             }
         ]
