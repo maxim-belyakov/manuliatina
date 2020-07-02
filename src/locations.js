@@ -215,12 +215,12 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "sentabrskayaStreet",
-                "title": "Пойти на юг"
-            },
-            {
                 "name": "edgeNorthernForest",
                 "title": "Пойти в лес"
+            },
+            {
+                "name": "sentabrskayaStreet",
+                "title": "Пойти на юг"
             },
             {
                 "name": "lesnayaStreet",
@@ -305,15 +305,6 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "severnayaStreet",
-                "title": "Пойти в деревню",
-                "luck": {
-                    "percent": "13",
-                    "timeOfDay": "night",
-                    "name": "goose"
-                }        
-            },
-            {
                 "name": "lake",
                 "title": "Пойти к озеру",
                 "luck": {
@@ -321,7 +312,16 @@ let locations = {
                     "timeOfDay": ["day", "sunrise", "sunday"],
                     "name": "belasia"
                 }        
-            }
+            },
+            {
+                "name": "severnayaStreet",
+                "title": "Вернуться в деревню",
+                "luck": {
+                    "percent": "13",
+                    "timeOfDay": "night",
+                    "name": "goose"
+                }        
+            },
         ]
     },
     southernForest: {
