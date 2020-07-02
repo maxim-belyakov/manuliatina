@@ -12,6 +12,7 @@ import locations from "./locations";
 import Backlog from "./components/Backlog";
 import ChoiceMenu from "./components/ChoiceMenu";
 import GameMenu from "./components/GameMenu";
+import LoadingBlock from "./components/LoadingBlock";
 import RenderFrame from "./components/RenderFrame";
 import MenuButton from "./components/MenuButton";
 import SaveLoadMenu from "./components/SaveLoadMenu";
@@ -23,6 +24,7 @@ import "./styles/container.css";
 import "./styles/backlog.css";
 import "./styles/choicesoverlay.css";
 import "./styles/effects.css";
+import "./styles/loadingblock.css";
 import "./styles/menubuttons.css";
 import "./styles/saveloadmenu.css";
 import "./styles/sprites.css";
@@ -42,11 +44,13 @@ const INITIAL_STATE = {
   index: '',
   choicesExist: false,
   menuShown: false,
+  talked: false,
   beginStory: true,
   frameIsRendering: false,
   backlogShown: false,
   saveMenuShown: false,
   loadMenuShown: false,
+  showLoading: false,
   hasError: [false, ''],
   specials: [],
   logLocations: []
@@ -84,7 +88,7 @@ class App extends PureComponent {
 
     if (hr > 4 && hr < 6) time = 'sunrise'
     else if (hr > 6 && hr < 17) time = 'day'
-    else if (hr > 17 && hr < 23) time = 'sunset'
+    else if (hr > 17 && hr < 0) time = 'sunset'
     else if (hr > 0 && hr < 4) time = 'night'
     else time = 'day'
 
@@ -97,8 +101,6 @@ class App extends PureComponent {
     choice.name = event.currentTarget.name
     choice.order = event.currentTarget.id
     choice.title = event.currentTarget.title
-    
-    this.setState({ logLocations: [...this.state.logLocations, this.state.index] })
 
     this.setChoice(choice);
   }
@@ -119,19 +121,31 @@ class App extends PureComponent {
     );
   }
 
+  renderLoadingBlock() {
+    return (
+      <LoadingBlock/>
+    );
+  }
+
   setChoice(index) {
+    this.setState({ 
+      choicesExist: false,
+      showLoading: true,
+    });
+
     let previousIndex = this.state.index
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
+    let talk = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].sound : null
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
-    // Change the frame
-    this.setFrame(index.name, action);    
+    // Change the selection only after 1sec (or 6sec if there is talk)
+    this.timeout(() => this.setFrame(index.name, action, talk), talk ? 6000 : 1000)
   }
 
   timeout(fn, ms) {
-    setTimeout(() => { fn() }, ms);
+    setTimeout(() => fn(), ms);
   }
 
   setError(publicMessage, consoleMessage) {
@@ -183,7 +197,14 @@ class App extends PureComponent {
     return image
   }
 
-  setFrame(index, action) {
+  returnableFrame(location, previousIndex) {
+    let duration = (location.music && location.music[0].duration) ? location.music[0].duration : 3000;
+
+    // duration of stay in the location is determined from data or by default 3 seconds
+    this.timeout(() => this.setFrame(previousIndex), duration)
+  }
+
+  setFrame(index, action, talk) {
     if (!index) return
 
     const previousIndex = this.state.index.slice()
@@ -193,10 +214,7 @@ class App extends PureComponent {
 
     // location is not found
     if (!currentLocation) {
-      this.setError(
-        'Что-то пошло не так :( Локация недоступна' + index,
-        'Найдена локация, которой нет на карте локаций'
-      )
+      this.setError('Something went wrong :( Location is not available' + index, 'Found a location that is not on the location map')
       currentLocation = 'myRoom'
     }    
 
@@ -210,34 +228,29 @@ class App extends PureComponent {
 
     // location is not found
     if (!image) {
-      this.setError(
-        'Что-то пошло не так :( Фотография локации недоступна',
-        `Перед окончательным setState image = ${image}`
-      )
+      this.setError('Something went wrong :( location Photo is not available', `Before the last use of setState image =${image}`)
       image = 'black.png'
     }
 
+    // talk
     this.setState({
       index: index,
       previousIndex: previousIndex,
+      showLoading: false,
       bg: require("../public/locations/" + image),
       bgm: music[0] ? require("../public/music/" + music[0].name) : null,
       bgmVolumeLogic: music[0] ? music[0].percent : null,
       bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
       bgmVolumeLogic2: music[1] ? music[1].percent : null,
-      choicesExist: false,
+      mTalk: (talk && !this.state.talked) ? require("../public/music/" + talk.music) : null,
+      talked: !talk ? false : this.state.talked
     });
 
-    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), 3000)
+    // A little later, 3sec (or 1sec if there is a talk) change the location
+    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), talk ? 2000 : 3000)
 
-    // TIMEOUT
-    if (!currentLocation.navigation) {
-      let duration;
-  
-      if (currentLocation.music && currentLocation.music[0].duration) duration = currentLocation.music[0].duration
-
-      this.timeout(() => this.setFrame(previousIndex), duration ? duration : 3000)
-    }
+    // location that takes you back to the pre-location after some time
+    if (!currentLocation.navigation) this.returnableFrame(currentLocation, previousIndex)
   }
 
   renderFrame() {
@@ -338,20 +351,16 @@ class App extends PureComponent {
   }
 
   beginStory() {
-
-    // проверить куку specials и добавить содержимое в state
-
     this.setFrame('begin');
 
     this.setState({
       beginStory: false,
       frameIsRendering: true,
       index: 'begin',
-      hasError: [false, ''],
-      // menuButtonShown: true,
+      hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('myRoom'); }, 3000)
+    setTimeout(() => { this.setFrame('houseEnya'); }, 3000)
   }
 
   saveMenu() {
@@ -435,7 +444,7 @@ class App extends PureComponent {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.index < this.state.index) {
       this.setState({
-        // choicesHistory: [...this.state.choicesHistory, prevState.choicesStore],
+        logLocations: [...this.state.logLocations, prevState.index],
         // choicesIndexHistory: [...this.state.choicesIndexHistory, prevState.choicesIndex],
         // indexHistory: [...this.state.indexHistory, prevState.index]
       });
@@ -462,6 +471,18 @@ class App extends PureComponent {
             />;
   }
 
+  playTalk() {
+    this.timeout(() => this.setState({ talked: true }), 3000)
+
+    return <Sound
+              url={this.state.mTalk}
+              volume={100} 
+              playStatus={Sound.status.PLAYING} 
+              loop={false}
+              ignoreMobileRestrictions={true}
+            />;    
+  }
+
   render() {
     let zoomMultiplier = 0;
 
@@ -481,7 +502,8 @@ class App extends PureComponent {
             {this.state.beginStory ? this.beginStory() : null}
             {this.state.frameIsRendering ? this.renderFrame() : null}
             {/* GUI menu buttons */}
-            {this.state.choicesExist ? this.renderChoiceMenu() : null} 
+            {this.state.choicesExist ? this.renderChoiceMenu() : null}
+            {this.state.showLoading ? this.renderLoadingBlock() : null}
             {!this.state.menuShown ? this.renderMenuButton() : null}
             {this.state.menuShown ? this.gameMenu() : null}
             {this.state.saveMenuShown ? this.saveMenu() : null}
@@ -491,6 +513,7 @@ class App extends PureComponent {
         </Fullscreen>
         {this.state.bgm ? this.playBGM() : null}
         {this.state.bgm2 ? this.playBGM2() : null}
+        {(this.state.mTalk && !this.state.talked) ? this.playTalk() : null}
         {/* bgm2 */}
       </div>
     );

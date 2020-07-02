@@ -569,7 +569,7 @@ let locations = {
                 "name": "visitingYenya",
                 "title": "Поболтать",
                 "action": "talkEnya",
-                "talk": {
+                "sound": {
                     "music": "laugh_yenia2.mp3"
                 },
                 "required": {
@@ -635,7 +635,7 @@ let locations = {
         "music": [
             {
                 "name": "Fling (janett).mp3",
-                "percent": 100,
+                "percent": 70,
                 "duration": 210000,
             }
         ],
@@ -644,7 +644,7 @@ let locations = {
                 "name": "bushes",
                 "title": "Поболтать",
                 "action": "talkJeanette",
-                "talk": {
+                "sound": {
                     "music": "laugh_janett.mp3"
                 },
                 "required": {
