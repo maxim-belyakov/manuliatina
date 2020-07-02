@@ -132,16 +132,21 @@ class App extends PureComponent {
     return (time && pass) ? luck.name : initIndex
   }
 
+  operationGoose() {
+    let secondPart = 'Перелесье гусь 3.jpg'
+    let thirdPart = 'Перелесье гусь 2.jpg'
+    this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + secondPart)});}, 20000)
+    this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + thirdPart)});}, 40000)
+  }
+
   setChoice(index) {
     let previousIndex = this.state.index
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
     let talk = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].sound : null
     let luck = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].luck : null
 
-    // immediately disable the choice menu after a click
-    this.setState({ 
-      choicesExist: false
-    });
+    // Immediately disable the choice menu after a click
+    this.setState({ choicesExist: false });
 
     // Push luck
     if (luck) index.name = this.getLuck(luck, index.name)
@@ -155,6 +160,8 @@ class App extends PureComponent {
         transitionDuration: 800,
       }), durationDefault / 3)
     }
+
+    if (index.name === 'goose') this.operationGoose()
 
     // Change the selection only after 1sec (or 6sec if there is talk)
     this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault - 2000)
