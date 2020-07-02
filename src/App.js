@@ -209,6 +209,7 @@ class App extends PureComponent {
 
   setFrame(index, action, talk) {
     if (!index) return
+    if (index === 'prevLocation') index = this.state.previousIndex
 
     const previousIndex = this.state.index.slice()
     let currentLocation = locations[index]
