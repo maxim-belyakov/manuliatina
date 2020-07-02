@@ -240,9 +240,9 @@ class App extends PureComponent {
       previousIndex: previousIndex,
       showLoading: false,
       bg: require("../public/locations/" + image),
-      // bgm: music[0] ? require("../public/music/" + music[0].name) : null,
+      bgm: music[0] ? require("../public/music/" + music[0].name) : null,
       bgmVolumeLogic: music[0] ? music[0].percent : null,
-      // bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
+      bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
       bgmVolumeLogic2: music[1] ? music[1].percent : null,
       mTalk: (talk && talk.music && !this.state.talked) ? require("../public/music/" + talk.music) : null,
       talked: !talk ? false : this.state.talked
@@ -362,7 +362,7 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('belasia'); }, durationDefault)
+    setTimeout(() => { this.setFrame('myRoom'); }, durationDefault)
   }
 
   saveMenu() {
