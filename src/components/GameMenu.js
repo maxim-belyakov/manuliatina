@@ -68,8 +68,8 @@ class GameMenu extends Component {
       toggleGameMenu,
       toggleSaveMenu,
       toggleLoadMenu,
-      saveMenuShown,
-      loadMenuShown,
+      saveMenu,
+      loadMenu,
       toggleFullscreen
     } = this.props;
     const options = [
@@ -117,22 +117,22 @@ class GameMenu extends Component {
           {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
           {handleToggles(KEYUP, "Enter", props.setNextFrame)} */}
 
-          {this.category("Save", saveMenuShown, toggleSaveMenu)}
-          {this.category("Load", loadMenuShown, toggleLoadMenu)}
+          {this.category("Save", saveMenu, toggleSaveMenu)}
+          {this.category("Load", loadMenu, toggleLoadMenu)}
           {this.category("Audio", audioShown, this.toggleAudio)}
           {this.category("Text", textShown, this.toggleText)}
           {this.category("Fullscreen", null, toggleFullscreen)}
 
-          {/* <button onClick={toggleSaveMenu}>{saveMenuShown ? "Hide Saves" : "Save"}</button> */}
-          {/* <button onClick={toggleLoadMenu}>{loadMenuShown ? "Hide Loads" : "Load"}</button> */}
+          {/* <button onClick={toggleSaveMenu}>{loadMenu ? "Hide Saves" : "Save"}</button> */}
+          {/* <button onClick={toggleLoadMenu}>{loadMenu ? "Hide Loads" : "Load"}</button> */}
           {/* <button onClick={toggleFullscreen} style={{ float: "right" }}>Fullscreen</button> */}
         </ul>
         <div id="config-body">
           {audioShown ? (
             <div>
               {this.slider("BGM", bgmVolume, bgmVolumeChange)}
-              {this.slider("Voice", voiceVolume, voiceVolumeChange)}
-              {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)}
+              {/* {this.slider("Voice", voiceVolume, voiceVolumeChange)} */}
+              {/* {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)} */}
             </div>
           ) : null}
           {textShown ? (

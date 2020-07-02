@@ -33,7 +33,6 @@ function ChoiceMenu(props) {
         name={key.name}
         id={i}
         key={i}
-        title={key.title}
         onClick={props.onChoiceSelected}
         style={{ fontFamily: props.font }}
       >{key.title}</button>

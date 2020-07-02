@@ -16,7 +16,7 @@
 .save-load-slot {
   overflow: hidden;
   min-width: 1280px;
-  /* min-height: 720px; */
+  min-height: 710px;
   transform: translateY(-80px) scale(0.625);
   background: #333;
   cursor: pointer;
