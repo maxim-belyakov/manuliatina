@@ -164,8 +164,8 @@ let locations = {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "13",
-                    "timeOfDay": "night",
+                    "percent": "25",
+                    "timeOfDay": ["night"],
                     "name": "goose"
                 }        
             },
@@ -268,8 +268,8 @@ let locations = {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "13",
-                    "timeOfDay": "night",
+                    "percent": "25",
+                    "timeOfDay": ["night"],
                     "name": "goose"
                 }        
             },
@@ -308,7 +308,7 @@ let locations = {
                 "name": "lake",
                 "title": "Пойти к озеру",
                 "luck": {
-                    "percent": "5",
+                    "percent": "35",
                     "timeOfDay": ["day", "sunrise", "sunday"],
                     "name": "belasia"
                 }        
@@ -317,8 +317,8 @@ let locations = {
                 "name": "severnayaStreet",
                 "title": "Вернуться в деревню",
                 "luck": {
-                    "percent": "13",
-                    "timeOfDay": "night",
+                    "percent": "25",
+                    "timeOfDay": ["night"],
                     "name": "goose"
                 }        
             },
@@ -943,8 +943,8 @@ let locations = {
     },
     goose: {
         "title": "Мост",
-        "original": "парк.jpg",
-        "night": "дубрава.png",
+        "original": "Перелесье гусь 4.jpg",
+        "night": "Перелесье гусь 4.jpg",
         "music": [
             {
                 "name": "Klon.mp3",
