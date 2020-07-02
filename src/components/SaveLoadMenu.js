@@ -12,28 +12,22 @@ class SaveLoadMenu extends Component {
     for (let i = 1; i < 21; i++) {
       let style = {};
 
-      if (this.state.slotNumber === i) style["background-color"] = "darkGreen";
-      else if (!JSON.parse(localStorage.getItem(i))) style["background-color"] = "gray";
+      if (this.state.slotNumber === i) style["backgroundColor"] = "darkGreen";
+      else if (!JSON.parse(localStorage.getItem(i))) style["backgroundColor"] = "gray";
 
       buttonCache.push(
-        <button className="save-load-btn" onClick={() => this.setState({ slotNumber: i })} style={style}>
+        <button 
+          className="save-load-btn"
+          key={i}
+          onClick={() => this.setState({ slotNumber: i })} 
+          style={style}
+        >
           {i}
         </button>
       );
     }
 
     return <div className="save-load-buttons">{buttonCache}</div>;
-  }
-
-  renderChoiceMenu() {
-    console.log('JSON.parse(localStorage.getItem(this.state.slotNumber))', JSON.parse(localStorage.getItem(this.state.slotNumber)))
-    return (
-      <div className="overlay-choices overlay-choices-slot">
-        {JSON.parse(localStorage.getItem(this.state.slotNumber)).choice.map(key => (
-          <button className="choice-button">{key.title}</button>
-        ))}
-      </div>
-    );
   }
 
   menuSlot(number) {
@@ -50,7 +44,6 @@ class SaveLoadMenu extends Component {
             } else return
           }}
         >
-          {JSON.parse(localStorage.getItem(this.state.slotNumber)).bg ? this.renderChoiceMenu() : null}
           <button>
             <img
               alt={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
@@ -58,19 +51,6 @@ class SaveLoadMenu extends Component {
               className="slot-bg"
               src={JSON.parse(localStorage.getItem(this.state.slotNumber)).bg}
             />
-            {/* {JSON.parse(localStorage.getItem(this.state.slotNumber)).text && this.props.textBoxShown ? (
-              <div
-                className="text-box"
-                style={{
-                  fontFamily: JSON.parse(localStorage.getItem(this.state.slotNumber)).font
-                }}
-              >
-                {JSON.parse(localStorage.getItem(this.state.slotNumber)).speaker ? (
-                  <div className="speaker">{JSON.parse(localStorage.getItem(this.state.slotNumber)).speaker}</div>
-                ) : null}
-                <div className="text">{JSON.parse(localStorage.getItem(this.state.slotNumber)).text}</div>
-              </div>
-            ) : null} */}
           </button>
         </div>
       );
