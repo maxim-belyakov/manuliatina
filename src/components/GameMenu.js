@@ -131,8 +131,8 @@ class GameMenu extends Component {
           {audioShown ? (
             <div>
               {this.slider("BGM", bgmVolume, bgmVolumeChange)}
-              {this.slider("Voice", voiceVolume, voiceVolumeChange)}
-              {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)}
+              {/* {this.slider("Voice", voiceVolume, voiceVolumeChange)} */}
+              {/* {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)} */}
             </div>
           ) : null}
           {textShown ? (
