@@ -2,6 +2,8 @@ import React from "react";
 
 function ChoiceMenu(props) {
 
+  const goooseCheck = (props.index === 'goose') ? true : false
+
   function renderChoiceOptions(key, i) {
 
     let checkRequired = true;
@@ -9,7 +11,7 @@ function ChoiceMenu(props) {
     if (key.required) {
 
       // time checking
-      if (key.required.timeOfDay && key.required.timeOfDay !== props.timeOfDay) checkRequired = false;
+      if (key.required.timeOfDay && key.required.timeOfDay.indexOf(props.timeOfDay) > -1) checkRequired = false;
       
       // if we already did it
       if (props.specials.indexOf(key.action) > -1) checkRequired = false;
@@ -39,7 +41,7 @@ function ChoiceMenu(props) {
     ) : null;
   }
 
-  return <div className="overlay overlay-choices">
+  return <div className={`overlay overlay-choices ${goooseCheck ? 'goose' : null}`}>
       <div className="choices-container">
           {props ? props.choice.map(renderChoiceOptions) : null}
       </div>
