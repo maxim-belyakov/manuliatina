@@ -143,7 +143,7 @@ class App extends PureComponent {
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
     // Change the selection only after 1sec (or 6sec if there is talk)
-    this.timeout(() => this.setFrame(index.name, action, talk), talk ? 6000 : 1000)
+    this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault / 2)
   }
 
   timeout(fn, ms) {
