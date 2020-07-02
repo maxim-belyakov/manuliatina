@@ -77,7 +77,7 @@ let locations = {
             {
                 "name": "cleanMyRoom",
                 "original": "корридор гг 2.jpg",
-                "timeOfDay": "day",
+                "timeOfDay": ["day"],
                 "order": 0
             }
         ],
@@ -85,7 +85,7 @@ let locations = {
             {
                 "name": "hall",
                 "required": {
-                    "timeOfDay": "day",
+                    "timeOfDay": ["day"],
                     "specials": {
                         "cleanMyRoom": false
                     }
@@ -172,14 +172,14 @@ let locations = {
             {
                 "name": "houseEnya",
                 "required": {
-                    "timeOfDay": "day"
+                    "timeOfDay": ["day"],
                 },
                 "title": "Пойти к Ене"
             },
             {
                 "name": "school",
                 "required": {
-                    "timeOfDay": "day"
+                    "timeOfDay": ["day"]
                 },
                 "title": "Пойти к школе"
             },
@@ -229,7 +229,7 @@ let locations = {
             {
                 "name": "bridge",
                 "required": {
-                    "timeOfDay": "day"
+                    "timeOfDay": ["day"]
                 },
                 "title": "Пойти к мосту"
             },        
@@ -268,7 +268,7 @@ let locations = {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "25",
+                    "percent": "75",
                     "timeOfDay": ["night"],
                     "name": "goose"
                 }        
@@ -280,7 +280,7 @@ let locations = {
             {
                 "name": "houseJeanette",
                 "required": {
-                    "timeOfDay": "day"
+                    "timeOfDay": ["day"]
                 },
                 "title": "Пойти к Жанетт"
             },
@@ -371,7 +371,7 @@ let locations = {
                 "name": "nearTreeHouse",
                 "title": "Углубиться",
                 "required": {
-                    "timeOfDay": "day",
+                    "timeOfDay": ["day"],
                     "specials": {
                         "repairedHouse": false
                     }
@@ -400,7 +400,7 @@ let locations = {
             {
                 "name": "repairedHouse",
                 "original": "Починенный.jpg",
-                "timeOfDay": "day",
+                "timeOfDay": ["day"],
                 "order": 0
             }
         ],
@@ -473,7 +473,7 @@ let locations = {
             {
                 "name": "decoratedHouse",
                 "original": "наряженный домик 4.jpg",
-                "timeOfDay": "day",
+                "timeOfDay": ["day"],
                 "order": 0
             }
         ],
@@ -567,7 +567,7 @@ let locations = {
             {
                 "name": "talkEnya",
                 "original": "Еня 3.jpg",
-                "timeOfDay": "day",
+                "timeOfDay": ["day"],
                 "order": 0
             }
         ],
@@ -680,10 +680,14 @@ let locations = {
     },
     lake: {
         "title": "Кустики",
-        "original": "day_lake.jpg", // birds_lake
-        "night": "evening_lake.jpg",
+        "original": "day_lake.jpg",
         "sunset": "evening_lake.jpg",
         "sunrise": "dawn_lake.jpg",
+        "luck": {
+            "percent": "20",
+            "timeOfDay": ["day"],
+            "original": "birds_lake.jpg"
+        },
         "music": [
             {
                 "name": "Navprostets.mp3",
