@@ -125,17 +125,24 @@ class App extends PureComponent {
   }
 
   setChoice(index) {
-    this.setState({ choicesExist: false });
-    // this.timeout(() => this.setState({ showLoading: true }), durationDefault / 3)
-
-    // console.log('setChoice this.state.frameIsRendering', this.state.frameIsRendering)
-
     let previousIndex = this.state.index
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
     let talk = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].sound : null
 
+    // immediately disable the choice menu after a click
+    this.setState({ 
+      choicesExist: false
+    });
+
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
+
+    if (talk) {      
+      this.timeout(() => this.setState({
+        showLoading: true,
+        transitionDuration: 800,
+      }), durationDefault / 3)
+    }
 
     // Change the selection only after 1sec (or 6sec if there is talk)
     this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault - 2000)
@@ -340,7 +347,6 @@ class App extends PureComponent {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        choiceOptions={this.state.index}
         confirmationMessage="Overwrite save?"
         currentTime={this.state.currentTime}
         menuType="Save"
@@ -354,7 +360,6 @@ class App extends PureComponent {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        choiceOptions={this.state.index}
         confirmationMessage="Load save?"
         currentTime={this.state.currentTime}
         menuType="Load"
@@ -461,13 +466,8 @@ class App extends PureComponent {
   }
 
   render() {
-    let zoomMultiplier = 0;
-
-    if (window.innerWidth * 1 / window.innerHeight <= 1280 * 1 / 720) zoomMultiplier = window.innerWidth * 1 / 1280;
-    else zoomMultiplier = window.innerHeight * 1 / 720;
-
     return (
-      <div {...WheelReact.events} style={this.state.isFull ? { zoom: zoomMultiplier } : null}>
+      <div {...WheelReact.events}>
         <Fullscreen enabled={this.state.isFull} onChange={isFull => this.setState({ isFull })}>
           <ReactCSSTransitionGroup
             className="container"
