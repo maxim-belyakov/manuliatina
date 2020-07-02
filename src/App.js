@@ -124,15 +124,27 @@ class App extends PureComponent {
     );
   }
 
+  getLuck(luck, initIndex) {
+    const randomPercent = Math.floor(Math.random() * 100)
+    const time = (luck.timeOfDay.indexOf(this.getTypeOfTime()) > -1) ? true : false
+    let pass = (randomPercent < luck.percent) ? true : false
+
+    return (time && pass) ? luck.name : initIndex
+  }
+
   setChoice(index) {
     let previousIndex = this.state.index
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
     let talk = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].sound : null
+    let luck = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].luck : null
 
     // immediately disable the choice menu after a click
     this.setState({ 
       choicesExist: false
     });
+
+    // Push luck
+    if (luck) index.name = this.getLuck(luck, index.name)
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
