@@ -66,6 +66,10 @@
   background: #e61919;
 }
 
+.exit-button button:focus {
+  outline: unset;
+}
+
 .bg {
   position: fixed;
   height: 100%;

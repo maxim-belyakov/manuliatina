@@ -106,3 +106,9 @@
     transform: scale(1);
   }
 }
+
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  top: 7.5px;
+  left: 7.2px;
+}
