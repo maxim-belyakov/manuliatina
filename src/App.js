@@ -45,13 +45,14 @@ const INITIAL_STATE = {
   previousIndex: '',
   index: '',
   choicesExist: false,
-  menuShown: false,
+  showMenu: false,
+  showMenuButton: true,
   talked: false,
   beginStory: true,
-  frameIsRendering: false,
+  showFrame: false,
   backlogShown: false,
-  saveMenuShown: false,
-  loadMenuShown: false,
+  saveMenu: false,
+  loadMenu: false,
   showLoading: false,
   hasError: [false, ''],
   specials: [],
@@ -70,9 +71,9 @@ class App extends PureComponent {
         if (
           !this.state.backlogShown &&
           !this.state.choicesExist &&
-          !this.state.loadMenuShown &&
-          !this.state.saveMenuShown &&
-          !this.state.menuShown
+          !this.state.loadMenu &&
+          !this.state.saveMenu &&
+          !this.state.showMenu
         ) {
           // this.toggleBacklog();
         }
@@ -123,17 +124,11 @@ class App extends PureComponent {
     );
   }
 
-  renderLoadingBlock() {
-    return (
-      <LoadingBlock/>
-    );
-  }
-
   setChoice(index) {
-    this.setState({ 
-      choicesExist: false,
-      showLoading: true,
-    });
+    this.setState({ choicesExist: false });
+    // this.timeout(() => this.setState({ showLoading: true }), durationDefault / 3)
+
+    // console.log('setChoice this.state.frameIsRendering', this.state.frameIsRendering)
 
     let previousIndex = this.state.index
     let action = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].action : null
@@ -143,7 +138,7 @@ class App extends PureComponent {
     if (action) this.setState({ specials: [...this.state.specials, action] });
 
     // Change the selection only after 1sec (or 6sec if there is talk)
-    this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault / 2)
+    this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault - 2000)
   }
 
   timeout(fn, ms) {
@@ -201,6 +196,12 @@ class App extends PureComponent {
 
   returnableFrame(location, previousIndex) {
     let duration = (location.music && location.music[0].duration) ? location.music[0].duration : durationDefault;
+    
+    this.setState({
+      showMenuButton: false,
+      transitionDuration: 800
+    })
+    this.timeout(() => this.setState({showLoading: true}), durationDefault / 2)
 
     // duration of stay in the location is determined from data or by default 3 seconds
     this.timeout(() => this.setFrame(previousIndex), duration)
@@ -239,6 +240,8 @@ class App extends PureComponent {
       index: index,
       previousIndex: previousIndex,
       showLoading: false,
+      showMenuButton: true,
+      transitionDuration: 400,
       bg: require("../public/locations/" + image),
       bgm: music[0] ? require("../public/music/" + music[0].name) : null,
       bgmVolumeLogic: music[0] ? music[0].percent : null,
@@ -261,70 +264,37 @@ class App extends PureComponent {
         index={this.state.index}
         font={this.state.font}
         bg={this.state.bg}
-        bgTransition={this.state.bgTransition}
         hasError={this.state.hasError}
       />
     );
   }
 
-  toggleGameMenu() {
-    if (this.state.saveMenuShown) this.setState({ saveMenuShown: false });
-    if (this.state.loadMenuShown) this.setState({ loadMenuShown: false });
-    if (this.state.backlogShown) this.setState({ backlogShown: false });
-    this.setState(prevState => ({
-      menuShown: !prevState.menuShown
-    }));
-  }
-
   toggleBacklog() {
-    if (this.state.menuShown) {
-      this.setState({ menuShown: false });
-    }
-    if (this.state.saveMenuShown) {
-      this.setState({ saveMenuShown: false });
-    }
-    if (this.state.loadMenuShown) {
-      this.setState({ loadMenuShown: false });
-    }
-    this.setState(prevState => ({
-      backlogShown: !prevState.backlogShown
-    }));
-  }
-
-  toggleTextBox() {
-    this.setState(prevState => ({
-      textBoxShown: !prevState.textBoxShown
-    }));
+    if (this.state.showMenu) this.setState({ showMenu: false });
+    if (this.state.saveMenu) this.setState({ saveMenu: false });
+    if (this.state.loadMenu) this.setState({ loadMenu: false });
+    this.setState(prevState => ({ backlogShown: !prevState.backlogShown }));
   }
 
   toggleSaveMenu() {
-    if (this.state.menuShown) {
-      this.setState({ menuShown: false });
-    }
-    if (this.state.loadMenuShown) {
-      this.setState({ loadMenuShown: false });
-    }
-    if (this.state.backlogShown) {
-      this.setState({ backlogShown: false });
-    }
-    this.setState(prevState => ({
-      saveMenuShown: !prevState.saveMenuShown
-    }));
+    if (this.state.showMenu) this.setState({ showMenu: false });
+    if (this.state.loadMenu) this.setState({ loadMenu: false });
+    if (this.state.backlogShown) this.setState({ backlogShown: false });
+    this.setState(prevState => ({ saveMenu: !prevState.saveMenu }));
   }
 
   toggleLoadMenu() {
-    if (this.state.menuShown) {
-      this.setState({ menuShown: false });
-    }
-    if (this.state.saveMenuShown) {
-      this.setState({ saveMenuShown: false });
-    }
-    if (this.state.backlogShown) {
-      this.setState({ backlogShown: false });
-    }
-    this.setState(prevState => ({
-      loadMenuShown: !prevState.loadMenuShown
-    }));
+    if (this.state.showMenu) this.setState({ showMenu: false });
+    if (this.state.saveMenu) this.setState({ saveMenu: false });
+    if (this.state.backlogShown) this.setState({ backlogShown: false });
+    this.setState(prevState => ({ loadMenu: !prevState.loadMenu }));
+  }
+
+  toggleGameMenu() {
+    if (this.state.saveMenu) this.setState({ saveMenu: false });
+    if (this.state.loadMenu) this.setState({ loadMenu: false });
+    if (this.state.backlogShown) this.setState({ backlogShown: false });
+    this.setState(prevState => ({ showMenu: !prevState.showMenu }));
   }
 
   saveSlot(number) {
@@ -348,7 +318,7 @@ class App extends PureComponent {
   loadSlot(number) {
     this.setState(JSON.parse(localStorage.getItem(number)));
     this.setState({
-      saveMenuShown: false
+      saveMenu: false
     }); // save menu to false and not load because save is true when saving
   }
 
@@ -357,7 +327,7 @@ class App extends PureComponent {
 
     this.setState({
       beginStory: false,
-      frameIsRendering: true,
+      showFrame: true,
       index: 'begin',
       hasError: [false, '']
     });
@@ -396,15 +366,19 @@ class App extends PureComponent {
   renderMenuButton() {
     return (
       <MenuButton
-        menuButtonsShown={this.state.menuButtonsShown}
-        saveSlot={this.saveSlot.bind(this)}
-        loadSlot={this.loadSlot.bind(this)}
+        showMenuButton={this.state.showMenuButton}
+        showMenu={this.state.showMenu}
+        transitionDuration={this.state.transitionDuration}
         toggleGameMenu={this.toggleGameMenu.bind(this)}
-        menuShown={this.state.menuShown}
-        toggleBacklog={this.toggleBacklog.bind(this)}
-        toggleTextBox={this.toggleTextBox.bind(this)}
-        backlogShown={this.state.backlogShown}
-        isSkipping={this.state.isSkipping}
+      />
+    );
+  }
+
+  renderLoadingBlock() {
+    return (
+      <LoadingBlock
+        showLoading={this.state.showLoading}
+        transitionDuration={this.state.transitionDuration}
       />
     );
   }
@@ -423,8 +397,8 @@ class App extends PureComponent {
         toggleGameMenu={this.toggleGameMenu.bind(this)}
         toggleSaveMenu={this.toggleSaveMenu.bind(this)}
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
-        saveMenuShown={this.state.saveMenuShown}
-        loadMenuShown={this.state.loadMenuShown}
+        saveMenu={this.state.saveMenu}
+        loadMenu={this.state.loadMenu}
         toggleFullscreen={() => this.setState({ isFull: true })}
       />
     );
@@ -497,21 +471,21 @@ class App extends PureComponent {
           <ReactCSSTransitionGroup
             className="container"
             component="div"
-            transitionName="menu"
-            transitionEnterTimeout={400}
-            transitionLeaveTimeout={400}
+            transitionName="default-transition"
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={500}
           >
             {this.state.beginStory ? this.beginStory() : null}
-            {this.state.frameIsRendering ? this.renderFrame() : null}
+            {this.state.showFrame ? this.renderFrame() : null}
             {/* GUI menu buttons */}
             {this.state.choicesExist ? this.renderChoiceMenu() : null}
-            {this.state.showLoading ? this.renderLoadingBlock() : null}
-            {!this.state.menuShown ? this.renderMenuButton() : null}
-            {this.state.menuShown ? this.gameMenu() : null}
-            {this.state.saveMenuShown ? this.saveMenu() : null}
-            {this.state.loadMenuShown ? this.loadMenu() : null}
+            {this.state.showMenu ? this.gameMenu() : null}
+            {this.state.saveMenu ? this.saveMenu() : null}
+            {this.state.loadMenu ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
           </ReactCSSTransitionGroup>
+            {this.renderLoadingBlock()}
+            {this.renderMenuButton()}
         </Fullscreen>
         {this.state.bgm ? this.playBGM() : null}
         {this.state.bgm2 ? this.playBGM2() : null}
