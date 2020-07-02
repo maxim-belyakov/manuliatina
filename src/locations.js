@@ -711,7 +711,7 @@ let locations = {
         ]
     },
     belasia: {
-        "title": "Кустики",
+        "title": "Белашья",
         "original": "Белашья 4.jpg",
         "music": [
             {   
@@ -722,9 +722,12 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "visitingYenya",
+                "name": "belasia",
                 "title": "Помолчать вместе",
                 "action": "talkBelasia",
+                "sound": {
+                    
+                },
                 "required": {
                     "specials": {
                         "talkBelasia": false
@@ -739,7 +742,7 @@ let locations = {
                         "talkBelasia": true
                     }
                 },
-                "title": "Вернутьсяв деревню"
+                "title": "Вернуться в деревню"
             }
         ]
     },

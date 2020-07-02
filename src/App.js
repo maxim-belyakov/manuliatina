@@ -32,6 +32,8 @@ import "./styles/textbox.css";
 import "./styles/titlescreen.css";
 import "./styles/transitions.css";
 
+const durationDefault = 3000
+
 const INITIAL_STATE = {
   bgmVolume: 80,
   bgmVolumeLogic: 100,
@@ -198,7 +200,7 @@ class App extends PureComponent {
   }
 
   returnableFrame(location, previousIndex) {
-    let duration = (location.music && location.music[0].duration) ? location.music[0].duration : 3000;
+    let duration = (location.music && location.music[0].duration) ? location.music[0].duration : durationDefault;
 
     // duration of stay in the location is determined from data or by default 3 seconds
     this.timeout(() => this.setFrame(previousIndex), duration)
@@ -238,16 +240,16 @@ class App extends PureComponent {
       previousIndex: previousIndex,
       showLoading: false,
       bg: require("../public/locations/" + image),
-      bgm: music[0] ? require("../public/music/" + music[0].name) : null,
+      // bgm: music[0] ? require("../public/music/" + music[0].name) : null,
       bgmVolumeLogic: music[0] ? music[0].percent : null,
-      bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
+      // bgm2: music[1] ? require("../public/music/" + music[1].name) : null,
       bgmVolumeLogic2: music[1] ? music[1].percent : null,
-      mTalk: (talk && !this.state.talked) ? require("../public/music/" + talk.music) : null,
+      mTalk: (talk && talk.music && !this.state.talked) ? require("../public/music/" + talk.music) : null,
       talked: !talk ? false : this.state.talked
     });
 
-    // A little later, 3sec (or 1sec if there is a talk) change the location
-    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), talk ? 2000 : 3000)
+    // a little later, durationDefault sec (or half as much if there is a talk) change the location
+    this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), talk ? durationDefault / 2 : durationDefault)
 
     // location that takes you back to the pre-location after some time
     if (!currentLocation.navigation) this.returnableFrame(currentLocation, previousIndex)
@@ -360,7 +362,7 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('myRoom'); }, 3000)
+    setTimeout(() => { this.setFrame('belasia'); }, durationDefault)
   }
 
   saveMenu() {
@@ -472,7 +474,7 @@ class App extends PureComponent {
   }
 
   playTalk() {
-    this.timeout(() => this.setState({ talked: true }), 3000)
+    this.timeout(() => this.setState({ talked: true }), durationDefault / 2)
 
     return <Sound
               url={this.state.mTalk}
