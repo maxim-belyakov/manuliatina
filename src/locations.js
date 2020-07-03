@@ -85,7 +85,7 @@ let locations = {
             {
                 "name": "hall",
                 "required": {
-                    "timeOfDay": ["day"],
+                    "timeOfDay": ["day", 'sunrise'],
                     "specials": {
                         "cleanMyRoom": false
                     }
@@ -713,7 +713,7 @@ let locations = {
             },
             {
                 "name": "edgeNorthernForest",
-                "title": "Пойти в лес (опушка)"
+                "title": "Вернуться в лес"
             }
         ]
     },
