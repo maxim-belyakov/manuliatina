@@ -93,7 +93,10 @@ class App extends PureComponent {
     else if (hr > 6 && hr < 17) time = 'day'
     else if (hr > 17 && hr < 0) time = 'sunset'
     else if (hr > 0 && hr < 4) time = 'night'
-    else time = 'day'
+    else {
+      console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
+      time = 'day'
+    }
 
     return time
   }
@@ -225,6 +228,7 @@ class App extends PureComponent {
       for (let i in Object.values(specials)) {
         let item = specials[i]
 
+        // if time of day is right and this special has include in this loaction
         if (item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
       }
 
