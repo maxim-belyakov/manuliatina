@@ -93,7 +93,10 @@ class App extends PureComponent {
     else if (hr > 6 && hr < 17) time = 'day'
     else if (hr > 17 && hr < 0) time = 'sunset'
     else if (hr > 0 && hr < 4) time = 'night'
-    else time = 'day'
+    else {
+      console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
+      time = 'day'
+    }
 
     return time
   }
@@ -115,6 +118,7 @@ class App extends PureComponent {
 
     return (
       <ChoiceMenu
+        index={currentIndex}
         onChoiceSelected={this.handleChoiceSelected.bind(this)} 
         choice={choice}
         timeOfDay={this.getTypeOfTime()}
@@ -127,9 +131,16 @@ class App extends PureComponent {
   getLuck(luck, initIndex) {
     const randomPercent = Math.floor(Math.random() * 100)
     const time = (luck.timeOfDay.indexOf(this.getTypeOfTime()) > -1) ? true : false
-    let pass = (randomPercent < luck.percent) ? true : false
+    const pass = (randomPercent < luck.percent) ? true : false
 
     return (time && pass) ? luck.name : initIndex
+  }
+
+  operationGoose() {
+    let secondPart = 'Перелесье гусь 3.jpg'
+    let thirdPart = 'Перелесье гусь 2.jpg'
+    this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + secondPart)});}, 20000)
+    this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + thirdPart)});}, 40000)
   }
 
   setChoice(index) {
@@ -138,10 +149,8 @@ class App extends PureComponent {
     let talk = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].sound : null
     let luck = (locations[previousIndex].navigation && locations[previousIndex].navigation[index.order]) ? locations[previousIndex].navigation[index.order].luck : null
 
-    // immediately disable the choice menu after a click
-    this.setState({ 
-      choicesExist: false
-    });
+    // Immediately disable the choice menu after a click
+    this.setState({ choicesExist: false });
 
     // Push luck
     if (luck) index.name = this.getLuck(luck, index.name)
@@ -155,6 +164,9 @@ class App extends PureComponent {
         transitionDuration: 800,
       }), durationDefault / 3)
     }
+
+    // GOOSE EXCEPTION
+    if (index.name === 'goose') this.operationGoose()
 
     // Change the selection only after 1sec (or 6sec if there is talk)
     this.timeout(() => this.setFrame(index.name, action, talk), talk ? durationDefault * 2 : durationDefault - 2000)
@@ -174,6 +186,7 @@ class App extends PureComponent {
 
     if (time === 'night') {
       if (currentLocation.night) image = currentLocation.night
+      else if (currentLocation.sunset) image = currentLocation.sunset
       if (currentLocation.musicNight) music = currentLocation.musicNight
     }
 
@@ -193,22 +206,34 @@ class App extends PureComponent {
 
   }
 
-  defineImegeBySpecial(image, action, currentLocation, stateSpecials) {
+  defineImegeBySpecialOrLuck(image, action, location, stateSpecials) {
     const time = this.getTypeOfTime()
-    const currentSpecials = currentLocation.specials
+    const specials = location.specials
+    const luck = location.luck
     const beforeSpecials = stateSpecials
     let order = {}
 
-    if (action) beforeSpecials.push(action)
+    if (luck) {
+      const randomPercent = Math.floor(Math.random() * 100)
+      const time = (luck.timeOfDay.indexOf(this.getTypeOfTime()) > -1) ? true : false
+      const pass = (randomPercent < luck.percent) ? true : false
 
-    // if we have two allowed specials for one image, looks where order is lowers
-    for (let i in Object.values(currentSpecials)) {
-      let item = currentSpecials[i]
-
-      if (time === item.timeOfDay && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
+      image = (time && pass) ? luck.original : image
     }
 
-    if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
+    if (specials) {
+      if (action) beforeSpecials.push(action)
+
+      // if we have two allowed specials for one image, looks where order is lowers
+      for (let i in Object.values(specials)) {
+        let item = specials[i]
+
+        // if time of day is right and this special has include in this loaction
+        if (item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
+      }
+
+      if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
+    }    
 
     return image
   }
@@ -244,9 +269,9 @@ class App extends PureComponent {
     // get image/music by time
     [image, music] = this.defineImegeByTime(image, music, currentLocation)
 
-    // update image if we have something special
-    if (currentLocation.specials) {
-      image = this.defineImegeBySpecial(image, action, currentLocation, this.state.specials)
+    // update image if we have something special or luck
+    if (currentLocation.specials || currentLocation.luck) {
+      image = this.defineImegeBySpecialOrLuck(image, action, currentLocation, this.state.specials)
     }
 
     // image is not found
@@ -254,8 +279,7 @@ class App extends PureComponent {
       this.setError('Something went wrong :( location Photo is not available', `Before the last use of setState image =${image}`)
       image = 'black.png'
     }
-
-    // talk
+    
     this.setState({
       index: index,
       previousIndex: previousIndex,
@@ -271,7 +295,7 @@ class App extends PureComponent {
       talked: !talk ? false : this.state.talked
     });
 
-    // a little later, durationDefault sec (or half as much if there is a talk) change the location
+    // a little later open choices menu
     this.timeout(() => this.setState({choicesExist: !!currentLocation.navigation}), talk ? durationDefault / 2 : durationDefault)
 
     // location that takes you back to the pre-location after some time
