@@ -11,7 +11,7 @@ function ChoiceMenu(props) {
     if (key.required) {
 
       // time checking
-      if (key.required.timeOfDay && key.required.timeOfDay.indexOf(props.timeOfDay) > -1) checkRequired = false;
+      if (key.required.timeOfDay && key.required.timeOfDay.indexOf(props.timeOfDay) === -1) checkRequired = false;
       
       // if we already did it
       if (props.specials.indexOf(key.action) > -1) checkRequired = false;
