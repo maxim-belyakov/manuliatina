@@ -116,7 +116,7 @@ let locations = {
             {
                 "name": "forest_song.mp3",
                 "percent": 100,
-                "duration": 30000,
+                "duration": 30500,
             }
         ]
     },
@@ -216,7 +216,7 @@ let locations = {
         "navigation": [
             {
                 "name": "edgeNorthernForest",
-                "title": "Пойти в лес"
+                "title": "Пойти в северный лес"
             },
             {
                 "name": "sentabrskayaStreet",
@@ -262,13 +262,13 @@ let locations = {
         "navigation": [
             {
                 "name": "southernForest",
-                "title": "Пойти в лес"
+                "title": "Пойти в южный лес"
             },
             {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "75",
+                    "percent": "100",
                     "timeOfDay": ["night"],
                     "name": "goose"
                 }        
@@ -819,16 +819,16 @@ let locations = {
         ],
         "navigation": [
             {
+                "name": "cafeteria",
+                "title": "Перекусить"
+            },
+            {
                 "name": "schoolWindow",
                 "title": "Посмотреть в окно"        
             },
             {
                 "name": "schoolSecondFloor",
                 "title": "Подняться на второй этаж"
-            },
-            {
-                "name": "cafeteria",
-                "title": "Перекусить"
             },
             {
                 "name": "sentabrskayaStreet",
@@ -846,15 +846,11 @@ let locations = {
                 "duration": 205000,
             }
         ],
-        "navigation": [
+        "navigation": [            
             {
-                "name": "thresholdSchool",
-                "title": "Выйти на улицу"        
-            },
-            {
-                "name": "cafeteria",
-                "title": "Перекусить"
-            },
+                "name": "prevLocation",
+                "title": "Обратно в коридор"
+            }
         ]
     },
     schoolSecondFloor: {
@@ -958,8 +954,26 @@ let locations = {
         ],
         "navigation": [
             {
+                "name": "edgeNorthernForest",
+                "title": "Пойти в северный лес"
+            },
+            {
                 "name": "sentabrskayaStreet",
-                "title": "БЕЖАТЬ!!!"
+                "title": "Пойти на юг"
+            },
+            {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
+            }
+        ]
+    },
+    theend: {
+        "title": "Конец",
+        "original": "theend.jpg",
+        "navigation": [
+            {
+                "name": "myRoom",
+                "title": "Вас скушали :( Начать заново"
             },
         ]
     },
