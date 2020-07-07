@@ -85,6 +85,24 @@
 	width: 375px;
 }
 
+.slider-container {
+	padding: 15px;
+	padding-bottom: 10px;
+	display: block;
+	margin: 30px auto;
+}
+
+.font-container {
+	padding: 15px;
+	line-height: 1.6;
+	display: block;
+	margin: 30px auto;
+}
+
+.rangeslider .rangeslider__handle {
+	border: unset;
+}
+
 @media screen and (max-width: 833px) {
 	.config-container {
 		width: 70%;
@@ -95,17 +113,22 @@
 		padding: 10px 20px 15px;
     	font-size: 12px;
 	}
-}
 
-.slider-container {
-	padding: 8px 12px 2px;
-}
-
-.font-container {
-	padding: 6px 12px;
-	line-height: 1.6;
-}
-
-.rangeslider .rangeslider__handle {
-	border: unset;
+	.slider-container {
+		padding: 15px;
+		padding-bottom: 10px;
+		display: block;
+		margin: 30px auto;
+		zoom: 0.6;
+		width: 30%;
+	}
+	
+	.font-container {
+		padding: 15px;
+		line-height: 1.6;
+		display: block;
+		margin: 30px auto;
+		zoom: 0.6;
+		width: 30%;
+	}
 }
