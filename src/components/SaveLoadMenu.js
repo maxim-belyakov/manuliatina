@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-class SaveLoadMenu extends Component {
+class SaveLoadMenu extends PureComponent {
   constructor() {
     super(); //constructor init
 

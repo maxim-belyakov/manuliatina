@@ -367,14 +367,12 @@ class App extends PureComponent {
 
     localStorage.setItem("time" + number, datestring); // saves the current time to the save slot
     localStorage.setItem(number, JSON.stringify(this.state, (k, v) => (v === undefined ? null : v)));
-    this.setState(this.state);
+    this.setState({ saveMenu: false });
   }
 
   loadSlot(number) {
     this.setState(JSON.parse(localStorage.getItem(number)));
-    this.setState({
-      saveMenu: false
-    }); // save menu to false and not load because save is true when saving
+    this.setState({ saveMenu: false }); // save menu to false and not load because save is true when saving
   }
 
   beginStory() {
