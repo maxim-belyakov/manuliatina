@@ -452,7 +452,7 @@ class App extends PureComponent {
         toggleLoadMenu={this.toggleLoadMenu.bind(this)}
         saveMenu={this.state.saveMenu}
         loadMenu={this.state.loadMenu}
-        toggleFullscreen={() => this.setState({ isFull: true })}
+        toggleFullscreen={() => this.setState({ isFull: !this.state.isFull })}
       />
     );
   }

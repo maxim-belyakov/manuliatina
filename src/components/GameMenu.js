@@ -106,7 +106,7 @@ class GameMenu extends Component {
       <div className="overlay game-menu" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
           <li>
-            <span>Menu</span>
+            <span>Меню</span>
           </li>
           <li className="exit-button" onClick={toggleGameMenu}>
             <button >&times;</button>
@@ -117,11 +117,11 @@ class GameMenu extends Component {
           {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
           {handleToggles(KEYUP, "Enter", props.setNextFrame)} */}
 
-          {this.category("Save", saveMenu, toggleSaveMenu)}
-          {this.category("Load", loadMenu, toggleLoadMenu)}
-          {this.category("Audio", audioShown, this.toggleAudio)}
-          {this.category("Text", textShown, this.toggleText)}
-          {this.category("Fullscreen", null, toggleFullscreen)}
+          {this.category("Сохранить", saveMenu, toggleSaveMenu)}
+          {this.category("Загрузить", loadMenu, toggleLoadMenu)}
+          {this.category("Аудио", audioShown, this.toggleAudio)}
+          {this.category("Текст", textShown, this.toggleText)}
+          {this.category("Полный экран", null, toggleFullscreen)}
 
           {/* <button onClick={toggleSaveMenu}>{loadMenu ? "Hide Saves" : "Save"}</button> */}
           {/* <button onClick={toggleLoadMenu}>{loadMenu ? "Hide Loads" : "Load"}</button> */}
