@@ -309,7 +309,7 @@ let locations = {
                 "title": "Пойти к озеру",
                 "luck": {
                     "percent": "35",
-                    "timeOfDay": ["day", "sunrise", "sunday"],
+                    "timeOfDay": ["day", "sunrise", "sunset"],
                     "name": "belasia"
                 }        
             },
@@ -350,7 +350,7 @@ let locations = {
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100,
+                "percent": 35,
                 "duration": 21000,
             }
         ],
@@ -362,7 +362,7 @@ let locations = {
             },
             {   
                 "name": "crow.mp3",
-                "percent": 50,
+                "percent": 35,
                 "duration": 21000,
             }
         ],
