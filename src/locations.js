@@ -268,7 +268,7 @@ let locations = {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "100",
+                    "percent": "25",
                     "timeOfDay": ["night"],
                     "name": "goose"
                 }        
