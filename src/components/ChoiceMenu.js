@@ -1,4 +1,5 @@
 import React from "react";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 function ChoiceMenu(props) {
 
@@ -41,11 +42,58 @@ function ChoiceMenu(props) {
     ) : null;
   }
 
-  return <div className={`overlay overlay-choices ${goooseCheck ? 'goose' : null}`}>
-      <div className="choices-container">
-          {props ? props.choice.map(renderChoiceOptions) : null}
-      </div>
-    </div>;
+  function containerChoice(choiceArray, justRender) {
+    return (
+      <ReactCSSTransitionGroup
+        transitionName="default-transition"
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
+      >
+        {props.choicesExist ? 
+          <div className={`overlay overlay-choices ${goooseCheck && justRender ? 'gooseDisabled' : ''}`}>
+              <div className="choices-container">
+                {props ? choiceArray.map(renderChoiceOptions) : null}
+              </div>
+          </div>
+        :
+          null
+        }
+        </ReactCSSTransitionGroup>
+    )
+  }
+
+  function gooseChoice() {
+    const run = [{
+      "name": "sentabrskayaStreet",
+      "title": "БЕЖАТЬ!!!"
+    }]
+
+    return (
+      <ReactCSSTransitionGroup
+        transitionName={'gooose'}
+        transitionEnterTimeout={200000}
+        transitionLeaveTimeout={400}
+        transitionAppear={true}
+      >
+        {props.choicesExist ? 
+          <div className="gooseChoices">
+            {containerChoice(run)}
+          </div>
+          :
+          null
+        }
+      </ReactCSSTransitionGroup>
+    )
+  }
+
+  // cursor: not-allowed;
+
+  return (
+    <div>
+      {containerChoice(props.choice, true)}
+      {goooseCheck ? gooseChoice() : null}
+    </div>
+  );
 }
 
 export default ChoiceMenu;

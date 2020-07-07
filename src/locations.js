@@ -116,7 +116,7 @@ let locations = {
             {
                 "name": "forest_song.mp3",
                 "percent": 100,
-                "duration": 30000,
+                "duration": 30500,
             }
         ]
     },
@@ -216,7 +216,7 @@ let locations = {
         "navigation": [
             {
                 "name": "edgeNorthernForest",
-                "title": "Пойти в лес"
+                "title": "Пойти в северный лес"
             },
             {
                 "name": "sentabrskayaStreet",
@@ -262,13 +262,13 @@ let locations = {
         "navigation": [
             {
                 "name": "southernForest",
-                "title": "Пойти в лес"
+                "title": "Пойти в южный лес"
             },
             {
                 "name": "severnayaStreet",
                 "title": "Пойти на север",
                 "luck": {
-                    "percent": "75",
+                    "percent": "25",
                     "timeOfDay": ["night"],
                     "name": "goose"
                 }        
@@ -309,7 +309,7 @@ let locations = {
                 "title": "Пойти к озеру",
                 "luck": {
                     "percent": "35",
-                    "timeOfDay": ["day", "sunrise", "sunday"],
+                    "timeOfDay": ["day", "sunrise", "sunset"],
                     "name": "belasia"
                 }        
             },
@@ -350,7 +350,7 @@ let locations = {
             },
             {   
                 "name": "crow.mp3",
-                "percent": 100,
+                "percent": 35,
                 "duration": 21000,
             }
         ],
@@ -362,7 +362,7 @@ let locations = {
             },
             {   
                 "name": "crow.mp3",
-                "percent": 50,
+                "percent": 35,
                 "duration": 21000,
             }
         ],
@@ -679,7 +679,7 @@ let locations = {
         ]
     },
     lake: {
-        "title": "Кустики",
+        "title": "Озеро",
         "original": "day_lake.jpg",
         "sunset": "evening_lake.jpg",
         "sunrise": "dawn_lake.jpg",
@@ -688,6 +688,30 @@ let locations = {
             "timeOfDay": ["day"],
             "original": "birds_lake.jpg"
         },
+        "specials": [
+            {
+                "name": "changeMusic",
+                "music": [
+                    {
+                        "name": "Sopilka1.mp3",
+                        "percent": 100,
+                        "duration": 210000,
+                    },
+                    {
+                        "name": "Sopilka2.mp3",
+                        "percent": 100,
+                        "duration": 580000,
+                    },
+                    {
+                        "name": "Sopilka3.mp3",
+                        "percent": 100,
+                        "duration": 490000,
+                    }
+                ],
+                "timeOfDay": ["day", "night", "sunset", "sunrise"],
+                "order": 0
+            }
+        ],
         "music": [
             {
                 "name": "Navprostets.mp3",
@@ -704,7 +728,8 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "sopilka",
+                "name": "lake",
+                "action": "changeMusic",
                 "title": "Сыграть на сопилке"
             },
             {
@@ -714,16 +739,6 @@ let locations = {
             {
                 "name": "edgeNorthernForest",
                 "title": "Вернуться в лес"
-            }
-        ]
-    },
-    sopilka: {
-        "original": "black.png",
-        "music": [
-            {
-                "name": "Sopilka1.mp3",
-                "percent": 100,
-                "duration": 30000,
             }
         ]
     },
@@ -819,16 +834,16 @@ let locations = {
         ],
         "navigation": [
             {
+                "name": "cafeteria",
+                "title": "Перекусить"
+            },
+            {
                 "name": "schoolWindow",
                 "title": "Посмотреть в окно"        
             },
             {
                 "name": "schoolSecondFloor",
                 "title": "Подняться на второй этаж"
-            },
-            {
-                "name": "cafeteria",
-                "title": "Перекусить"
             },
             {
                 "name": "sentabrskayaStreet",
@@ -846,15 +861,11 @@ let locations = {
                 "duration": 205000,
             }
         ],
-        "navigation": [
+        "navigation": [            
             {
-                "name": "thresholdSchool",
-                "title": "Выйти на улицу"        
-            },
-            {
-                "name": "cafeteria",
-                "title": "Перекусить"
-            },
+                "name": "prevLocation",
+                "title": "Обратно в коридор"
+            }
         ]
     },
     schoolSecondFloor: {
@@ -958,8 +969,26 @@ let locations = {
         ],
         "navigation": [
             {
+                "name": "edgeNorthernForest",
+                "title": "Пойти в северный лес"
+            },
+            {
                 "name": "sentabrskayaStreet",
-                "title": "БЕЖАТЬ!!!"
+                "title": "Пойти на юг"
+            },
+            {
+                "name": "lesnayaStreet",
+                "title": "Лесная улица"
+            }
+        ]
+    },
+    theend: {
+        "title": "Конец",
+        "original": "theend.jpg",
+        "navigation": [
+            {
+                "name": "myRoom",
+                "title": "Вас скушали :( Начать заново"
             },
         ]
     },

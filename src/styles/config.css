@@ -85,12 +85,18 @@
 	width: 375px;
 }
 
-@media only screen and (max-width: 768px) {
+@media screen and (max-width: 833px) {
 	.config-container {
 		width: 70%;
 		margin: 15px auto;
 	}
+	.config-btn {
+		margin: 0 10px;
+		padding: 10px 20px 15px;
+    	font-size: 12px;
+	}
 }
+
 .slider-container {
 	padding: 8px 12px 2px;
 }

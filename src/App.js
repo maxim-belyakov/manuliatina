@@ -28,7 +28,6 @@ import "./styles/loadingblock.css";
 import "./styles/menubuttons.css";
 import "./styles/saveloadmenu.css";
 import "./styles/sprites.css";
-import "./styles/textbox.css";
 import "./styles/titlescreen.css";
 import "./styles/transitions.css";
 
@@ -56,7 +55,8 @@ const INITIAL_STATE = {
   showLoading: false,
   hasError: [false, ''],
   specials: [],
-  logLocations: []
+  logLocations: [],
+  specialMusicOrder: 0,
 };
 
 class App extends PureComponent {
@@ -89,10 +89,10 @@ class App extends PureComponent {
     let time
     const hr = new Date().getHours()
 
-    if (hr > 4 && hr < 6) time = 'sunrise'
-    else if (hr > 6 && hr < 17) time = 'day'
-    else if (hr > 17 && hr < 0) time = 'sunset'
-    else if (hr > 0 && hr < 4) time = 'night'
+    if (hr > 4 && hr <= 6) time = 'sunrise'
+    else if (hr > 6 && hr <= 17) time = 'day'
+    else if (hr > 17 && hr <= 23) time = 'sunset'
+    else if (hr === 23 || hr > 0 && hr <= 4) time = 'night'
     else {
       console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
       time = 'day'
@@ -112,23 +112,23 @@ class App extends PureComponent {
   }
 
   renderChoiceMenu() {
-
     const currentIndex = this.state.index;
-    const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
+    const choice = currentIndex && locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
 
-    return (
+    return currentIndex ? (
       <ChoiceMenu
         index={currentIndex}
-        onChoiceSelected={this.handleChoiceSelected.bind(this)} 
+        onChoiceSelected={this.handleChoiceSelected.bind(this)}
+        choicesExist={this.state.choicesExist}
         choice={choice}
         timeOfDay={this.getTypeOfTime()}
         specials={this.state.specials}
         font={this.state.font}
       />
-    );
+    ) : null;
   }
 
-  getLuck(luck, initIndex) {
+  getChoiceLuck(luck, initIndex) {
     const randomPercent = Math.floor(Math.random() * 100)
     const time = (luck.timeOfDay.indexOf(this.getTypeOfTime()) > -1) ? true : false
     const pass = (randomPercent < luck.percent) ? true : false
@@ -141,6 +141,7 @@ class App extends PureComponent {
     let thirdPart = 'Перелесье гусь 2.jpg'
     this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + secondPart)});}, 20000)
     this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + thirdPart)});}, 40000)
+    this.timeout(() => {if (this.state.index === 'goose') {this.handleChoiceSelected({ currentTarget: {name: "theend", order: 1} });}}, 50000) // change frame to 'the end'
   }
 
   setChoice(index) {
@@ -153,7 +154,7 @@ class App extends PureComponent {
     this.setState({ choicesExist: false });
 
     // Push luck
-    if (luck) index.name = this.getLuck(luck, index.name)
+    if (luck) index.name = this.getChoiceLuck(luck, index.name)
 
     // Add SPECIAL point to state
     if (action) this.setState({ specials: [...this.state.specials, action] });
@@ -181,32 +182,32 @@ class App extends PureComponent {
     console.error(consoleMessage)
   }
 
-  defineImegeByTime(image, music, currentLocation) {
+  defineByTime(image, music, currentLocation) {
     const time = this.getTypeOfTime()
 
     if (time === 'night') {
-      if (currentLocation.night) image = currentLocation.night
-      else if (currentLocation.sunset) image = currentLocation.sunset
-      if (currentLocation.musicNight) music = currentLocation.musicNight
+      if (currentLocation.night) image = currentLocation.night.slice()
+      else if (currentLocation.sunset) image = currentLocation.sunset.slice()
+      if (currentLocation.musicNight) music = currentLocation.musicNight.slice()
     }
 
     if (time === 'sunset') {
-      if (currentLocation.sunset) image = currentLocation.sunset
-      else if (currentLocation.night) image = currentLocation.night // if now is sunset but has only night
-      if (currentLocation.musicSunset) music = currentLocation.musicSunset
-      else if (currentLocation.musicNight) music = currentLocation.musicNight // if now is sunset but has only night
+      if (currentLocation.sunset) image = currentLocation.sunset.slice()
+      else if (currentLocation.night) image = currentLocation.night.slice() // if now is sunset but has only night
+      if (currentLocation.musicSunset) music = currentLocation.musicSunset.slice()
+      else if (currentLocation.musicNight) music = currentLocation.musicNight.slice() // if now is sunset but has only night
     }
 
     if (time === 'sunrise') {
-      if (currentLocation.sunrise) image = currentLocation.sunrise
-      if (currentLocation.musicSunrise) music = currentLocation.musicSunrise
+      if (currentLocation.sunrise) image = currentLocation.sunrise.slice()
+      if (currentLocation.musicSunrise) music = currentLocation.musicSunrise.slice()
     }
 
     return [ image, music ]
 
   }
 
-  defineImegeBySpecialOrLuck(image, action, location, stateSpecials) {
+  defineBySpecialOrLuck(image, music, location, stateSpecials, action) {
     const time = this.getTypeOfTime()
     const specials = location.specials
     const luck = location.luck
@@ -222,20 +223,30 @@ class App extends PureComponent {
     }
 
     if (specials) {
-      if (action) beforeSpecials.push(action)
+      if (action && action !== "changeMusic") beforeSpecials.push(action)
 
       // if we have two allowed specials for one image, looks where order is lowers
       for (let i in Object.values(specials)) {
         let item = specials[i]
 
         // if time of day is right and this special has include in this loaction
-        if (item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
+        if ((item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) && item.original) order[item.order] = item.original
       }
 
       if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
-    }    
+    }
 
-    return image
+    // change music special
+    if (action === "changeMusic") {
+      const potencialMusic = specials.find(obj => obj.name === 'changeMusic')
+
+      if (potencialMusic && potencialMusic.music) {
+        let numberOfMusic = Math.floor(Math.random()*potencialMusic.music.length)
+        music[0] = potencialMusic.music[numberOfMusic]
+      }
+    }
+
+    return [ image, music ]
   }
 
   returnableFrame(location, previousIndex) {
@@ -267,11 +278,11 @@ class App extends PureComponent {
     }    
 
     // get image/music by time
-    [image, music] = this.defineImegeByTime(image, music, currentLocation)
+    [image, music] = this.defineByTime(image, music, currentLocation)
 
     // update image if we have something special or luck
     if (currentLocation.specials || currentLocation.luck) {
-      image = this.defineImegeBySpecialOrLuck(image, action, currentLocation, this.state.specials)
+      [image, music] = this.defineBySpecialOrLuck(image, music, currentLocation, this.state.specials, action)
     }
 
     // image is not found
@@ -376,7 +387,7 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('myRoom'); }, durationDefault)
+    setTimeout(() => { this.setFrame('lake'); }, durationDefault)
   }
 
   saveMenu() {
@@ -515,12 +526,12 @@ class App extends PureComponent {
             {this.state.beginStory ? this.beginStory() : null}
             {this.state.showFrame ? this.renderFrame() : null}
             {/* GUI menu buttons */}
-            {this.state.choicesExist ? this.renderChoiceMenu() : null}
             {this.state.showMenu ? this.gameMenu() : null}
             {this.state.saveMenu ? this.saveMenu() : null}
             {this.state.loadMenu ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
           </ReactCSSTransitionGroup>
+            {this.renderChoiceMenu()}
             {this.renderLoadingBlock()}
             {this.renderMenuButton()}
         </Fullscreen>

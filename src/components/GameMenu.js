@@ -130,7 +130,7 @@ class GameMenu extends Component {
         <div id="config-body">
           {audioShown ? (
             <div>
-              {this.slider("BGM", bgmVolume, bgmVolumeChange)}
+              {this.slider("Music Volume", bgmVolume, bgmVolumeChange)}
               {/* {this.slider("Voice", voiceVolume, voiceVolumeChange)} */}
               {/* {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)} */}
             </div>

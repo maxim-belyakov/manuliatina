@@ -1,4 +1,4 @@
-import React,{ useLayoutEffect } from "react";
+import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 let errorCache
 
 function RenderFrame(props) {
+
   let bgTransitionTime = props.index === 'begin' ? 0 : 2000;
 
   const hasError = () => {
@@ -27,6 +28,9 @@ function RenderFrame(props) {
 
   return (
     <div className="zoom-frame">
+      <div className="viewPortrait">
+        <img draggable="false" alt="settings-button" className="viewPortraitImg" src={require("../static/turn.jpg")} onClick={props.toggleGameMenu} />
+      </div>
       <ToastContainer
         position="top-center"
         autoClose={5000}
