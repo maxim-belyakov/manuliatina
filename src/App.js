@@ -92,7 +92,7 @@ class App extends PureComponent {
     if (hr > 4 && hr <= 6) time = 'sunrise'
     else if (hr > 6 && hr <= 17) time = 'day'
     else if (hr > 17 && hr <= 23) time = 'sunset'
-    else if (hr > 0 && hr <= 4) time = 'night'
+    else if (hr >= 0 && hr <= 4) time = 'night'
     else {
       console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
       time = 'day'
