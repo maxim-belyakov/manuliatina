@@ -82,7 +82,7 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    // window.addEventListener("beforeunload", e => (e.returnValue = "Unsaved changes will be lost."));
+    window.addEventListener("beforeunload", e => (e.returnValue = "Несохраненные изменения будут потеряны!"));
   }
 
   getTypeOfTime() {
@@ -92,7 +92,7 @@ class App extends PureComponent {
     if (hr > 4 && hr <= 6) time = 'sunrise'
     else if (hr > 6 && hr <= 17) time = 'day'
     else if (hr > 17 && hr <= 23) time = 'sunset'
-    else if (hr === 23 || hr > 0 && hr <= 4) time = 'night'
+    else if (hr > 0 && hr <= 4) time = 'night'
     else {
       console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
       time = 'day'
@@ -387,16 +387,16 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('lake'); }, durationDefault)
+    setTimeout(() => { this.setFrame('myRoom'); }, durationDefault)
   }
 
   saveMenu() {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        confirmationMessage="Overwrite save?"
+        confirmationMessage="Перезаписать слот?"
         currentTime={this.state.currentTime}
-        menuType="Save"
+        menuType="Сохранить"
         executeSlot={this.saveSlot.bind(this)}
         toggleMenu={this.toggleSaveMenu.bind(this)}
       />
@@ -407,9 +407,9 @@ class App extends PureComponent {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        confirmationMessage="Load save?"
+        confirmationMessage="Загрузить этот слот?"
         currentTime={this.state.currentTime}
-        menuType="Load"
+        menuType="Загрузить"
         executeSlot={this.loadSlot.bind(this)}
         toggleMenu={this.toggleLoadMenu.bind(this)}
       />

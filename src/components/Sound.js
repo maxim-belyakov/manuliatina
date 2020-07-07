@@ -42,7 +42,7 @@ function createSound(options, cb) {
 
 function noop() {}
 
-var fadeInCheck = false;
+let fadeInCheck = false;
 
 const playStatuses = {
   PLAYING: 'PLAYING',
