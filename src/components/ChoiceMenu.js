@@ -48,7 +48,6 @@ function ChoiceMenu(props) {
         transitionName="default-transition"
         transitionEnterTimeout={500}
         transitionLeaveTimeout={500}
-        transitionAppear={true}
       >
         {props.choicesExist ? 
           <div className={`overlay overlay-choices ${goooseCheck && justRender ? 'gooseDisabled' : ''}`}>
