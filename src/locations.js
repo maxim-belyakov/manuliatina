@@ -679,7 +679,7 @@ let locations = {
         ]
     },
     lake: {
-        "title": "Кустики",
+        "title": "Озеро",
         "original": "day_lake.jpg",
         "sunset": "evening_lake.jpg",
         "sunrise": "dawn_lake.jpg",
@@ -688,6 +688,30 @@ let locations = {
             "timeOfDay": ["day"],
             "original": "birds_lake.jpg"
         },
+        "specials": [
+            {
+                "name": "changeMusic",
+                "music": [
+                    {
+                        "name": "Sopilka1.mp3",
+                        "percent": 100,
+                        "duration": 210000,
+                    },
+                    {
+                        "name": "Sopilka2.mp3",
+                        "percent": 100,
+                        "duration": 580000,
+                    },
+                    {
+                        "name": "Sopilka3.mp3",
+                        "percent": 100,
+                        "duration": 490000,
+                    }
+                ],
+                "timeOfDay": ["day", "night", "sunset", "sunrise"],
+                "order": 0
+            }
+        ],
         "music": [
             {
                 "name": "Navprostets.mp3",
@@ -704,7 +728,8 @@ let locations = {
         ],
         "navigation": [
             {
-                "name": "sopilka",
+                "name": "lake",
+                "action": "changeMusic",
                 "title": "Сыграть на сопилке"
             },
             {
@@ -714,16 +739,6 @@ let locations = {
             {
                 "name": "edgeNorthernForest",
                 "title": "Вернуться в лес"
-            }
-        ]
-    },
-    sopilka: {
-        "original": "black.png",
-        "music": [
-            {
-                "name": "Sopilka1.mp3",
-                "percent": 100,
-                "duration": 30000,
             }
         ]
     },

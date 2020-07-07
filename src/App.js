@@ -56,7 +56,8 @@ const INITIAL_STATE = {
   showLoading: false,
   hasError: [false, ''],
   specials: [],
-  logLocations: []
+  logLocations: [],
+  specialMusicOrder: 0,
 };
 
 class App extends PureComponent {
@@ -89,10 +90,10 @@ class App extends PureComponent {
     let time
     const hr = new Date().getHours()
 
-    if (hr > 4 && hr < 6) time = 'sunrise'
-    else if (hr > 6 && hr < 17) time = 'day'
-    else if (hr > 17 && hr < 0) time = 'sunset'
-    else if (hr > 0 && hr < 4) time = 'night'
+    if (hr > 4 && hr <= 6) time = 'sunrise'
+    else if (hr > 6 && hr <= 17) time = 'day'
+    else if (hr > 17 && hr <= 23) time = 'sunset'
+    else if (hr === 23 || hr > 0 && hr <= 4) time = 'night'
     else {
       console.error('Cound\'t define the time of day, new Date().getHours() ===', new Date().getHours())
       time = 'day'
@@ -182,32 +183,32 @@ class App extends PureComponent {
     console.error(consoleMessage)
   }
 
-  defineImegeByTime(image, music, currentLocation) {
+  defineByTime(image, music, currentLocation) {
     const time = this.getTypeOfTime()
 
     if (time === 'night') {
-      if (currentLocation.night) image = currentLocation.night
-      else if (currentLocation.sunset) image = currentLocation.sunset
-      if (currentLocation.musicNight) music = currentLocation.musicNight
+      if (currentLocation.night) image = currentLocation.night.slice()
+      else if (currentLocation.sunset) image = currentLocation.sunset.slice()
+      if (currentLocation.musicNight) music = currentLocation.musicNight.slice()
     }
 
     if (time === 'sunset') {
-      if (currentLocation.sunset) image = currentLocation.sunset
-      else if (currentLocation.night) image = currentLocation.night // if now is sunset but has only night
-      if (currentLocation.musicSunset) music = currentLocation.musicSunset
-      else if (currentLocation.musicNight) music = currentLocation.musicNight // if now is sunset but has only night
+      if (currentLocation.sunset) image = currentLocation.sunset.slice()
+      else if (currentLocation.night) image = currentLocation.night.slice() // if now is sunset but has only night
+      if (currentLocation.musicSunset) music = currentLocation.musicSunset.slice()
+      else if (currentLocation.musicNight) music = currentLocation.musicNight.slice() // if now is sunset but has only night
     }
 
     if (time === 'sunrise') {
-      if (currentLocation.sunrise) image = currentLocation.sunrise
-      if (currentLocation.musicSunrise) music = currentLocation.musicSunrise
+      if (currentLocation.sunrise) image = currentLocation.sunrise.slice()
+      if (currentLocation.musicSunrise) music = currentLocation.musicSunrise.slice()
     }
 
     return [ image, music ]
 
   }
 
-  defineImegeBySpecialOrLuck(image, action, location, stateSpecials) {
+  defineBySpecialOrLuck(image, music, location, stateSpecials, action) {
     const time = this.getTypeOfTime()
     const specials = location.specials
     const luck = location.luck
@@ -223,20 +224,30 @@ class App extends PureComponent {
     }
 
     if (specials) {
-      if (action) beforeSpecials.push(action)
+      if (action && action !== "changeMusic") beforeSpecials.push(action)
 
       // if we have two allowed specials for one image, looks where order is lowers
       for (let i in Object.values(specials)) {
         let item = specials[i]
 
         // if time of day is right and this special has include in this loaction
-        if (item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) order[item.order] = item.original
+        if ((item.timeOfDay.indexOf(time) > -1 && beforeSpecials.indexOf(item.name) > -1) && item.original) order[item.order] = item.original
       }
 
       if (Object.keys(order).length !== 0 && order.constructor === Object) image = order[Math.max(...Object.keys(order))]
-    }    
+    }
 
-    return image
+    // change music special
+    if (action === "changeMusic") {
+      const potencialMusic = specials.find(obj => obj.name === 'changeMusic')
+
+      if (potencialMusic && potencialMusic.music) {
+        let numberOfMusic = Math.floor(Math.random()*potencialMusic.music.length)
+        music[0] = potencialMusic.music[numberOfMusic]
+      }
+    }
+
+    return [ image, music ]
   }
 
   returnableFrame(location, previousIndex) {
@@ -268,11 +279,11 @@ class App extends PureComponent {
     }    
 
     // get image/music by time
-    [image, music] = this.defineImegeByTime(image, music, currentLocation)
+    [image, music] = this.defineByTime(image, music, currentLocation)
 
     // update image if we have something special or luck
     if (currentLocation.specials || currentLocation.luck) {
-      image = this.defineImegeBySpecialOrLuck(image, action, currentLocation, this.state.specials)
+      [image, music] = this.defineBySpecialOrLuck(image, music, currentLocation, this.state.specials, action)
     }
 
     // image is not found
@@ -377,7 +388,7 @@ class App extends PureComponent {
       hasError: [false, '']
     });
 
-    setTimeout(() => { this.setFrame('myRoom'); }, durationDefault)
+    setTimeout(() => { this.setFrame('lake'); }, durationDefault)
   }
 
   saveMenu() {
