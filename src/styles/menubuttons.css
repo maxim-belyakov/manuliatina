@@ -13,6 +13,12 @@
   padding: 20px;
 }
 
+@media screen and (max-width: 833px) {
+  .menu-buttons-container {
+    right: 10px;
+  }
+}
+
 .settings-button {
   max-width: 70px;
   align-self: center;
@@ -26,6 +32,12 @@
   outline: none;
   cursor: pointer;
   opacity: 0.8;
+}
+
+@media screen and (max-width: 833px) {  
+  .settings-button {
+    max-width: 40px;
+  }
 }
 
 

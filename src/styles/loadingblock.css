@@ -10,3 +10,11 @@
 .loading-block svg {
     filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 0.8));
 }
+
+@media screen and (max-width: 833px) {
+    .loading-block {
+        height: 40px;
+        width: 40px;
+        padding-top: 0;
+    }
+}

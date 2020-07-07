@@ -73,11 +73,16 @@
   color: #555;
 }
 
-@media only screen and (max-width: 833px) {
+@media screen and (max-width: 833px) {
+  .choices-container {
+    padding: 15px;
+    margin: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+  }
   .overlay .choice-button {
-    padding: 10px 0px;
-    font-size: 20px;
-    width: 90%;
+    font-size: 18px;
+    margin: 3px auto;
+    padding: 3px 0px;
   }
 }
 

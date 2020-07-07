@@ -25,7 +25,7 @@
   transition: 0.2s;
 }
 
-@media only screen and (max-width: 880px) {
+/* @media only screen and (max-width: 880px) {
   .save-load-slot {
     transform: translateY(-80px) scale(0.45);
   }
@@ -35,7 +35,7 @@
   .save-load-slot {
     transform: translateY(-80px) scale(0.275);
   }
-}
+} */
 
 .save-load-slot:hover {
   box-shadow: 0px 0 40px 2px #222;
@@ -109,4 +109,35 @@
 .save-load-btn:hover {
   background-color: #007099;
   transform: translateY(-4px);
+}
+
+
+
+@media screen and (max-width: 833px) {
+  .save-load-slot {
+    min-width: unset;
+    min-height: unset;
+    width: 60%;
+    position: relative;
+    top: 15px;
+  }
+
+  .empty {
+    height: 60%;
+  }
+
+  .slot-date {
+    font-size: 16px;
+  }
+
+  .save-load-btn {
+    font-size: 10px;
+    padding: 10px;
+    margin: 5px;
+  }
+
+  .save-load-buttons{
+    height: unset;
+    bottom: 10px;
+  }
 }
