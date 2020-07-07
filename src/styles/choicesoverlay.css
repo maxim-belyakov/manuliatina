@@ -2,6 +2,7 @@
   /* background-color: rgba(0, 0, 0, 0.5); */
   z-index: 2;
   display: flex;
+  height: auto;
   justify-content: flex-end;
   flex-direction: column;
   transition: 1s;
@@ -29,6 +30,47 @@
   padding: 15px 50px;
   border: 5px solid rgba(255, 255, 255, 0.5);
   border-radius: 40px;
+}
+
+.gooseChoices .overlay-choices {
+  transition: 0s;
+  height: auto;
+  bottom: unset;
+  left: unset;
+  right: 36%;
+  top: 46%;
+  justify-content: flex-start;
+  opacity: 0.5;
+  /* -webkit-transition: 20s; */
+  /* -moz-transition: 20s; */
+  /* right: 300px; */
+  /* transform: rotate(45deg); */
+}
+
+.gooseChoices .choices-container {
+  border: unset;
+  /* margin: unset; */
+  padding: 15px;
+  background: unset;
+}
+
+.gooseChoices .choice-button {
+  margin: unset;
+  padding: unset;
+  min-width: unset;
+  font-size: 12px;
+}
+
+.gooseDisabled:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  cursor: not-allowed;
+}
+
+.gooseDisabled .choice-button {
+  color: #555;
 }
 
 @media only screen and (max-width: 833px) {

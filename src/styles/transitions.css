@@ -20,6 +20,26 @@
   transition: opacity 2000ms ease-in;
 }
 
+/* gooose  */
+
+.gooose-enter {
+  opacity: 0;
+}
+
+.gooose-enter.gooose-enter-active {
+  opacity: 0.5;
+  transition: opacity 200000ms ease-out;
+}
+
+.gooose-leave {
+  opacity: 1;
+}
+
+.gooose-leave.gooose-leave-active {
+  opacity: 0;
+  transition: opacity 400ms ease-in;
+}
+
 /* default  */
 
 .default-transition-enter {

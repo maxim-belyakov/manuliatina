@@ -112,20 +112,20 @@ class App extends PureComponent {
   }
 
   renderChoiceMenu() {
-
     const currentIndex = this.state.index;
-    const choice = locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
+    const choice = currentIndex && locations[currentIndex].navigation ? locations[currentIndex].navigation : [];
 
-    return (
+    return currentIndex ? (
       <ChoiceMenu
         index={currentIndex}
-        onChoiceSelected={this.handleChoiceSelected.bind(this)} 
+        onChoiceSelected={this.handleChoiceSelected.bind(this)}
+        choicesExist={this.state.choicesExist}
         choice={choice}
         timeOfDay={this.getTypeOfTime()}
         specials={this.state.specials}
         font={this.state.font}
       />
-    );
+    ) : null;
   }
 
   getLuck(luck, initIndex) {
@@ -141,6 +141,7 @@ class App extends PureComponent {
     let thirdPart = 'Перелесье гусь 2.jpg'
     this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + secondPart)});}, 20000)
     this.timeout(() => {if (this.state.index === 'goose') this.setState({bg: require("../public/locations/" + thirdPart)});}, 40000)
+    this.timeout(() => {if (this.state.index === 'goose') {this.handleChoiceSelected({ currentTarget: {name: "theend", order: 1} });}}, 50000) // change frame to 'the end'
   }
 
   setChoice(index) {
@@ -515,12 +516,12 @@ class App extends PureComponent {
             {this.state.beginStory ? this.beginStory() : null}
             {this.state.showFrame ? this.renderFrame() : null}
             {/* GUI menu buttons */}
-            {this.state.choicesExist ? this.renderChoiceMenu() : null}
             {this.state.showMenu ? this.gameMenu() : null}
             {this.state.saveMenu ? this.saveMenu() : null}
             {this.state.loadMenu ? this.loadMenu() : null}
             {this.state.backlogShown ? this.backlog() : null}
           </ReactCSSTransitionGroup>
+            {this.renderChoiceMenu()}
             {this.renderLoadingBlock()}
             {this.renderMenuButton()}
         </Fullscreen>
