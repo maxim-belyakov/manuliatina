@@ -34,7 +34,7 @@ import "./styles/transitions.css";
 const durationDefault = 3000
 
 const INITIAL_STATE = {
-  bgmVolume: 80,
+  bgmVolume: 60,
   bgmVolumeLogic: 100,
   bgmVolumeLogic2: 100,
   soundEffectVolume: 90,
