@@ -328,6 +328,7 @@ class App extends PureComponent {
         font={this.state.font}
         bg={this.state.bg}
         hasError={this.state.hasError}
+        language={this.state.language}
       />
     );
   }

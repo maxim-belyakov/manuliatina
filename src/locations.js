@@ -1,10 +1,10 @@
 let locations = {
     begin: {
-        "title": { ru: "Начало", en: "Begin" },
+        "title": { ru: "Начало", en: "Begin", uk: "Початок" },
         "original": "black.png",
     },
     myRoom: {
-        "title": { ru: "Моя комната", en: "My room" },
+        "title": { ru: "Моя комната", en: "My room", uk: "Моя кімната" },
         "original": "комната гг 7.jpg",
         "sunrise": "комната гг 5.jpg",
         "sunset": "комната гг 5.jpg",
@@ -40,23 +40,23 @@ let locations = {
         "navigation": [
             {
                 "name": "hall",
-                "title": { ru: "Выйти в коридор", en: "Step into the hallway" }
+                "title": { ru: "Выйти в коридор", en: "Step into the hallway", uk: "Вийти в коридор" }
             },
             {
                 "name": "shower",
                 "timeout": true,
-                "title": { ru: "Принять душ", en: "Take a shower" }
+                "title": { ru: "Принять душ", en: "Take a shower", uk: "Прийняти душ" }
             },
             {
                 "name": "sleep",
                 "timeout": true,
-                "title": { ru: "Поспать", en: "Sleep" }
+                "title": { ru: "Поспать", en: "Sleep", uk: "Поспати" }
             }
         ]
     },
     hall: {
         "_id": "5ed4e0c6dd1b429f7d602216",
-        "title": { ru: "Коридор", en: "Hallway" },
+        "title": { ru: "Коридор", en: "Hallway", uk: "Коридор" },
         "original": "корридор гг 3.jpg",
         "night": "корридор гг 5.jpg",
         "music": [
@@ -91,26 +91,26 @@ let locations = {
                     }
                 },
                 "action": "cleanMyRoom",
-                "title": { ru: "Убрать пыль", en: "Dust the room" }
+                "title": { ru: "Убрать пыль", en: "Dust the room", uk: "Прибрати пил" }
             },
             {
                 "name": "shower",
                 "timeout": true,
-                "title": { ru: "Принять душ", en: "Take a shower" }
+                "title": { ru: "Принять душ", en: "Take a shower", uk: "Прийняти душ" }
             },
             {
                 "name": "lesnayaStreet",
-                "title": { ru: "Выйти на улицу", en: "Go outside" }
+                "title": { ru: "Выйти на улицу", en: "Go outside", uk: "Вийти на вулицю" }
             },
             {
                 "name": "myRoom",
-                "title": { ru: "Пойти в комнату", en: "Return to the room" }
+                "title": { ru: "Пойти в комнату", en: "Return to the room", uk: "Повернутися до кімнати" }
             }
         ]
     },
     sleep: {
         "_id": "5ed4dd84dd1b429f7d602213",
-        "title": { ru: "Сон", en: "Dream" },
+        "title": { ru: "Сон", en: "Dream", uk: "Сон" },
         "original": "black.png",
         "music": [
             {
@@ -122,7 +122,7 @@ let locations = {
     },
     shower: {
         "_id": "5ed4e116dd1b429f7d602217",
-        "title": { ru: "Душ", en: "Shower" },
+        "title": { ru: "Душ", en: "Shower", uk: "Душ" },
         "original": "black.png",
         "music": [
             {
@@ -133,7 +133,7 @@ let locations = {
         ]
     },
     lesnayaStreet: {
-        "title": { ru: "Улица “Лесная”", en: "“Lesnaya” Street" },
+        "title": { ru: "Улица “Лесная”", en: "“Lesnaya” Street", uk: "Вулиця «Лісова»" },
         "original": "Лесная День.jpg",
         "night": "Лесная Ночь.jpg",
         "music": [
@@ -158,11 +158,11 @@ let locations = {
         "navigation": [
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Пойти на юг", en: "Go south" }
+                "title": { ru: "Пойти на юг", en: "Go south", uk: "Піти на південь" }
             },
             {
                 "name": "severnayaStreet",
-                "title": { ru: "Пойти на север", en: "Go north" },
+                "title": { ru: "Пойти на север", en: "Go north", uk: "Піти на північ" },
                 "luck": {
                     "percent": "25",
                     "timeOfDay": ["night"],
@@ -174,24 +174,24 @@ let locations = {
                 "required": {
                     "timeOfDay": ["day"],
                 },
-                "title": { ru: "Пойти к Ене", en: "Visit Enya" }
+                "title": { ru: "Пойти к Ене", en: "Visit Enya", uk: "Піти до Єні" }
             },
             {
                 "name": "school",
                 "required": {
                     "timeOfDay": ["day"]
                 },
-                "title": { ru: "Пойти к школе", en: "Go to the school" }
+                "title": { ru: "Пойти к школе", en: "Go to the school", uk: "Піти до школи" }
             },
             {
                 "name": "hall",
-                "title": { ru: "Вернуться домой", en: "Return home" }
+                "title": { ru: "Вернуться домой", en: "Return home", uk: "Повернутися додому" }
             }
         ]
 
     },
     severnayaStreet: {
-        "title": { ru: "Улица “Северная”", en: "“Severnaya” Street" },
+        "title": { ru: "Улица “Северная”", en: "“Severnaya” Street", uk: "Вулиця «Північна»" },
         "original": "Северная день.jpg",
         "night": "Северная ночь.jpg",
         "music": [
@@ -216,28 +216,28 @@ let locations = {
         "navigation": [
             {
                 "name": "edgeNorthernForest",
-                "title": { ru: "Пойти в северный лес", en: "Go to the northern forest" }
+                "title": { ru: "Пойти в северный лес", en: "Go to the northern forest", uk: "Піти до північного лісу" }
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Пойти на юг", en: "Go south" }
+                "title": { ru: "Пойти на юг", en: "Go south", uk: "Піти на південь" }
             },
             {
                 "name": "lesnayaStreet",
-                "title": { ru: "Лесная улица", en: "Lesnaya Street" }
+                "title": { ru: "Лесная улица", en: "Lesnaya Street", uk: "Лісова вулиця" }
             },
             {
                 "name": "bridge",
                 "required": {
                     "timeOfDay": ["day"]
                 },
-                "title": { ru: "Пойти к мосту", en: "Go to the bridge" }
+                "title": { ru: "Пойти к мосту", en: "Go to the bridge", uk: "Піти до мосту" }
             },
         ]
 
     },
     sentabrskayaStreet: {
-        "title": { ru: "Улица “Сентябрьская”", en: "“Sentabrskaya” Street" },
+        "title": { ru: "Улица “Сентябрьская”", en: "“Sentabrskaya” Street", uk: "Вулиця «Вереснева»" },
         "original": "Сентябрьская день.jpg",
         "night": "Сентябрьская ночь.jpg",
         "music": [
@@ -262,11 +262,11 @@ let locations = {
         "navigation": [
             {
                 "name": "southernForest",
-                "title": { ru: "Пойти в южный лес", en: "Go to the southern forest" }
+                "title": { ru: "Пойти в южный лес", en: "Go to the southern forest", uk: "Піти до південного лісу" }
             },
             {
                 "name": "severnayaStreet",
-                "title": { ru: "Пойти на север", en: "Go north" },
+                "title": { ru: "Пойти на север", en: "Go north", uk: "Піти на північ" },
                 "luck": {
                     "percent": "25",
                     "timeOfDay": ["night"],
@@ -275,23 +275,23 @@ let locations = {
             },
             {
                 "name": "lesnayaStreet",
-                "title": { ru: "Лесная улица", en: "Lesnaya Street" }
+                "title": { ru: "Лесная улица", en: "Lesnaya Street", uk: "Лісова вулиця" }
             },
             {
                 "name": "houseJeanette",
                 "required": {
                     "timeOfDay": ["day"]
                 },
-                "title": { ru: "Пойти к Жанетт", en: "Visit Jeanette" }
+                "title": { ru: "Пойти к Жанетт", en: "Visit Jeanette", uk: "Піти до Жанетт" }
             },
             {
                 "name": "town",
-                "title": { ru: "Поехать в Дубраву", en: "Travel to Dubrava" }
+                "title": { ru: "Поехать в Дубраву", en: "Travel to Dubrava", uk: "Поїхати до Діброви" }
             },
         ]
     },
     edgeNorthernForest: {
-        "title": { ru: "Опушка Северного Леса", en: "Edge of the Northern Forest" },
+        "title": { ru: "Опушка Северного Леса", en: "Edge of the Northern Forest", uk: "Узлісся Північного Лісу" },
         "original": "СЛ день.jpg",
         "night": "СЛ ночь.jpg",
         "sunset": "СЛ вечер.jpg",
@@ -306,7 +306,7 @@ let locations = {
         "navigation": [
             {
                 "name": "lake",
-                "title": { ru: "Пойти к озеру", en: "Walk to the lake" },
+                "title": { ru: "Пойти к озеру", en: "Walk to the lake", uk: "Піти до озера" },
                 "luck": {
                     "percent": "35",
                     "timeOfDay": ["day", "sunrise", "sunset"],
@@ -315,7 +315,7 @@ let locations = {
             },
             {
                 "name": "severnayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" },
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" },
                 "luck": {
                     "percent": "25",
                     "timeOfDay": ["night"],
@@ -325,7 +325,7 @@ let locations = {
         ]
     },
     southernForest: {
-        "title": { ru: "Южный лес", en: "Southern Forest" },
+        "title": { ru: "Южный лес", en: "Southern Forest", uk: "Південний ліс" },
         "original": "Южный Лес день.jpg",
         "night": "Южный Лес ночь.jpg",
         "sunset": "Южный Лес вечер.jpg",
@@ -369,7 +369,7 @@ let locations = {
         "navigation": [
             {
                 "name": "nearTreeHouse",
-                "title": { ru: "Углубиться", en: "Go deeper" },
+                "title": { ru: "Углубиться", en: "Go deeper", uk: "Заглибитися" },
                 "required": {
                     "timeOfDay": ["day"],
                     "specials": {
@@ -380,7 +380,7 @@ let locations = {
             },
             {
                 "name": "treeHouse",
-                "title": { ru: "Домик на дереве", en: "Tree house" },
+                "title": { ru: "Домик на дереве", en: "Tree house", uk: "Будиночок на дереві" },
                 "required": {
                     "specials": {
                         "repairedHouse": true
@@ -389,12 +389,12 @@ let locations = {
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             },
         ]
     },
     nearTreeHouse: {
-        "title": { ru: "Старый домик на дереве", en: "Old tree house" },
+        "title": { ru: "Старый домик на дереве", en: "Old tree house", uk: "Старий будиночок на дереві" },
         "original": "Поломанный.jpg",
         "specials": [
             {
@@ -443,7 +443,7 @@ let locations = {
         "navigation": [
             {
                 "name": "nearTreeHouse",
-                "title": { ru: "Починить", en: "Repair" },
+                "title": { ru: "Починить", en: "Repair", uk: "Полагодити" },
                 "required": {
                     "specials": {
                         "repairedHouse": false
@@ -453,7 +453,7 @@ let locations = {
             },
             {
                 "name": "treeHouse",
-                "title": { ru: "Заползти внутрь", en: "Crawl inside" },
+                "title": { ru: "Заползти внутрь", en: "Crawl inside", uk: "Залізти всередину" },
                 "required": {
                     "specials": {
                         "repairedHouse": true
@@ -462,12 +462,12 @@ let locations = {
             },
             {
                 "name": "southernForest",
-                "title": { ru: "Вернуться", en: "Go back" }
+                "title": { ru: "Вернуться", en: "Go back", uk: "Повернутися" }
             },
         ]
     },
     treeHouse: {
-        "title": { ru: "Домик на дереве", en: "Tree house" },
+        "title": { ru: "Домик на дереве", en: "Tree house", uk: "Будиночок на дереві" },
         "original": "прибранный домик 2.jpg",
         "specials": [
             {
@@ -487,7 +487,7 @@ let locations = {
         "navigation": [
             {
                 "name": "treeHouse",
-                "title": { ru: "Украсить", en: "Decorate" },
+                "title": { ru: "Украсить", en: "Decorate", uk: "Прикрасити" },
                 "required": {
                     "specials": {
                         "decoratedHouse": false
@@ -497,12 +497,12 @@ let locations = {
             },
             {
                 "name": "southernForest",
-                "title": { ru: "Покинуть", en: "Leave" }
+                "title": { ru: "Покинуть", en: "Leave", uk: "Покинути" }
             },
         ]
     },
     houseEnya: {
-        "title": { ru: "Дом Ени", en: "Enya’s house" },
+        "title": { ru: "Дом Ени", en: "Enya’s house", uk: "Дім Єні" },
         "original": "дом ени.jpg",
         "music": [
             {
@@ -519,20 +519,20 @@ let locations = {
         "navigation": [
             {
                 "name": "island",
-                "title": { ru: "Позвать на остров", en: "Invite to the island" }
+                "title": { ru: "Позвать на остров", en: "Invite to the island", uk: "Покликати на острів" }
             },
             {
                 "name": "visitingYenya",
-                "title": { ru: "Зайти в гости", en: "Drop in for a visit" }
+                "title": { ru: "Зайти в гости", en: "Drop in for a visit", uk: "Зайти в гості" }
             },
             {
                 "name": "lesnayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             },
         ]
     },
     island: {
-        "title": { ru: "Остров", en: "Island" },
+        "title": { ru: "Остров", en: "Island", uk: "Острів" },
         "original": "лесная поляна с Еней.png",
         "night": "лесная поляна ночью.png",
         "music": [
@@ -545,16 +545,16 @@ let locations = {
         "navigation": [
             {
                 "name": "myRoom",
-                "title": { ru: "Закончить путешествие", en: "End the journey" }
+                "title": { ru: "Закончить путешествие", en: "End the journey", uk: "Завершити подорож" }
             },
             {
                 "name": "sky",
-                "title": { ru: "Посмотреть в небо", en: "Look at the sky" }
+                "title": { ru: "Посмотреть в небо", en: "Look at the sky", uk: "Поглянути в небо" }
             }
         ]
     },
     visitingYenya: {
-        "title": { ru: "В гостях у Ени", en: "Visiting Enya" },
+        "title": { ru: "В гостях у Ени", en: "Visiting Enya", uk: "В гостях у Єні" },
         "original": "Еня 4.jpg",
         "music": [
             {
@@ -574,7 +574,7 @@ let locations = {
         "navigation": [
             {
                 "name": "visitingYenya",
-                "title": { ru: "Поболтать", en: "Chat" },
+                "title": { ru: "Поболтать", en: "Chat", uk: "Побазікати" },
                 "action": "talkEnya",
                 "sound": {
                     "music": "laugh_yenia2.mp3"
@@ -593,12 +593,12 @@ let locations = {
                         "talkEnya": true
                     }
                 },
-                "title": { ru: "Покинуть Еню", en: "Leave Enya" }
+                "title": { ru: "Покинуть Еню", en: "Leave Enya", uk: "Покинути Єню" }
             }
         ]
     },
     sky: {
-        "title": { ru: "Небо", en: "Sky" },
+        "title": { ru: "Небо", en: "Sky", uk: "Небо" },
         "original": "Дневное небо.png",
         "night": "Nochnoe_nebo.png",
         "music": [
@@ -611,12 +611,12 @@ let locations = {
         "navigation": [
             {
                 "name": "prevLocation",
-                "title": { ru: "Вернуться на землю", en: "Return to the ground" }
+                "title": { ru: "Вернуться на землю", en: "Return to the ground", uk: "Повернутися на землю" }
             }
         ]
     },
     houseJeanette: {
-        "title": { ru: "Дом Жанетт", en: "Jeanette’s house" },
+        "title": { ru: "Дом Жанетт", en: "Jeanette’s house", uk: "Дім Жанетт" },
         "original": "дом жанетт.jpg",
         "music": [
             {
@@ -633,17 +633,17 @@ let locations = {
         "navigation": [
             {
                 "name": "bushes",
-                "title": { ru: "Немного погулять", en: "Take a stroll" }
+                "title": { ru: "Немного погулять", en: "Take a stroll", uk: "Трохи погуляти" }
 
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             }
         ]
     },
     bushes: {
-        "title": { ru: "Кустики", en: "Bushes" },
+        "title": { ru: "Кустики", en: "Bushes", uk: "Кущики" },
         "original": "кустики.jpg",
         "music": [
             {
@@ -655,7 +655,7 @@ let locations = {
         "navigation": [
             {
                 "name": "bushes",
-                "title": { ru: "Поболтать", en: "Chat" },
+                "title": { ru: "Поболтать", en: "Chat", uk: "Побазікати" },
                 "action": "talkJeanette",
                 "sound": {
                     "music": "laugh_janett.mp3"
@@ -674,12 +674,12 @@ let locations = {
                         "talkJeanette": true
                     }
                 },
-                "title": { ru: "Попрощаться", en: "Say goodbye" }
+                "title": { ru: "Попрощаться", en: "Say goodbye", uk: "Попрощатися" }
             }
         ]
     },
     lake: {
-        "title": { ru: "Озеро", en: "Lake" },
+        "title": { ru: "Озеро", en: "Lake", uk: "Озеро" },
         "original": "day_lake.jpg",
         "sunset": "evening_lake.jpg",
         "sunrise": "dawn_lake.jpg",
@@ -730,20 +730,20 @@ let locations = {
             {
                 "name": "lake",
                 "action": "changeMusic",
-                "title": { ru: "Сыграть на сопилке", en: "Play the sopilka" }
+                "title": { ru: "Сыграть на сопилке", en: "Play the sopilka", uk: "Заграти на сопілці" }
             },
             {
                 "name": "sky",
-                "title": { ru: "Посмотреть в небо", en: "Look at the sky" }
+                "title": { ru: "Посмотреть в небо", en: "Look at the sky", uk: "Поглянути в небо" }
             },
             {
                 "name": "edgeNorthernForest",
-                "title": { ru: "Вернуться в лес", en: "Return to the forest" }
+                "title": { ru: "Вернуться в лес", en: "Return to the forest", uk: "Повернутися до лісу" }
             }
         ]
     },
     belasia: {
-        "title": { ru: "Белашья", en: "Belasia" },
+        "title": { ru: "Белашья", en: "Belasia", uk: "Білашшя" },
         "original": "Белашья 4.jpg",
         "music": [
             {
@@ -755,7 +755,7 @@ let locations = {
         "navigation": [
             {
                 "name": "belasia",
-                "title": { ru: "Помолчать вместе", en: "Sit in silence together" },
+                "title": { ru: "Помолчать вместе", en: "Sit in silence together", uk: "Помовчати разом" },
                 "action": "talkBelasia",
                 "sound": {
 
@@ -774,12 +774,12 @@ let locations = {
                         "talkBelasia": true
                     }
                 },
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             }
         ]
     },
     school: {
-        "title": { ru: "Школа", en: "School" },
+        "title": { ru: "Школа", en: "School", uk: "Школа" },
         "original": "порог школы 2.jpg",
         "music": [
             {
@@ -791,17 +791,17 @@ let locations = {
         "navigation": [
             {
                 "name": "thresholdSchool",
-                "title": { ru: "Подойти ближе", en: "Get closer" }
+                "title": { ru: "Подойти ближе", en: "Get closer", uk: "Підійти ближче" }
 
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             }
         ]
     },
     thresholdSchool: {
-        "title": { ru: "Порог школы", en: "School threshold" },
+        "title": { ru: "Порог школы", en: "School threshold", uk: "Поріг школи" },
         "original": "порог школы стенгазета.jpg",
         "music": [
             {
@@ -813,17 +813,17 @@ let locations = {
         "navigation": [
             {
                 "name": "schoolFirstFloor",
-                "title": { ru: "Зайти в школу", en: "Enter the school" }
+                "title": { ru: "Зайти в школу", en: "Enter the school", uk: "Зайти до школи" }
 
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             }
         ]
     },
     schoolFirstFloor: {
-        "title": { ru: "Школа", en: "School" },
+        "title": { ru: "Школа", en: "School", uk: "Школа" },
         "original": "школа корридор.jpg",
         "music": [
             {
@@ -835,24 +835,24 @@ let locations = {
         "navigation": [
             {
                 "name": "cafeteria",
-                "title": { ru: "Перекусить", en: "Grab a snack" }
+                "title": { ru: "Перекусить", en: "Grab a snack", uk: "Перекусити" }
             },
             {
                 "name": "schoolWindow",
-                "title": { ru: "Посмотреть в окно", en: "Look out the window" }
+                "title": { ru: "Посмотреть в окно", en: "Look out the window", uk: "Подивитися у вікно" }
             },
             {
                 "name": "schoolSecondFloor",
-                "title": { ru: "Подняться на второй этаж", en: "Go up to the second floor" }
+                "title": { ru: "Подняться на второй этаж", en: "Go up to the second floor", uk: "Піднятися на другий поверх" }
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Вернуться в деревню", en: "Return to the village" }
+                "title": { ru: "Вернуться в деревню", en: "Return to the village", uk: "Повернутися до села" }
             }
         ]
     },
     schoolWindow: {
-        "title": { ru: "Школа", en: "School" },
+        "title": { ru: "Школа", en: "School", uk: "Школа" },
         "original": "окно.jpg",
         "music": [
             {
@@ -864,12 +864,12 @@ let locations = {
         "navigation": [
             {
                 "name": "prevLocation",
-                "title": { ru: "Обратно в коридор", en: "Back to the hallway" }
+                "title": { ru: "Обратно в коридор", en: "Back to the hallway", uk: "Назад до коридору" }
             }
         ]
     },
     schoolSecondFloor: {
-        "title": { ru: "Школа", en: "School" },
+        "title": { ru: "Школа", en: "School", uk: "Школа" },
         "original": "школа корридор 2.jpg",
         "music": [
             {
@@ -881,16 +881,16 @@ let locations = {
         "navigation": [
             {
                 "name": "schoolWindow",
-                "title": { ru: "Посмотреть в окно", en: "Look out the window" }
+                "title": { ru: "Посмотреть в окно", en: "Look out the window", uk: "Подивитися у вікно" }
             },
             {
                 "name": "schoolFirstFloor",
-                "title": { ru: "Опуститься вниз", en: "Go back downstairs" }
+                "title": { ru: "Опуститься вниз", en: "Go back downstairs", uk: "Спуститися вниз" }
             },
         ]
     },
     cafeteria: {
-        "title": { ru: "Школа", en: "School" },
+        "title": { ru: "Школа", en: "School", uk: "Школа" },
         "original": "кафетерий.jpg",
         "music": [
             {
@@ -902,7 +902,7 @@ let locations = {
         "navigation": [
             {
                 "name": "cafeteria",
-                "title": { ru: "Поесть", en: "Eat" },
+                "title": { ru: "Поесть", en: "Eat", uk: "Поїсти" },
                 "action": "ate",
                 "required": {
                     "specials": {
@@ -913,7 +913,7 @@ let locations = {
             },
             {
                 "name": "schoolFirstFloor",
-                "title": { ru: "Уйти", en: "Leave" },
+                "title": { ru: "Уйти", en: "Leave", uk: "Піти" },
                 "required": {
                     "specials": {
                         "ate": true
@@ -923,7 +923,7 @@ let locations = {
         ]
     },
     bridge: {
-        "title": { ru: "Мост", en: "Bridge" },
+        "title": { ru: "Мост", en: "Bridge", uk: "Міст" },
         "original": "мост.jpg",
         "music": [
             {
@@ -939,7 +939,7 @@ let locations = {
         ]
     },
     town: {
-        "title": { ru: "Дубрава", en: "Dubrava" },
+        "title": { ru: "Дубрава", en: "Dubrava", uk: "Діброва" },
         "original": "парк.jpg",
         "night": "дубрава.png",
         "music": [
@@ -952,12 +952,12 @@ let locations = {
         "navigation": [
             {
                 "name": "myRoom",
-                "title": { ru: "Вернуться домой", en: "Return home" }
+                "title": { ru: "Вернуться домой", en: "Return home", uk: "Повернутися додому" }
             },
         ]
     },
     goose: {
-        "title": { ru: "Перелесье", en: "The grove" },
+        "title": { ru: "Перелесье", en: "The grove", uk: "Перелісся" },
         "original": "Перелесье гусь 4.jpg",
         "night": "Перелесье гусь 4.jpg",
         "music": [
@@ -970,25 +970,25 @@ let locations = {
         "navigation": [
             {
                 "name": "edgeNorthernForest",
-                "title": { ru: "Пойти в северный лес", en: "Go to the northern forest" }
+                "title": { ru: "Пойти в северный лес", en: "Go to the northern forest", uk: "Піти до північного лісу" }
             },
             {
                 "name": "sentabrskayaStreet",
-                "title": { ru: "Пойти на юг", en: "Go south" }
+                "title": { ru: "Пойти на юг", en: "Go south", uk: "Піти на південь" }
             },
             {
                 "name": "lesnayaStreet",
-                "title": { ru: "Лесная улица", en: "Lesnaya Street" }
+                "title": { ru: "Лесная улица", en: "Lesnaya Street", uk: "Лісова вулиця" }
             }
         ]
     },
     theend: {
-        "title": { ru: "Конец", en: "The end" },
+        "title": { ru: "Конец", en: "The end", uk: "Кінець" },
         "original": "theend.jpg",
         "navigation": [
             {
                 "name": "myRoom",
-                "title": { ru: "Вас скушали :( Начать заново", en: "You got eaten :( Start over" }
+                "title": { ru: "Вас скушали :( Начать заново", en: "You got eaten :( Start over", uk: "Вас з'їли :( Почати заново" }
             },
         ]
     },

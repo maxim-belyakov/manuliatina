@@ -4,6 +4,8 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { t } from "../i18n";
+
 let errorCache
 
 function RenderFrame(props) {
@@ -28,8 +30,31 @@ function RenderFrame(props) {
 
   return (
     <div className="zoom-frame">
-      <div className="viewPortrait">
-        <img draggable="false" alt="settings-button" className="viewPortraitImg" src={require("../static/turn.jpg")} onClick={props.toggleGameMenu} />
+      <div className="viewPortrait" onClick={props.toggleGameMenu}>
+        <div className="viewPortraitInner">
+          <svg
+            className="viewPortraitIcon"
+            viewBox="0 0 120 120"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <g
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="44" y="14" width="32" height="60" rx="4" transform="rotate(-35 60 44)" />
+              <path d="M20 48 A40 40 0 0 1 96 26" />
+              <polyline points="14,40 20,48 28,42" />
+              <path d="M100 72 A40 40 0 0 1 24 94" />
+              <polyline points="106,80 100,72 92,78" />
+            </g>
+          </svg>
+          <p className="viewPortraitText">{t("rotateDevice", props.language)}</p>
+        </div>
       </div>
       <ToastContainer
         position="top-center"
