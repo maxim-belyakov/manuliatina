@@ -44,6 +44,17 @@ const UI = {
     en: "Please rotate your device to landscape",
     uk: "Будь ласка, поверніть пристрій горизонтально",
   },
+
+  documentTitle: {
+    en: "Manuliatina — Forest Lullaby, an interactive visual novel",
+    uk: "Manuliatina — Лісова Колискова, інтерактивна візуальна новела",
+    ru: "Manuliatina — Лесная Колыбельная, интерактивная визуальная новелла",
+  },
+  documentDescription: {
+    en: "Manuliatina (Forest Lullaby) — a free interactive visual novel in your browser. An atmospheric story with choices, music, and changing locations. Play online, no install required.",
+    uk: "Manuliatina (Лісова Колискова) — безкоштовна інтерактивна візуальна новела у браузері. Атмосферна історія з вибором, музикою та зміною локацій. Грайте онлайн без встановлення.",
+    ru: "Manuliatina (Лесная Колыбельная) — бесплатная интерактивная визуальная новелла в браузере. Атмосферная история с выбором, музыкой и сменой локаций. Играйте онлайн без установки.",
+  },
 };
 
 export const LANGUAGE_STORAGE_KEY = "manuliatina:language";
@@ -82,4 +93,12 @@ export function tt(value, lang) {
   if (value == null) return "";
   if (typeof value === "string") return value;
   return value[lang] || value[DEFAULT_LANGUAGE] || value.en || value.ru || "";
+}
+
+export function applyDocumentMetadata(lang) {
+  if (typeof document === "undefined") return;
+  document.documentElement.lang = lang;
+  document.title = t("documentTitle", lang);
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute("content", t("documentDescription", lang));
 }

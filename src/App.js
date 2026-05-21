@@ -6,7 +6,7 @@ import WheelReact from "wheel-react";
 
 // API
 import locations from "./locations";
-import { t, getStoredLanguage, storeLanguage } from "./i18n";
+import { t, getStoredLanguage, storeLanguage, applyDocumentMetadata } from "./i18n";
 
 // Components
 // import TitleScreen from "./components/TitleScreen"; // DISABLE
@@ -85,10 +85,12 @@ class App extends PureComponent {
 
   componentDidMount() {
     window.addEventListener("beforeunload", e => (e.returnValue = t("unsavedChangesWarning", this.state.language)));
+    applyDocumentMetadata(this.state.language);
   }
 
   changeLanguage(lang) {
     storeLanguage(lang);
+    applyDocumentMetadata(lang);
     this.setState({ language: lang });
   }
 
