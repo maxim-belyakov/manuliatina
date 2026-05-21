@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Slider from "react-rangeslider";
 import Select from "react-select";
 
+import { t, LANGUAGE_OPTIONS } from "../i18n";
+
 // import KeyHandler, { KEYDOWN, KEYUP } from "react-key-handler";
 
 import "react-rangeslider/lib/index.css";
@@ -12,18 +14,21 @@ class GameMenu extends Component {
 
     this.state = {
       audioShown: false,
-      textShown: false
+      textShown: false,
+      languageShown: false,
     };
 
     this.toggleAudio = this.toggleAudio.bind(this);
     this.toggleText = this.toggleText.bind(this);
+    this.toggleLanguage = this.toggleLanguage.bind(this);
   }
 
   toggleAudio() {
     if (!this.state.audioShown) {
       this.setState({
         audioShown: true,
-        textShown: false
+        textShown: false,
+        languageShown: false,
       });
     }
   }
@@ -32,7 +37,18 @@ class GameMenu extends Component {
     if (!this.state.textShown) {
       this.setState({
         textShown: true,
-        audioShown: false
+        audioShown: false,
+        languageShown: false,
+      });
+    }
+  }
+
+  toggleLanguage() {
+    if (!this.state.languageShown) {
+      this.setState({
+        languageShown: true,
+        audioShown: false,
+        textShown: false,
       });
     }
   }
@@ -55,7 +71,7 @@ class GameMenu extends Component {
   }
 
   render() {
-    const { audioShown, textShown } = this.state;
+    const { audioShown, textShown, languageShown } = this.state;
     const {
       font,
       changeFont,
@@ -70,7 +86,9 @@ class GameMenu extends Component {
       toggleLoadMenu,
       saveMenu,
       loadMenu,
-      toggleFullscreen
+      toggleFullscreen,
+      language,
+      changeLanguage,
     } = this.props;
     const options = [
       { label: "Arial" },
@@ -106,10 +124,10 @@ class GameMenu extends Component {
       <div className="overlay game-menu" id="config-overlay" style={{ fontFamily: font }}>
         <ul className="header">
           <li>
-            <span>Меню</span>
+            <span>{t("menuTitle", language)}</span>
           </li>
           <li className="exit-button" onClick={toggleGameMenu}>
-            <button >&times;</button>
+            <button>&times;</button>
           </li>
         </ul>
         <ul>
@@ -117,32 +135,40 @@ class GameMenu extends Component {
           {handleToggles(KEYDOWN, "Control", props.setNextFrame)}
           {handleToggles(KEYUP, "Enter", props.setNextFrame)} */}
 
-          {this.category("Сохранить", saveMenu, toggleSaveMenu)}
-          {this.category("Загрузить", loadMenu, toggleLoadMenu)}
-          {this.category("Аудио", audioShown, this.toggleAudio)}
-          {this.category("Текст", textShown, this.toggleText)}
-          {this.category("Полный экран", null, toggleFullscreen)}
-
-          {/* <button onClick={toggleSaveMenu}>{loadMenu ? "Hide Saves" : "Save"}</button> */}
-          {/* <button onClick={toggleLoadMenu}>{loadMenu ? "Hide Loads" : "Load"}</button> */}
-          {/* <button onClick={toggleFullscreen} style={{ float: "right" }}>Fullscreen</button> */}
+          {this.category(t("saveTitle", language), saveMenu, toggleSaveMenu)}
+          {this.category(t("loadTitle", language), loadMenu, toggleLoadMenu)}
+          {this.category(t("audio", language), audioShown, this.toggleAudio)}
+          {this.category(t("text", language), textShown, this.toggleText)}
+          {this.category(t("language", language), languageShown, this.toggleLanguage)}
+          {this.category(t("fullscreen", language), null, toggleFullscreen)}
         </ul>
         <div id="config-body">
           {audioShown ? (
             <div>
-              {this.slider("Music Volume", bgmVolume, bgmVolumeChange)}
+              {this.slider(t("musicVolume", language), bgmVolume, bgmVolumeChange)}
               {/* {this.slider("Voice", voiceVolume, voiceVolumeChange)} */}
               {/* {this.slider("Sound Effect", soundEffectVolume, soundEffectVolumeChange)} */}
             </div>
           ) : null}
           {textShown ? (
             <div className="config-container font-container">
-              Font Styles
+              {t("fontStyles", language)}
               <Select
                 options={options}
                 styles={styles}
                 onChange={changeFont}
                 defaultValue={options[options.findIndex(obj => obj.label === font)]}
+              />
+            </div>
+          ) : null}
+          {languageShown ? (
+            <div className="config-container font-container">
+              {t("language", language)}
+              <Select
+                options={LANGUAGE_OPTIONS}
+                onChange={option => changeLanguage(option.value)}
+                value={LANGUAGE_OPTIONS.find(o => o.value === language)}
+                isSearchable={false}
               />
             </div>
           ) : null}

@@ -6,6 +6,7 @@ import WheelReact from "wheel-react";
 
 // API
 import locations from "./locations";
+import { t, getStoredLanguage, storeLanguage } from "./i18n";
 
 // Components
 // import TitleScreen from "./components/TitleScreen"; // DISABLE
@@ -40,6 +41,7 @@ const INITIAL_STATE = {
   soundEffectVolume: 90,
   voiceVolume: 100,
   font: "Trebuchet MS",
+  language: getStoredLanguage(),
   isFull: false,
   previousIndex: '',
   index: '',
@@ -82,7 +84,12 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    window.addEventListener("beforeunload", e => (e.returnValue = "Несохраненные изменения будут потеряны!"));
+    window.addEventListener("beforeunload", e => (e.returnValue = t("unsavedChangesWarning", this.state.language)));
+  }
+
+  changeLanguage(lang) {
+    storeLanguage(lang);
+    this.setState({ language: lang });
   }
 
   getTypeOfTime() {
@@ -124,6 +131,7 @@ class App extends PureComponent {
         timeOfDay={this.getTypeOfTime()}
         specials={this.state.specials}
         font={this.state.font}
+        language={this.state.language}
       />
     ) : null;
   }
@@ -273,9 +281,9 @@ class App extends PureComponent {
 
     // location is not found
     if (!currentLocation) {
-      this.setError('Something went wrong :( Location is not available' + index, 'Found a location that is not on the location map')
+      this.setError(t('errorLocationNotAvailable', this.state.language) + ' ' + index, 'Found a location that is not on the location map')
       currentLocation = 'myRoom'
-    }    
+    }
 
     // get image/music by time
     [image, music] = this.defineByTime(image, music, currentLocation)
@@ -287,7 +295,7 @@ class App extends PureComponent {
 
     // image is not found
     if (!image) {
-      this.setError('Something went wrong :( location Photo is not available', `Before the last use of setState image =${image}`)
+      this.setError(t('errorPhotoNotAvailable', this.state.language), `Before the last use of setState image =${image}`)
       image = 'black.png'
     }
     
@@ -392,9 +400,9 @@ class App extends PureComponent {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        confirmationMessage="Перезаписать слот?"
+        confirmationMessage={t("overwriteSlotConfirm", this.state.language)}
         currentTime={this.state.currentTime}
-        menuType="Сохранить"
+        menuType={t("saveTitle", this.state.language)}
         executeSlot={this.saveSlot.bind(this)}
         toggleMenu={this.toggleSaveMenu.bind(this)}
       />
@@ -405,9 +413,9 @@ class App extends PureComponent {
     return (
       <SaveLoadMenu
         choicesExist={this.state.choicesExist}
-        confirmationMessage="Загрузить этот слот?"
+        confirmationMessage={t("loadSlotConfirm", this.state.language)}
         currentTime={this.state.currentTime}
-        menuType="Загрузить"
+        menuType={t("loadTitle", this.state.language)}
         executeSlot={this.loadSlot.bind(this)}
         toggleMenu={this.toggleLoadMenu.bind(this)}
       />
@@ -451,6 +459,8 @@ class App extends PureComponent {
         saveMenu={this.state.saveMenu}
         loadMenu={this.state.loadMenu}
         toggleFullscreen={() => this.setState({ isFull: !this.state.isFull })}
+        language={this.state.language}
+        changeLanguage={this.changeLanguage.bind(this)}
       />
     );
   }
@@ -464,6 +474,7 @@ class App extends PureComponent {
         setChoicesHistory={choicesHistory => this.setState({ choicesHistory: choicesHistory })}
         setIndexHistory={indexHistory => this.setState({ indexHistory: indexHistory })}
         setChoicesStore={choicesStore => this.setState({ choicesStore: choicesStore })}
+        language={this.state.language}
       />
     );
   }

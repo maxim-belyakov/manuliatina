@@ -1,9 +1,12 @@
 import React from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
+import { t, tt } from "../i18n";
+
 function ChoiceMenu(props) {
 
   const goooseCheck = (props.index === 'goose') ? true : false
+  const language = props.language
 
   function renderChoiceOptions(key, i) {
 
@@ -13,7 +16,7 @@ function ChoiceMenu(props) {
 
       // time checking
       if (key.required.timeOfDay && key.required.timeOfDay.indexOf(props.timeOfDay) === -1) checkRequired = false;
-      
+
       // if we already did it
       if (props.specials.indexOf(key.action) > -1) checkRequired = false;
 
@@ -21,13 +24,15 @@ function ChoiceMenu(props) {
       if (key.required.specials && props.specials) {
 
         for (let item of Object.keys(key.required.specials)) {
- 
-          if ((key.required.specials[item] && props.specials.indexOf(item) < 0) || 
+
+          if ((key.required.specials[item] && props.specials.indexOf(item) < 0) ||
           (!key.required.specials[item] && props.specials.indexOf(item) > -1)) checkRequired = false;
         }
       }
 
     }
+
+    const label = tt(key.title, language);
 
     return checkRequired ? (
       <button
@@ -38,7 +43,8 @@ function ChoiceMenu(props) {
         key={i}
         onClick={props.onChoiceSelected}
         style={{ fontFamily: props.font }}
-      >{key.title}</button>
+        title={label}
+      >{label}</button>
     ) : null;
   }
 
@@ -49,7 +55,7 @@ function ChoiceMenu(props) {
         transitionEnterTimeout={500}
         transitionLeaveTimeout={500}
       >
-        {props.choicesExist ? 
+        {props.choicesExist ?
           <div className={`overlay overlay-choices ${goooseCheck && justRender ? 'gooseDisabled' : ''}`}>
               <div className="choices-container">
                 {props ? choiceArray.map(renderChoiceOptions) : null}
@@ -65,7 +71,7 @@ function ChoiceMenu(props) {
   function gooseChoice() {
     const run = [{
       "name": "sentabrskayaStreet",
-      "title": "БЕЖАТЬ!!!"
+      "title": t("gooseRun", language)
     }]
 
     return (
@@ -75,7 +81,7 @@ function ChoiceMenu(props) {
         transitionLeaveTimeout={400}
         transitionAppear={true}
       >
-        {props.choicesExist ? 
+        {props.choicesExist ?
           <div className="gooseChoices">
             {containerChoice(run)}
           </div>

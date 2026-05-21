@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { t } from "../i18n";
 // import story from "../story/story";
 
 class Backlog extends Component {
@@ -34,7 +35,7 @@ class Backlog extends Component {
       textHistory.push(
         <div className="backlog" key={i}>
           <div className="backlog-jump-container" onClick={() => this.handleJump(index, i, choicesIndex)}>
-            <span className="backlog-jump-text">Jump</span>
+            <span className="backlog-jump-text">{t("jump", this.props.language)}</span>
           </div>
           {/* <div className="backlog-speaker">{story[index].speaker}</div> */}
           {/* {story[index].text} */}
@@ -46,7 +47,7 @@ class Backlog extends Component {
         {textHistory}
         <ul className="header backlog-header" ref={el => (this.messagesEnd = el)}>
           <li>
-            <span>Backlog</span>
+            <span>{t("backlog", this.props.language)}</span>
           </li>
           <li className="exit-button backlog-exit" onClick={this.props.toggleBacklog}>
             <button>&times;</button>
