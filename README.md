@@ -1,6 +1,6 @@
 # Manuliatina — *Forest Lullaby*
 
-A browser-based **interactive visual novel engine**, written from scratch in React. No game framework, no Ren'Py — just a small, data-driven engine that renders a branching story from a scene graph, with atmospheric music, time-of-day art, save/load, and full localization.
+A browser-based **interactive visual novel** built in React. The game runs on a small, data-driven scene graph — branching story, atmospheric music, time-of-day art, save/load, and full EN/UK/RU localization.
 
 ▶ **Play it live:** [www.manuliatina.com](https://www.manuliatina.com) · 🌐 English / Українська / Русский
 
@@ -10,7 +10,7 @@ A browser-based **interactive visual novel engine**, written from scratch in Rea
 
 ## What it does
 
-*Forest Lullaby* is a short atmospheric story you play in the browser — 30 scenes, 30 music tracks, 51 hand-picked backgrounds. But the interesting part is the **engine underneath it**, which is fully separated from the story content.
+*Forest Lullaby* is a short atmospheric story you play in the browser — 30 scenes, 30 music tracks, 51 hand-picked backgrounds, driven by a data-driven scene system kept separate from the story content.
 
 - **Data-driven scene graph** — the entire story lives in a single [`locations.js`](src/locations.js) map. Each node declares its art, music, and navigation choices; the engine does the rest. Adding a scene means adding an object, not writing code.
 - **Time-of-day rendering** — every scene can define distinct art and music for `sunrise` / `day` / `sunset` / `night`, resolved live against the player's real clock, with graceful fallbacks.
@@ -56,4 +56,4 @@ Every push to `master` triggers a [GitHub Actions workflow](.github/workflows) t
 
 ## License
 
-[MIT](LICENSE) © Maksim Beliakov. Engine code is free to reuse; the story art and music are part of *Forest Lullaby* and not covered by the code license.
+The game systems and integration are released under [MIT](LICENSE) for my contributions. The project builds on earlier open-source React / visual-novel groundwork — if you recognize code that should be attributed here, please open an issue. The story art and music of *Forest Lullaby* are not covered by the code license.
