@@ -8691,14 +8691,6 @@ react-select@^2.0.0-beta.4:
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
 
-"react-sound@git+https://github.com/maxim-belyakov/react-sound.git":
-  version "1.2.0"
-  uid "0bdd545a7b4148209b6234e5eecd3ef215c3ada8"
-  resolved "git+https://github.com/maxim-belyakov/react-sound.git#0bdd545a7b4148209b6234e5eecd3ef215c3ada8"
-  dependencies:
-    prop-types "^15.5.7"
-    soundmanager2 "^2.97.20170602"
-
 react-toastify@^6.0.6:
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.8.tgz#84625d81d0fd01902a7f4c6f317eb074cb3bba67"

@@ -11,8 +11,9 @@
     "react-rangeslider": "^2.2.0",
     "react-scripts": "^3.4.1",
     "react-select": "^2.0.0-beta.4",
-    "react-sound": "git+https://github.com/maxim-belyakov/react-sound.git",
     "react-toastify": "^6.0.6",
+    "prop-types": "^15.7.2",
+    "soundmanager2": "^2.97.20170602",
     "wheel-react": "^1.0.3"
   },
   "scripts": {
